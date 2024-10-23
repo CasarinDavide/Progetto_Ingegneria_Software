@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "707158553116",
+    "firebase_url": "https://plantez-2cf8f-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "plantez-2cf8f",
+    "storage_bucket": "plantez-2cf8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707158553116:android:b6f17a8c47d276d91de5d9",
+        "android_client_info": {
+          "package_name": "com.example.progetto_ingegneria_software"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe4YsTJlBMmgRJkwKMZlEXb9EG1EF3MVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
