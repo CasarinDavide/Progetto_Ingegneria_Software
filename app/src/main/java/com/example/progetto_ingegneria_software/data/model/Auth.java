@@ -31,19 +31,25 @@ public class Auth {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             // On success, return user object through the callback
                             User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
-                        } else {
 
+                            // riuscito
+
+
+                        } else {
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
                             error.show();
+
+                            // errore
                         }
                     }
 
                 });
     }
 
+
     public static boolean isLogged()
     {
-        return auth.getCurrentUser()==null;
+        return auth.getCurrentUser()!=null;
     }
 
     public static void createUser(Activity activity,String email,String password)
@@ -55,7 +61,6 @@ public class Auth {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
                         }
                         else {
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
@@ -64,5 +69,13 @@ public class Auth {
                     }
                 });
     }
+
+
+    public static void resetPassword(Activity activity,String email)
+    {
+        auth.sendPasswordResetEmail(email);
+    }
+
+
 
 }
