@@ -16,22 +16,13 @@ import java.util.concurrent.Executor;
 
 public class Auth {
 
-    private static FirebaseAuth auth;
-    private static Auth instance;
+    private static final FirebaseAuth auth;
 
-    private Auth() {
+    static {
         auth = FirebaseAuth.getInstance();
     }
 
-    public static Auth getInstance() {
-        if (instance == null) {
-            instance = new Auth();
-        }
-
-        return instance;
-    }
-
-    public void login(Activity activity, String email, String password) {
+    public static void login(Activity activity, String email, String password) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -50,13 +41,12 @@ public class Auth {
                 });
     }
 
-    public User isLogged()
+    public static boolean isLogged()
     {
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        return firebaseUser!= null?new User(firebaseUser.getUid(), firebaseUser.getEmail()):null;
+        return auth.getCurrentUser()==null;
     }
 
-    public void createUser(Activity activity,String email,String password)
+    public static void createUser(Activity activity,String email,String password)
     {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
