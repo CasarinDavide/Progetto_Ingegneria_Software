@@ -21,20 +21,10 @@ import com.example.progetto_ingegneria_software.databinding.LoginMainBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginMainBinding binding;
-    private Auth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        auth = Auth.getInstance();
-
-        // l'utente è gia loggato
-        // salto direttamente nella prossima activity
-        if (auth.isLogged() != null)
-        {
-            // jump alla seconda attività
-        }
 
 
 
@@ -49,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                auth.createUser(LoginActivity.this,email_textview.getText().toString(),password_textview.getText().toString());
+                Auth.login(LoginActivity.this,email_textview.getText().toString(),password_textview.getText().toString());
             }
         });
     }
