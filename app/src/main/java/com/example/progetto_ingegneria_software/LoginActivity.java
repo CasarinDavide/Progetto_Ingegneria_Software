@@ -1,6 +1,7 @@
 package com.example.progetto_ingegneria_software;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button login_btn = (Button) findViewById(R.id.login_activity_confirm_button_btn);
+        Button sign_in_btn = (Button) findViewById(R.id.sign_in_activity_confirm_button_btn);
         TextView email_textview =  findViewById(R.id.login_activity_email_txtView);
         TextView password_textview =  findViewById(R.id.login_activity_password_txtView);
 
@@ -40,8 +42,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Auth.login(LoginActivity.this,email_textview.getText().toString(),password_textview.getText().toString());
+                // todo Aggiungere nuovo utente a db
+
             }
         });
+
+        sign_in_btn.setOnClickListener(x->{
+            Intent sign_in_activity = new Intent(LoginActivity.this, SignInActivity.class);
+            startActivity(sign_in_activity);
+
+        });
+
     }
 
 }

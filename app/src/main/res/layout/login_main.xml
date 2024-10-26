@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize">
 
+    <Button
+        android:id="@+id/sign_in_activity_confirm_button_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrati"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.251"
+        app:layout_constraintStart_toEndOf="@+id/login_activity_confirm_button_btn"
+        app:layout_constraintTop_toBottomOf="@+id/login_activity_password_txtView"
+        app:layout_constraintVertical_bias="0.098" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -49,12 +61,11 @@
         android:id="@+id/login_activity_confirm_button_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:text="Accedi"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_activity_password_txtView"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.098" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
