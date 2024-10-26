@@ -52,7 +52,7 @@ public class Auth {
         return auth.getCurrentUser()==null;
     }
 
-    public static void createUser(Activity activity,String email,String password)
+    public static void createUser(Activity activity,String email,String password,Runnable onSuccessAction)
     {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -61,7 +61,9 @@ public class Auth {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
+                            Toast error = Toast.makeText(activity.getApplicationContext(),"Registrazione Avvenuta con successo",Toast.LENGTH_LONG);
+                            error.show();
+                            onSuccessAction.run();
                         }
                         else {
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);

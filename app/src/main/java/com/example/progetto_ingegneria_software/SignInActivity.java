@@ -1,5 +1,6 @@
 package com.example.progetto_ingegneria_software;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
@@ -47,13 +48,19 @@ public class SignInActivity extends AppCompatActivity {
             String telephone_str = telephone_txt.getText().toString();
             String username_str = username_txt.getText().toString();
 
-            if (isValidFormInput(email_str,password_str,confirm_password_str,telephone_str,username_str))
+            if (!isValidFormInput(email_str,password_str,confirm_password_str,telephone_str,username_str))
             {
                 Toast.makeText(this, "Errore nell'inseriemento dei dati. Riprovare.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Auth.createUser(SignInActivity.this,email_str,password_str);
+            Auth.createUser(SignInActivity.this, email_str, password_str, new Runnable() {
+                @Override
+                public void run() {
+                    Intent home_activity = new Intent(SignInActivity.this, HomeActivity.class);
+                    startActivity(home_activity);
+                }
+            });
 
         });
     }
