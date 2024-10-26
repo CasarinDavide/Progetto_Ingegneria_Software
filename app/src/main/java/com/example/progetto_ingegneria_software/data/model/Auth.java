@@ -30,7 +30,7 @@ public class Auth {
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             // On success, return user object through the callback
-                            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
+                            //User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
                         } else {
 
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
@@ -39,6 +39,12 @@ public class Auth {
                     }
 
                 });
+    }
+
+    public static void signOut() {
+        if (auth != null) {
+            auth.signOut();
+        }
     }
 
     public static boolean isLogged()
@@ -55,7 +61,7 @@ public class Auth {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
+                            //User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
                         }
                         else {
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
