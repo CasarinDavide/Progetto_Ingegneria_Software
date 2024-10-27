@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
-public class Auth {
+public abstract class Auth {
 
     private static final FirebaseAuth auth;
 
@@ -36,6 +36,7 @@ public class Auth {
 
                             onSuccessAction.run();
                         } else {
+
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
                             error.show();
                         }
@@ -88,4 +89,7 @@ public class Auth {
     {
         auth.sendPasswordResetEmail(email);
     }
+
+
+
 }

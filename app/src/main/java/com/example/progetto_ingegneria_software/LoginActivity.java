@@ -12,10 +12,6 @@ import com.example.progetto_ingegneria_software.data.model.Database;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.progetto_ingegneria_software.databinding.LoginMainBinding;
 
@@ -54,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         sign_in_btn.setOnClickListener(x->{
             Intent sign_in_activity = new Intent(LoginActivity.this, SignInActivity.class);
             startActivity(sign_in_activity);
+
         });
 
     }

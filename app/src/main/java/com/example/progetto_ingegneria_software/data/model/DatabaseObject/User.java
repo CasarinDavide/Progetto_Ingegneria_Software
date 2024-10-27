@@ -14,11 +14,17 @@ public class User {
     public User() {}
 
     public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
-        this.username = username;
-        this.phone = phone;
+
+        this(username,phone,email);
         this.profilePicture = profilePicture;
         this.favourites = favourites;
         this.uid = uid;
+    }
+
+    public User(String username,String phone,String email)
+    {
+        this.username = username;
+        this.phone = phone;
         this.email = email;
     }
 
