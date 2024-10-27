@@ -4,15 +4,19 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Database {
 
@@ -42,7 +46,7 @@ public class Database {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 value = documentSnapshot.get(field);
             }
-        }).addOnFailureListener(exception -> Log.w(TAG, "Failed to fetch the field '" + field + "'.", exception) );
+        }).addOnFailureListener(exception -> Log.w(TAG, "Failed to fetch the field '" + field + "'.", exception));
 
         return value;
     }
@@ -87,11 +91,33 @@ public class Database {
             public void onSuccess(Void unused) {
                 Log.d(TAG, "Document '" + documentId + "' deleted successfully");
             }
-        }). addOnFailureListener(new OnFailureListener() {
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.w(TAG, "Error; Failed to delete document '" + documentId + "'.", e);
             }
         });
+    }
+
+
+    /**
+     * Runs a query against the specified collection, checks the value of the field is unique
+     *
+     * @param collection Collection to search in
+     * @param field Name of the field to check
+     * @param value Value of the field to check
+     * @return true if the query output is empty, false otherwise
+     */
+    public boolean isUnique(String collection, String field, String value) {
+        AtomicBoolean r = new AtomicBoolean(false);
+
+        getCollection().whereEqualTo(field, value).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                r.set(task.getResult().isEmpty());
+            }
+        });
+
+        return r.get();
     }
 }

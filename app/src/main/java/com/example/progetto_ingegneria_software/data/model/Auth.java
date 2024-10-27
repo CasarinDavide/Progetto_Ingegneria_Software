@@ -84,12 +84,8 @@ public abstract class Auth {
                 });
     }
 
-
     public static void resetPassword(Activity activity,String email)
     {
         auth.sendPasswordResetEmail(email);
     }
-
-
-
 }

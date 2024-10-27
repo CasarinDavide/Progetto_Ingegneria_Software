@@ -10,9 +10,11 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -69,18 +71,23 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-    protected boolean isValidFormInput(String email, String password, String conf_password, String telephone,String username_txt)
+    protected boolean isValidFormInput(String email, String password, String conf_password, String telephone, String username_txt)
     {
-        // TODO aggiungere altri check per l'input utente
 
-        // controllo univocità username
-        /**
-         * Auth.checkUniqueUsername.... ad esempio
-         */
+        if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return false;
+        }
 
+        if (password.isEmpty() || !password.equals(conf_password)) {
+            return false;
+        }
 
-        if (!password.equals(conf_password))
-        {
+        if(telephone.isEmpty() || !Patterns.PHONE.matcher(telephone).matches()) {
+            return false;
+        }
+
+        Database db = new Database("users");
+        if(!db.isUnique("users", "username", username_txt)) {
             return false;
         }
 
