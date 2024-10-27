@@ -47,7 +47,7 @@ public class Database {
         return value;
     }
 
-    public void addDocument(String documentId, Map<String, Object> info) {
+    public void addDocument(String documentId, Object info) {
         DocumentReference d = getDocument(documentId);
 
         d.set(info).addOnSuccessListener(new OnSuccessListener<Void>() {

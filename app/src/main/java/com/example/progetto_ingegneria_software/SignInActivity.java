@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
+import com.example.progetto_ingegneria_software.data.model.Database;
+import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_ingegneria_software.databinding.ActivitySignInBinding;
+
+import java.util.ArrayList;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -54,14 +58,13 @@ public class SignInActivity extends AppCompatActivity {
                 return;
             }
 
-            Auth.createUser(SignInActivity.this, email_str, password_str, new Runnable() {
+            Auth.createUser(SignInActivity.this, email_str, password_str, telephone_str, username_str, new Runnable() {
                 @Override
                 public void run() {
                     Intent home_activity = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(home_activity);
                 }
             });
-
         });
     }
 

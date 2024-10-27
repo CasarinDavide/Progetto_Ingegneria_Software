@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.progetto_ingegneria_software.LoginActivity;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,6 +13,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
 public class Auth {
@@ -22,7 +24,7 @@ public class Auth {
         auth = FirebaseAuth.getInstance();
     }
 
-    public static void login(Activity activity, String email, String password) {
+    public static void login(Activity activity, String email, String password, Runnable onSuccessAction) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -30,9 +32,10 @@ public class Auth {
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             // On success, return user object through the callback
-                            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
-                        } else {
+                            //User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
 
+                            onSuccessAction.run();
+                        } else {
                             Toast error = Toast.makeText(activity.getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
                             error.show();
                         }
@@ -52,7 +55,7 @@ public class Auth {
         return auth.getCurrentUser()==null;
     }
 
-    public static void createUser(Activity activity,String email,String password,Runnable onSuccessAction)
+    public static void createUser(Activity activity,String email,String password, String telephone, String username, Runnable onSuccessAction)
     {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -63,6 +66,13 @@ public class Auth {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             Toast error = Toast.makeText(activity.getApplicationContext(),"Registrazione Avvenuta con successo",Toast.LENGTH_LONG);
                             error.show();
+
+                            //Adds user in firebase
+                            assert firebaseUser != null;
+                            User u = new User(username, telephone, "", new ArrayList<String>(), firebaseUser.getUid(), email);
+                            Database db = new Database("users");
+                            db.addDocument(u.getUid(), u);
+
                             onSuccessAction.run();
                         }
                         else {
@@ -78,7 +88,4 @@ public class Auth {
     {
         auth.sendPasswordResetEmail(email);
     }
-
-
-
 }
