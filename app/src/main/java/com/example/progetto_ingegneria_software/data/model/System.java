@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.widget.Toast;
 
 public class System {
-    public final static  String API_KEY = "sk-drEw671921c5bd51e7198";
 
     public final static int REQUEST_SUCCESSFUL = 200;
     public final static int BAD_REQUEST = 404;
