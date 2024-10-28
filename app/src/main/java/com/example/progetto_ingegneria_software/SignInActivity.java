@@ -5,26 +5,22 @@ import android.os.Bundle;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.Database;
-import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_ingegneria_software.databinding.ActivitySignInBinding;
 
-import java.util.ArrayList;
-
 public class SignInActivity extends AppCompatActivity {
+
+    public interface SignInCallBack<T> {
+        void onComplete(T value);
+    }
 
     private ActivitySignInBinding binding;
 
@@ -54,43 +50,53 @@ public class SignInActivity extends AppCompatActivity {
             String telephone_str = telephone_txt.getText().toString();
             String username_str = username_txt.getText().toString();
 
-            if (!isValidFormInput(email_str,password_str,confirm_password_str,telephone_str,username_str))
-            {
-                Toast.makeText(this, "Errore nell'inseriemento dei dati. Riprovare.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Auth.createUser(SignInActivity.this, email_str, password_str, telephone_str, username_str, new Runnable() {
+            isValidFormInput(email_str, password_str, confirm_password_str, telephone_str, username_str, new SignInCallBack<Boolean>() {
                 @Override
-                public void run() {
-                    Intent home_activity = new Intent(SignInActivity.this, HomeActivity.class);
-                    startActivity(home_activity);
+                public void onComplete(Boolean isDataCorrect) {
+                    if(isDataCorrect) {
+                        Auth.createUser(SignInActivity.this, email_str, password_str, telephone_str, username_str, new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent home_activity = new Intent(SignInActivity.this, HomeActivity.class);
+                                startActivity(home_activity);
+                            }
+                        });
+                    }
+                    else {
+                        Toast.makeText(SignInActivity.this, "Errore nell'inseriemento dei dati. Riprovare.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         });
     }
 
 
-    protected boolean isValidFormInput(String email, String password, String conf_password, String telephone, String username_txt)
+    protected void isValidFormInput(String email, String password, String conf_password, String telephone, String username_txt, SignInCallBack<Boolean> callBack)
     {
-
-        if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return false;
-        }
-
-        if (password.isEmpty() || !password.equals(conf_password)) {
-            return false;
-        }
-
-        if(telephone.isEmpty() || !Patterns.PHONE.matcher(telephone).matches()) {
-            return false;
-        }
-
         Database db = new Database("users");
-        if(!db.isUnique("users", "username", username_txt)) {
-            return false;
-        }
+        db.isUnique("username", username_txt, new Database.DatabaseCallback<Boolean>() {
 
-        return true;
+            boolean result = true;
+            @Override
+            public void onComplete(Boolean isUniquePassword) {
+                    if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        result = false;
+                    }
+
+                    if (password.isEmpty() || !password.equals(conf_password)) {
+                        result = false;
+                    }
+
+                    if(telephone.isEmpty() || !Patterns.PHONE.matcher(telephone).matches()) {
+                        result = false;
+                    }
+
+                    if(!isUniquePassword) {
+                        result = false;
+                    }
+
+                    callBack.onComplete(result);
+            }
+        });
     }
 }

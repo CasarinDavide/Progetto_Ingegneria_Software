@@ -10,51 +10,54 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class Database {
+
+    public interface DatabaseCallback<T> {
+        void onComplete(T value);
+    }
 
     private final FirebaseFirestore db;
     private final String collection;
     //Field used only for Log errors
     private final String TAG = "Database";
-    //Field used to get the specified value in getField
-    private Object value;
 
+    /**
+     * Creates an Object to interact with the specified collection
+     * @param collection Collection to interact with
+     */
     public Database(String collection) {
         db = FirebaseFirestore.getInstance();
         this.collection = collection;
     }
 
+    /**
+     * @return Reference to the collection to interact with
+     */
     public CollectionReference getCollection() {
         return db.collection(collection);
     }
 
+    /**
+     *
+     * @param documentId Id of the document
+     * @return Reference to the specified document
+     */
     public DocumentReference getDocument(String documentId) {
         return getCollection().document(documentId);
     }
 
-    public Object getField(String documentId, String field) {
-        getDocument(documentId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                value = documentSnapshot.get(field);
-            }
-        }).addOnFailureListener(exception -> Log.w(TAG, "Failed to fetch the field '" + field + "'.", exception));
-
-        return value;
-    }
-
-    public void addDocument(String documentId, Object info) {
+    /**
+     * Adds a document to the collection with the specified Id and info
+     * @param documentId Id of the document to add in the collection
+     * @param data Data to store inside the field
+     */
+    public void addDocument(String documentId, Object data) {
         DocumentReference d = getDocument(documentId);
 
-        d.set(info).addOnSuccessListener(new OnSuccessListener<Void>() {
+        d.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d(TAG, "Created document '" + documentId + "'.");
@@ -66,6 +69,13 @@ public class Database {
             }
         });
     }
+
+    /**
+     * Updates the specified field with the given data
+     * @param documentId Id of the document to update
+     * @param field Name of the field to update
+     * @param data Data to overwrite the field with
+     */
 
     public void updateField(String documentId, String field, Object data) {
         DocumentReference d = getDocument(documentId);
@@ -83,6 +93,10 @@ public class Database {
         });
     }
 
+    /**
+     * Deletes a document given its Id
+     * @param documentId Id of the document to delete
+     */
     public void deleteDocument(String documentId) {
         DocumentReference d = getDocument(documentId);
 
@@ -101,23 +115,23 @@ public class Database {
 
 
     /**
-     * Runs a query against the specified collection, checks the value of the field is unique
-     *
-     * @param collection Collection to search in
+     * Runs a query against the collection, checks the value of the field is unique
      * @param field Name of the field to check
      * @param value Value of the field to check
-     * @return true if the query output is empty, false otherwise
+     * @param callback Where to handle the value once the query returned a result
      */
-    public boolean isUnique(String collection, String field, String value) {
-        AtomicBoolean r = new AtomicBoolean(false);
+    public void isUnique(String field, String value, DatabaseCallback<Boolean> callback) {
 
         getCollection().whereEqualTo(field, value).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                r.set(task.getResult().isEmpty());
+                if(task.isSuccessful()) {
+                    callback.onComplete(task.getResult().isEmpty());
+                } else {
+                    callback.onComplete(false);
+                }
             }
         });
 
-        return r.get();
     }
 }
