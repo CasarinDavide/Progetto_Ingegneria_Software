@@ -1,5 +1,6 @@
 package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -11,7 +12,14 @@ public class User {
     private String phone;
     private String username;
 
-    public User() {}
+    public User() {
+        this.email = "";
+        this.uid = "";
+        this.favourites = new ArrayList<String>();
+        this.profilePicture = "";
+        this.phone = "";
+        this.username = "";
+    }
 
     public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
 
