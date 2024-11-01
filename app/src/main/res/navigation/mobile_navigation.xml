@@ -18,8 +18,14 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.progetto_ingegneria_software.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_plants"
+        android:name="com.example.progetto_ingegneria_software.ui.notifications.PlantsFragment"
+        android:label="@string/plants"
+        tools:layout="@layout/fragment_plants" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.progetto_ingegneria_software.ui.notifications.PlantsFragment"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_plants" />
 </navigation>

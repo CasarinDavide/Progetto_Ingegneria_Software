@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         fillData();
-
-
     }
 
     // esempio di utilizzo della classe

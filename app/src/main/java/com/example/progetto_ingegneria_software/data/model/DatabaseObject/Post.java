@@ -26,6 +26,7 @@ public class Post {
 
     public Post(String author, String content, List<Comment> comments, Date date, int postId, String image, int likes) {
         this.author = author;
+        this.content = content;
         this.comments = comments;
         this.date = date;
         this.postId = postId;
