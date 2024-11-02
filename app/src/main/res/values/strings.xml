@@ -106,4 +106,6 @@
     <string name="profile">Profile</string>
     <string name="plants">Plants</string>
     <string name="username">Username</string>
+    <string name="add_post">Add Post</string>
+    <string name="exit">Exit</string>
 </resources>

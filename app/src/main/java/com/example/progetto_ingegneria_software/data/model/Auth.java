@@ -88,4 +88,8 @@ public abstract class Auth {
     {
         auth.sendPasswordResetEmail(email);
     }
+
+    public static FirebaseUser getCurrentUser() {
+        return auth.getCurrentUser();
+    }
 }

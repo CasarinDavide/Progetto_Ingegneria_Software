@@ -36,6 +36,30 @@ public class User {
         this.email = email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setFavourites(List<String> favourites) {
+        this.favourites = favourites;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }

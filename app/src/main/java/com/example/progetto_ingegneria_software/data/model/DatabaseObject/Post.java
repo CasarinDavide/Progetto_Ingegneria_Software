@@ -1,5 +1,8 @@
 package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
+import com.google.firebase.Firebase;
+import com.google.firebase.firestore.FieldValue;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +11,8 @@ public class Post {
     private String author;
     private String content;
     private List<Comment> comments;
-    private Date date;
-    private int postId;
+    private FieldValue timestamp;
+    private Integer postId;
     private String image;
     private int likes;
 
@@ -17,25 +20,25 @@ public class Post {
     public Post() {
         this.author = "";
         this.comments = new ArrayList<Comment>();
-        this.date = new Date();
+        this.timestamp = FieldValue.serverTimestamp();
         this.content = "";
         this.postId = 0;
         this.image = "";
         this.likes = 0;
     }
 
-    public Post(String author, String content, List<Comment> comments, Date date, int postId, String image, int likes) {
+    public Post(String author, String content, List<Comment> comments, Integer postId, String image, int likes) {
         this.author = author;
         this.content = content;
         this.comments = comments;
-        this.date = date;
+        this.timestamp = FieldValue.serverTimestamp();
         this.postId = postId;
         this.image = image;
         this.likes = likes;
     }
 
-    public Date getDate() {
-        return date;
+    public FieldValue getTimestamp() {
+        return timestamp;
     }
 
     public String getContent() {
@@ -46,11 +49,11 @@ public class Post {
         return author;
     }
 
-    public int getPostId() {
+    public Integer getPostId() {
         return postId;
     }
 
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
