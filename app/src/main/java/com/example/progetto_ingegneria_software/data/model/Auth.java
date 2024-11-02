@@ -1,11 +1,9 @@
 package com.example.progetto_ingegneria_software.data.model;
 import android.app.Activity;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.progetto_ingegneria_software.LoginActivity;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 
 public abstract class Auth {
 

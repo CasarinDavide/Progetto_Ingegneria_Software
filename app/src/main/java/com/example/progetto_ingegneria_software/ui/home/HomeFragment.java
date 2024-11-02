@@ -31,10 +31,11 @@ import java.util.Objects;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
 
         /*
         final TextView textView = binding.textHome;
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment {
                 FragmentManager fm = getChildFragmentManager();
 
                 fm.beginTransaction()
-                        .replace(R.id.fragment_home, new CreatePostFragment())
+                        .replace(requireView().getId(), new CreatePostFragment())
                         .addToBackStack(null)
                         .commit();
             }
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
 
     @Override
     public void onDestroyView() {

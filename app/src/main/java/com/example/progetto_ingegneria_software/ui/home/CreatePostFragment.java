@@ -35,8 +35,8 @@ public class CreatePostFragment extends Fragment {
     private Button done;
     private TextView content;
     private String uid;
-    Database userDb;
-    Database postDb;
+    private Database userDb;
+    private Database postDb;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreatePostBinding.inflate(inflater, container, false);
@@ -69,7 +69,7 @@ public class CreatePostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //This giant piece of ... code adds a post to the database, feel free to modify it but be careful!!
-        //I haven't set the option to add an Image yet, but it shouldn't be difficult
+        //TODO Image link
         userDb.getDocument(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -81,32 +81,8 @@ public class CreatePostFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
 
-                            //Get text field value
-                            String value = content.getText().toString();
-
-                            //Adds post in the database
                             assert u != null;
-                            String uName = u.getUsername();
-
-                            postDb.getCollection().orderBy("timestamp").limit(1).get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()) {
-                                                //get the most recent post's id
-                                                DocumentSnapshot q = task.getResult().getDocuments().get(0);
-                                                int id = 0;
-
-                                                if(q.exists()) {
-                                                    id = Integer.parseInt(q.getId());
-                                                }
-                                                id++;
-
-                                                Post p = new Post(uName, value, new ArrayList<>(), id, "", 0);
-                                                postDb.addDocument(Integer.toString(id), p);
-                                            }
-                                        }
-                                    });
+                            postDb.createPost(u.getUsername(), content.getText().toString());
                         }
                     });
                 }

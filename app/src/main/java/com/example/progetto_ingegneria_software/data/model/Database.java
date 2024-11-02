@@ -4,14 +4,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class Database {
 
@@ -132,6 +136,36 @@ public class Database {
                 }
             }
         });
+    }
 
+    /**
+     * Creates a Post object and adds it to the database
+     * @param author username of the author
+     * @param content content of the post
+     */
+    public void createPost(String author, String content) {
+        assert collection.equals("posts");
+
+        getCollection().orderBy("timestamp").limit(1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            //get the most recent post's id
+                            DocumentSnapshot q = task.getResult().getDocuments().get(0);
+                            int id = 0;
+
+                            if(q.exists()) {
+                                id = Integer.parseInt(q.getId());
+                            }
+                            id++;
+
+                            Post p = new Post(author, content, new ArrayList<>(), id, "", 0);
+                            addDocument(Integer.toString(id), p);
+                        } else {
+                            Log.d(TAG, "Error: Failed to create Post");
+                        }
+                    }
+                });
     }
 }
