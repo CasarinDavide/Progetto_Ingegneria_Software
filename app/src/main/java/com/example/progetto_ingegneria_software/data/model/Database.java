@@ -137,4 +137,24 @@ public class Database {
             }
         });
     }
+
+    public String generateDocumentID()
+    {
+        return db.collection(collection).document().getId();
+    }
+
+
+    public <T extends Mapper> void updateRecord(String id_document,T obj)
+    {
+        DocumentReference d = getDocument(id_document);
+        //d.update(obj.getDictionary());
+    }
+
+    public <T extends Mapper> void addRecord(T obj)
+    {
+        String id_document = this.generateDocumentID();
+        obj.setDocumentId(id_document);
+        this.addDocument(id_document,obj.getDictionary());
+    }
+
 }

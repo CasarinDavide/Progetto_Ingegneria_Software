@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
+    implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

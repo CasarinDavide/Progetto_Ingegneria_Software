@@ -2,7 +2,10 @@ package com.example.progetto_ingegneria_software.data.model.PlantApiObject;
 
 import android.util.Pair;
 
+import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PestDiseaseList.PestDisease;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
+import com.example.progetto_ingegneria_software.data.model.PlantApiObject.SpeciesCareGuide.SpeciesCareGuide;
+import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species_Details.SpeciesDetails;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -94,6 +97,121 @@ public abstract class PlantsApi {
             callback.onResponse(speciesContainer);
         });
     }
+
+
+    /**
+     * Non ha una descrizione
+     * @param page
+     * @param callback funzione callback del chiamante, l'idea è che io chiamo la funzione asincrona, quando avrà finito riporto il risultato che voglio
+     *                 al chiamante ( nel nostro caso sarà sempre il chiamante )
+     */
+    public static void getAllSpeciesDetail(Integer plant_id,Integer page,PlantsApiCallback<PlantRequestContainer<SpeciesDetails>> callback) {
+
+        // faccio append del pair <Nome parametro da passare,valore da passare>
+
+        ArrayList<Pair<String, String>> params = new ArrayList<>();
+
+        if (page > 0)
+            params.add(new Pair<>("page", page.toString()));
+
+        // chiamo funzione generica per fare una chiamata all'api
+        // il terzo parametro è una funzione cunsumer che prende in input una stringa ( json in questo caso )
+        // da questo json va a creare un oggetto JAVA corrispondente al valore ricevuto
+
+        // TypeToken perchè quelli della libreria Gson non avevano previsto l'utilizzo dei generics quando qualcuno va a deserializzare la classe dal json
+        // quindi bisogna fare cosi
+        // se il json non è valido creo un oggetto vuoto per evitare almeno che l'utente riceve un nullPointerException
+        // creato l'oggetto JAVA faccio la callback al chiamante passandogli l'oggetto che il chiamante andrà ad elaborare
+
+        makeRequest("species/details/" + plant_id, params, json -> {
+            PlantRequestContainer<SpeciesDetails> speciesContainer;
+            try {
+                speciesContainer = new Gson().fromJson(json, new TypeToken<PlantRequestContainer<SpeciesDetails>>(){}.getType());
+            } catch (Exception e) {
+                speciesContainer = new PlantRequestContainer<>();
+            }
+            callback.onResponse(speciesContainer);
+        });
+    }
+
+
+
+    /**
+     * @param plant_id
+     * @param page
+     * @param callback funzione callback del chiamante, l'idea è che io chiamo la funzione asincrona, quando avrà finito riporto il risultato che voglio
+     *                 al chiamante ( nel nostro caso sarà sempre il chiamante )
+     */
+    public static void getAllPlantDiseaseList(Integer plant_id,Integer page,PlantsApiCallback<PlantRequestContainer<PestDisease>> callback) {
+
+        // faccio append del pair <Nome parametro da passare,valore da passare>
+
+        ArrayList<Pair<String, String>> params = new ArrayList<>();
+
+        if (page > 0)
+            params.add(new Pair<>("id", plant_id.toString()));
+
+        if (page > 0)
+            params.add(new Pair<>("page", page.toString()));
+
+        // chiamo funzione generica per fare una chiamata all'api
+        // il terzo parametro è una funzione cunsumer che prende in input una stringa ( json in questo caso )
+        // da questo json va a creare un oggetto JAVA corrispondente al valore ricevuto
+
+        // TypeToken perchè quelli della libreria Gson non avevano previsto l'utilizzo dei generics quando qualcuno va a deserializzare la classe dal json
+        // quindi bisogna fare cosi
+        // se il json non è valido creo un oggetto vuoto per evitare almeno che l'utente riceve un nullPointerException
+        // creato l'oggetto JAVA faccio la callback al chiamante passandogli l'oggetto che il chiamante andrà ad elaborare
+
+        makeRequest("pest-disease-list" + plant_id, params, json -> {
+            PlantRequestContainer<PestDisease> pestDiseasePlantRequestContainer;
+            try {
+                pestDiseasePlantRequestContainer = new Gson().fromJson(json, new TypeToken<PlantRequestContainer<PestDisease>>(){}.getType());
+            } catch (Exception e) {
+                pestDiseasePlantRequestContainer = new PlantRequestContainer<>();
+            }
+            callback.onResponse(pestDiseasePlantRequestContainer);
+        });
+    }
+
+    /**
+     * @param species_id
+     * @param page
+     * @param callback funzione callback del chiamante, l'idea è che io chiamo la funzione asincrona, quando avrà finito riporto il risultato che voglio
+     *                 al chiamante ( nel nostro caso sarà sempre il chiamante )
+     */
+    public static void getAllPlantGuides(Integer species_id,Integer page,PlantsApiCallback<PlantRequestContainer<SpeciesCareGuide>> callback) {
+
+        // faccio append del pair <Nome parametro da passare,valore da passare>
+
+        ArrayList<Pair<String, String>> params = new ArrayList<>();
+
+        if (page > 0)
+            params.add(new Pair<>("species_id", species_id.toString()));
+
+        if (page > 0)
+            params.add(new Pair<>("page", page.toString()));
+
+        // chiamo funzione generica per fare una chiamata all'api
+        // il terzo parametro è una funzione cunsumer che prende in input una stringa ( json in questo caso )
+        // da questo json va a creare un oggetto JAVA corrispondente al valore ricevuto
+
+        // TypeToken perchè quelli della libreria Gson non avevano previsto l'utilizzo dei generics quando qualcuno va a deserializzare la classe dal json
+        // quindi bisogna fare cosi
+        // se il json non è valido creo un oggetto vuoto per evitare almeno che l'utente riceve un nullPointerException
+        // creato l'oggetto JAVA faccio la callback al chiamante passandogli l'oggetto che il chiamante andrà ad elaborare
+
+        makeRequest("species-care-guide-list", params, json -> {
+            PlantRequestContainer<SpeciesCareGuide> speciesCareGuidePlantRequestContainer;
+            try {
+                speciesCareGuidePlantRequestContainer = new Gson().fromJson(json, new TypeToken<PlantRequestContainer<SpeciesCareGuide>>(){}.getType());
+            } catch (Exception e) {
+                speciesCareGuidePlantRequestContainer = new PlantRequestContainer<>();
+            }
+            callback.onResponse(speciesCareGuidePlantRequestContainer);
+        });
+    }
+
 
     /**
      *
