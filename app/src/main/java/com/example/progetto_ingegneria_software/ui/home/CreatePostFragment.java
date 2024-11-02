@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
-import com.example.progetto_ingegneria_software.data.model.Database;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentCreatePostBinding;
@@ -24,9 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 
 
 public class CreatePostFragment extends Fragment {
@@ -35,8 +32,6 @@ public class CreatePostFragment extends Fragment {
     private Button done;
     private TextView content;
     private String uid;
-    private Database userDb;
-    private Database postDb;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreatePostBinding.inflate(inflater, container, false);
@@ -48,8 +43,6 @@ public class CreatePostFragment extends Fragment {
 
         //Get useful data from the database
         uid = Auth.getCurrentUser().getUid();
-        userDb = new Database("users");
-        postDb = new Database("posts");
 
         //Undo post creation
         ImageButton exit = binding.exitButtonCreatePost;
@@ -70,7 +63,7 @@ public class CreatePostFragment extends Fragment {
 
         //This giant piece of ... code adds a post to the database, feel free to modify it but be careful!!
         //TODO Image link
-        userDb.getDocument(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        User.userDB.getDocument(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()) {
@@ -80,9 +73,8 @@ public class CreatePostFragment extends Fragment {
                     done.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             assert u != null;
-                            postDb.createPost(u.getUsername(), content.getText().toString());
+                            Post.postDB.createPost(u.getUsername(), content.getText().toString());
                         }
                     });
                 }

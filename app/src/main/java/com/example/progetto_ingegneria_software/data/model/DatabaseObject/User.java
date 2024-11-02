@@ -1,5 +1,8 @@
 package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
+import com.example.progetto_ingegneria_software.data.model.Database;
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,11 @@ public class User {
     private String phone;
     private String username;
 
+    public static UserDB userDB;
+    static {
+        userDB = new UserDB();
+    }
+
     public User() {
         this.email = "";
         this.uid = "";
@@ -22,18 +30,23 @@ public class User {
     }
 
     public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
-
-        this(username,phone,email);
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
         this.profilePicture = profilePicture;
         this.favourites = favourites;
         this.uid = uid;
     }
 
-    public User(String username,String phone,String email)
-    {
-        this.username = username;
-        this.phone = phone;
-        this.email = email;
+    public static class UserDB extends Database {
+        UserDB() {
+            super("users");
+        }
+
+        @Override
+        public DocumentReference getDocument(String documentId) {
+            return super.getDocument(documentId);
+        }
     }
 
     public void setEmail(String email) {

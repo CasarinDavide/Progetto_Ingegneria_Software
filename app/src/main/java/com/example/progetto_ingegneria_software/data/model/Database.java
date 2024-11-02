@@ -137,35 +137,4 @@ public class Database {
             }
         });
     }
-
-    /**
-     * Creates a Post object and adds it to the database
-     * @param author username of the author
-     * @param content content of the post
-     */
-    public void createPost(String author, String content) {
-        assert collection.equals("posts");
-
-        getCollection().orderBy("timestamp").limit(1).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-                            //get the most recent post's id
-                            DocumentSnapshot q = task.getResult().getDocuments().get(0);
-                            int id = 0;
-
-                            if(q.exists()) {
-                                id = Integer.parseInt(q.getId());
-                            }
-                            id++;
-
-                            Post p = new Post(author, content, new ArrayList<>(), id, "", 0);
-                            addDocument(Integer.toString(id), p);
-                        } else {
-                            Log.d(TAG, "Error: Failed to create Post");
-                        }
-                    }
-                });
-    }
 }
