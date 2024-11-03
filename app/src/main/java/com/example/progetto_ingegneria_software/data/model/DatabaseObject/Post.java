@@ -95,6 +95,11 @@ public class Post {
             return super.getDocument(id);
         }
 
+        @Override
+        public void updateField(String documentId, String field, Object data) {
+            super.updateField(documentId, field, data);
+        }
+
         /**
          * Fetches Post data from the database
          * @param callback Function to get side effects

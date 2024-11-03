@@ -80,7 +80,6 @@ public class Database {
      * @param field Name of the field to update
      * @param data Data to overwrite the field with
      */
-
     public void updateField(String documentId, String field, Object data) {
         DocumentReference d = getDocument(documentId);
 

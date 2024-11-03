@@ -10,7 +10,7 @@ public class User {
 
     private  String email;
     private String uid;
-    private List<String> favourites;
+    private List<String> likes;
     private String profilePicture;
     private String phone;
     private String username;
@@ -23,18 +23,18 @@ public class User {
     public User() {
         this.email = "";
         this.uid = "";
-        this.favourites = new ArrayList<String>();
+        this.likes = new ArrayList<String>();
         this.profilePicture = "";
         this.phone = "";
         this.username = "";
     }
 
-    public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
+    public User(String username, String phone, String profilePicture, List<String> likes, String uid, String email) {
         this.username = username;
         this.phone = phone;
         this.email = email;
         this.profilePicture = profilePicture;
-        this.favourites = favourites;
+        this.likes = likes;
         this.uid = uid;
     }
 
@@ -57,8 +57,8 @@ public class User {
         this.uid = uid;
     }
 
-    public void setFavourites(List<String> favourites) {
-        this.favourites = favourites;
+    public void setLikes(List<String> likes) {
+        this.likes = likes;
     }
 
     public void setProfilePicture(String profilePicture) {
@@ -81,8 +81,8 @@ public class User {
         return uid;
     }
 
-    public List<String> getFavourites() {
-        return favourites;
+    public List<String> getLikes() {
+        return likes;
     }
 
     public String getProfilePicture() {

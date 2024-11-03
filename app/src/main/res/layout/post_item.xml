@@ -43,7 +43,7 @@
         android:layout_marginTop="16dp"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/profile_picture_recycler_view"
-        app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view" />
 
     <ImageButton
         android:id="@+id/post_like_recycler_view"
@@ -52,10 +52,10 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="like"
+        android:contentDescription="@string/like"
         android:src="@drawable/outline_thumb_up_24dp"
         app:layout_constraintStart_toEndOf="@+id/post_likes_number_recycler_view"
-        app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view" />
 
     <ImageButton
         android:id="@+id/post_favourites_recycler_view"
@@ -64,7 +64,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="5dp"
         android:background="?android:selectableItemBackground"
-        android:contentDescription="favourites"
+        android:contentDescription="@string/favourites"
         android:src="@drawable/outline_favourite_24dp"
         app:layout_constraintStart_toEndOf="@+id/post_like_recycler_view"
         app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view"/>

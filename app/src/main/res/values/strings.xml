@@ -108,4 +108,6 @@
     <string name="username">Username</string>
     <string name="add_post">Add Post</string>
     <string name="exit">Exit</string>
+    <string name="favourites">favourites</string>
+    <string name="like">like</string>
 </resources>
