@@ -61,8 +61,6 @@ public class CreatePostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //This giant piece of ... code adds a post to the database, feel free to modify it but be careful!!
-        //TODO Image link
         User.userDB.getDocument(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -74,7 +72,10 @@ public class CreatePostFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             assert u != null;
-                            Post.postDB.createPost(u.getUsername(), content.getText().toString());
+                            Post.postDB.createPost(u, content.getText().toString());
+
+                            FragmentManager fm = getParentFragmentManager();
+                            fm.popBackStack();
                         }
                     });
                 }

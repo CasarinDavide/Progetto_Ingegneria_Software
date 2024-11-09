@@ -1,7 +1,10 @@
 package com.example.progetto_ingegneria_software.ui.home;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
+import android.transition.CircularPropagation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +16,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -82,13 +92,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         Post post = p.get(position);
+        Context context = holder.profilePicture.getContext();
+        holder.profilePicture.setLayoutParams(new RecyclerView.LayoutParams(100, 100));
 
-        holder.profilePicture.setImageURI(Uri.parse(post.getImage()));
         holder.postContent.setText(post.getContent());
         holder.username.setText(post.getAuthor());
         holder.likeNumber.setText(String.valueOf(post.getLikes()));
 
         //set the like button icon, if the user previously liked it or not
+        //set author profile picture
         User.userDB.getDocument(Auth.getCurrentUser().getUid()).get()
                         .addOnCompleteListener( task -> {
                             DocumentSnapshot d = task.getResult();
@@ -98,8 +110,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 assert userInfo != null;
                                 if(userInfo.getLikes().contains(post.getPostId().toString())) {
                                     holder.likeButton.setImageResource(R.drawable.baseline_thumb_up_24dp);
-                                } else
+                                } else {
                                     holder.likeButton.setImageResource(R.drawable.outline_thumb_up_24dp);
+                                }
+
+                                FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
+                                        .getDownloadUrl()
+                                        .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                Glide.with(context)
+                                                        .asBitmap()
+                                                        .load(task.getResult())
+                                                        .into(new CustomTarget<Bitmap>(100, 100) {
+                                                            @Override
+                                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                                holder.profilePicture.setImageBitmap(resource);
+                                                            }
+
+                                                            @Override
+                                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                                            }
+                                                        });
+                                            }
+                                        });
                             }
                         });
 

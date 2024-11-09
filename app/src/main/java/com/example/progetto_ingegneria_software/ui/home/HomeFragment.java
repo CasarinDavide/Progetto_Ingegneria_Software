@@ -10,11 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 
 import com.example.progetto_ingegneria_software.databinding.FragmentHomeBinding;
+
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
@@ -30,10 +36,10 @@ public class HomeFragment extends Fragment {
 
         //RecyclerView creation
         final RecyclerView recyclerView = binding.postsRecyclerViewHome;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         Post.postDB.fetchPosts(list -> {
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
             recyclerView.setAdapter(adapter);
         });
 
@@ -44,12 +50,7 @@ public class HomeFragment extends Fragment {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getChildFragmentManager();
-
-                fm.beginTransaction()
-                        .replace(requireView().getId(), new CreatePostFragment())
-                        .addToBackStack(null)
-                        .commit();
+                Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_navigation_create_post);
             }
         });
 

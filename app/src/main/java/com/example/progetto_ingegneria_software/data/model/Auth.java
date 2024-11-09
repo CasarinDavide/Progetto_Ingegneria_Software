@@ -53,7 +53,7 @@ public abstract class Auth {
         return auth.getCurrentUser()==null;
     }
 
-    public static void createUser(Activity activity,String email,String password, String telephone, String username, Runnable onSuccessAction)
+    public static void createUser(Activity activity, String email, String password, String telephone, String username, Runnable onSuccessAction)
     {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -67,7 +67,7 @@ public abstract class Auth {
 
                             //Adds user in firebase
                             assert firebaseUser != null;
-                            User u = new User(username, telephone, "", new ArrayList<String>(), firebaseUser.getUid(), email);
+                            User u = new User(username, telephone, "/images/default_user_pfp.png" , new ArrayList<String>(), firebaseUser.getUid(), email);
                             Database db = new Database("users");
                             db.addDocument(u.getUid(), u);
 

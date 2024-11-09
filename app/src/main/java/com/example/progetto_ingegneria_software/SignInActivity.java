@@ -42,7 +42,7 @@ public class SignInActivity extends AppCompatActivity {
         TextView email_txt = (TextView) findViewById(R.id.sign_in_activity_email_txt);
 
 
-        confirm_btn.setOnClickListener(x-> {
+        confirm_btn.setOnClickListener(x -> {
 
             String email_str = email_txt.getText().toString();
             String password_str = password_txt.getText().toString();

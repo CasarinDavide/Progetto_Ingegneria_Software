@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.example.progetto_ingegneria_software.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_create_post"
+            app:destination="@id/navigation_create_post" />
+    </fragment>
+
+    <fragment
+        android:id = "@+id/navigation_create_post"
+        android:name="com.example.progetto_ingegneria_software.ui.home.CreatePostFragment"
+        android:label="Create Post"
+        tools:layout="@layout/fragment_create_post"/>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -25,7 +35,17 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.progetto_ingegneria_software.ui.notifications.PlantsFragment"
+        android:name="com.example.progetto_ingegneria_software.ui.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_plants" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_modify_profile"
+            app:destination="@id/navigation_modify_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_modify_profile"
+        android:name="com.example.progetto_ingegneria_software.ui.profile.ModifyProfileFragment"
+        android:label="Modify Profile"
+        tools:layout="@layout/fragment_modify_profile"/>
 </navigation>

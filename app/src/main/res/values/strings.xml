@@ -110,4 +110,6 @@
     <string name="exit">Exit</string>
     <string name="favourites">favourites</string>
     <string name="like">like</string>
+    <string name="modifica_profilo">Modifica Profilo</string>
+    <string name="profile_info">Profile Info</string>
 </resources>

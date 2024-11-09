@@ -52,13 +52,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.squareup.okhttp3:okhttp:4.9.1")
-    implementation ("com.google.code.gson:gson:2.11.0")
-
-
-
-
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.google.firebase.firestore)
+    implementation(libs.okhttp)
+    implementation (libs.gson)
+    implementation(libs.glide.v4160)
+    implementation(libs.firebase.storage)
 }

@@ -1,10 +1,13 @@
 package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
+import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.Database;
+import com.example.progetto_ingegneria_software.ui.home.RecyclerViewAdapter;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User {
 
@@ -46,6 +49,32 @@ public class User {
         @Override
         public DocumentReference getDocument(String documentId) {
             return super.getDocument(documentId);
+        }
+
+        /**
+         * Gets current user's username
+         * @param callback
+         */
+        public void getUsername(DatabaseCallback<String> callback) {
+            getDocument(Auth.getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener( documentSnapshot -> {
+                        String username = Objects.requireNonNull(documentSnapshot.getResult().toObject(User.class)).getUsername();
+                        callback.onComplete(username);
+                    });
+        }
+
+        /**
+         * Get current user's object
+         * @param callback
+         */
+        public void getUserInfo(DatabaseCallback<User> callback) {
+            getDocument(Auth.getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener( documentSnapshot -> {
+                        User u = documentSnapshot.getResult().toObject(User.class);
+                        callback.onComplete(u);
+                    });
         }
     }
 

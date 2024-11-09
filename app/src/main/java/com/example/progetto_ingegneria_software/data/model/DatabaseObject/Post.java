@@ -66,7 +66,7 @@ public class Post {
          * @param author username of the author
          * @param content content of the post
          */
-        public void createPost(String author, String content) {
+        public void createPost(User author, String content) {
             getCollection().orderBy("postId", Query.Direction.DESCENDING).limit(1).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -81,7 +81,7 @@ public class Post {
                                 }
                                 id++;
 
-                                Post p = new Post(author, content, new ArrayList<>(), id, "", 0);
+                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, author.getProfilePicture(), 0);
                                 addDocument(Integer.toString(id), p);
                             } else {
                                 Log.d(TAG, "Error: Failed to create Post");
@@ -101,8 +101,8 @@ public class Post {
         }
 
         /**
-         * Fetches Post data from the database
-         * @param callback Function to get side effects
+         * Fetches All Posts data from the database
+         * @param callback Callback interface
          */
         public void fetchPosts(DatabaseCallback<List<Post>> callback) {
             getCollection().orderBy("timestamp").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -118,6 +118,27 @@ public class Post {
                     callback.onComplete(l);
                 }
             });
+        }
+
+        /**
+         * Fetches posts of the given user
+         * @param author Username
+         * @param callback Callback interface
+         */
+        public void fetchUserPosts(String author, DatabaseCallback<List<Post>> callback) {
+            getCollection()
+                    .whereEqualTo("author", author)
+                    .orderBy("timestamp")
+                    .get().addOnCompleteListener( task -> {
+                        List<Post> l = new ArrayList<>();
+
+                        for(DocumentSnapshot t : task.getResult()) {
+                            Post p = t.toObject(Post.class);
+                            l.add(p);
+                        }
+
+                        callback.onComplete(l);
+                    });
         }
     }
 
