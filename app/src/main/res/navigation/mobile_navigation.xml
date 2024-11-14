@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_create_post"
             app:destination="@id/navigation_create_post" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_comment_section"
+            app:destination="@id/navigation_comment_section" />
     </fragment>
 
     <fragment
@@ -48,4 +51,10 @@
         android:name="com.example.progetto_ingegneria_software.ui.profile.ModifyProfileFragment"
         android:label="Modify Profile"
         tools:layout="@layout/fragment_modify_profile"/>
+
+    <fragment
+        android:id="@+id/navigation_comment_section"
+        android:name="com.example.progetto_ingegneria_software.ui.home.CommentSectionFragment"
+        android:label="Comment Section"
+        android:layout="@layout/fragment_comment_section"/>
 </navigation>

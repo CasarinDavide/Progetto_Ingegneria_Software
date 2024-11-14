@@ -8,9 +8,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
+
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +17,6 @@ import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 
 import com.example.progetto_ingegneria_software.databinding.FragmentHomeBinding;
-
-import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
@@ -32,8 +28,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         //RecyclerView creation
         final RecyclerView recyclerView = binding.postsRecyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -42,8 +36,6 @@ public class HomeFragment extends Fragment {
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
             recyclerView.setAdapter(adapter);
         });
-
-
 
         //CreatePost button
         final ImageButton create = binding.createPostButton;

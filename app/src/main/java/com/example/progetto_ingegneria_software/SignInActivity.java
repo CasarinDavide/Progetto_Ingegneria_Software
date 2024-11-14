@@ -34,12 +34,12 @@ public class SignInActivity extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle(getTitle());
 
-        Button confirm_btn = (Button) findViewById(R.id.sign_in_activity_confirm_btn);
-        TextView username_txt = (TextView) findViewById(R.id.sign_in_activity_username_txt);
-        TextView password_txt = (TextView) findViewById(R.id.sign_in_activity_password_txt);
-        TextView confirm_password_txt = (TextView) findViewById(R.id.sign_in_activity_confirm_password_txt);
-        TextView telephone_txt = (TextView) findViewById(R.id.sign_in_activity_telephone_txt);
-        TextView email_txt = (TextView) findViewById(R.id.sign_in_activity_email_txt);
+        Button confirm_btn = binding.signInActivityConfirmBtn;
+        TextView username_txt = binding.signInActivityUsernameTxt;
+        TextView password_txt = binding.signInActivityPasswordTxt;
+        TextView confirm_password_txt = binding.signInActivityConfirmPasswordTxt;
+        TextView telephone_txt = binding.signInActivityTelephoneTxt;
+        TextView email_txt = binding.signInActivityEmailTxt;
 
 
         confirm_btn.setOnClickListener(x -> {

@@ -112,4 +112,13 @@
     <string name="like">like</string>
     <string name="modifica_profilo">Modifica Profilo</string>
     <string name="profile_info">Profile Info</string>
+    <string name="submit">Submit</string>
+    <string name="change_password">Change Password</string>
+    <string name="phone">Phone</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="upload_picture">Upload Picture</string>
+    <string name="send">Send</string>
+    <string name="comment">Comment</string>
+    <string name="textview">TextView</string>
+    <string name="addimage">AddImage</string>
 </resources>

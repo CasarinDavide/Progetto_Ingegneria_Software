@@ -12,7 +12,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:contentDescription="@string/profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exit_button_create_post"
@@ -28,7 +28,6 @@
             android:hint="@string/add_post"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toEndOf="@+id/profile_picture_create_post"
             app:layout_constraintTop_toBottomOf="@+id/confirm_button_create_post" />
 
@@ -44,6 +43,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/rounded_add_30dp" />
+
+        <ImageButton
+            android:id="@+id/add_image_button_create_post"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@null"
+            android:contentDescription="@string/addimage"
+            android:src="@drawable/rounded_add_30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_picture_create_post" />
 
         <Button
             android:id="@+id/confirm_button_create_post"

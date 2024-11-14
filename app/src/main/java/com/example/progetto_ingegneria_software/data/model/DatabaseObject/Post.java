@@ -1,5 +1,7 @@
 package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
+import android.net.Uri;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,19 +11,24 @@ import com.example.progetto_ingegneria_software.data.model.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
 
-public class Post {
+/**
+ * Post has to implement Serializable to enable casting when passed between fragments
+ */
+public class Post implements Serializable{
     private String author;
     private String content;
     private List<Comment> comments;
@@ -37,8 +44,8 @@ public class Post {
 
     public Post() {
         this.author = "";
-        this.comments = new ArrayList<Comment>();
-        this.timestamp = ServerValue.TIMESTAMP;
+        this.comments = new ArrayList<>();
+        this.timestamp = FieldValue.serverTimestamp();
         this.content = "";
         this.postId = 0;
         this.image = "";
@@ -49,7 +56,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.comments = comments;
-        this.timestamp = ServerValue.TIMESTAMP;
+        this.timestamp = FieldValue.serverTimestamp();
         this.postId = postId;
         this.image = image;
         this.likes = likes;
@@ -66,7 +73,7 @@ public class Post {
          * @param author username of the author
          * @param content content of the post
          */
-        public void createPost(User author, String content) {
+        public void createPost(User author, String content, Uri imageUri) {
             getCollection().orderBy("postId", Query.Direction.DESCENDING).limit(1).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -81,8 +88,14 @@ public class Post {
                                 }
                                 id++;
 
-                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, author.getProfilePicture(), 0);
+                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg", 0);
                                 addDocument(Integer.toString(id), p);
+
+                                //upload image
+                                StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
+                                StorageReference fileReference = storageReference.child(id + ".jpg");
+
+                                fileReference.putFile(imageUri);
                             } else {
                                 Log.d(TAG, "Error: Failed to create Post");
                             }
@@ -142,7 +155,6 @@ public class Post {
         }
     }
 
-
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -167,6 +179,10 @@ public class Post {
         this.likes = likes;
     }
 
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public String getContent() {
         return content;
     }
@@ -179,10 +195,6 @@ public class Post {
         return postId;
     }
 
-    public void setTimestamp(Object timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public Integer getLikes() {
         return likes;
     }
@@ -190,7 +202,6 @@ public class Post {
     public Object getTimestamp() {
         return timestamp;
     }
-
 
     public List<Comment> getComments() {
         return comments;

@@ -27,7 +27,7 @@ public class User {
         this.email = "";
         this.uid = "";
         this.likes = new ArrayList<String>();
-        this.profilePicture = "";
+        this.profilePicture = "/images/profilePictures/default_user_pfp.png";
         this.phone = "";
         this.username = "";
     }
@@ -75,6 +75,14 @@ public class User {
                         User u = documentSnapshot.getResult().toObject(User.class);
                         callback.onComplete(u);
                     });
+        }
+
+        public void setUserEmail(String email) {
+            updateField(Auth.getCurrentUser().getUid(), "email", email);
+        }
+
+        public void setUserPhone(String phone) {
+            updateField(Auth.getCurrentUser().getUid(), "phone", phone);
         }
     }
 
