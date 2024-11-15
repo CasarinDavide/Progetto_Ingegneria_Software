@@ -33,8 +33,9 @@ import java.util.List;
 public class CommentSectionFragment extends Fragment {
 
     FragmentCommentSectionBinding binding;
-    private final BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
 
+    //I wanted to use this to hide the bottom navBar when you enter in the Comment section but it throws an exception, idk why
+    //private final BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -89,15 +90,14 @@ public class CommentSectionFragment extends Fragment {
             }
         });
 
-        navBar.setVisibility(View.GONE);
+        //navBar.setVisibility(View.GONE);
         return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        navBar.setVisibility(View.VISIBLE );
+        //navBar.setVisibility(View.VISIBLE );
         binding = null;
     }
-
 }

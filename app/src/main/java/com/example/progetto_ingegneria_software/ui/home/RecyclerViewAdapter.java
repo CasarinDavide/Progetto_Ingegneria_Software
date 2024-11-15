@@ -23,14 +23,18 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 
+import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.storage.FirebaseStorage;
 
 
 import java.util.List;
+import java.util.Set;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -100,91 +104,94 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.postContent.setText(post.getContent());
         holder.username.setText(post.getAuthor());
-        holder.likeNumber.setText(String.valueOf(post.getLikes()));
+        holder.likeNumber.setText(String.valueOf(post.getLikes().size()));
 
-        //set the like button icon, if the user previously liked it or not
+        //set post profile picture
+        /*User.userDB.getCollection()
+                .whereEqualTo("username", post.getAuthor())
+                .get()
+                .addOnCompleteListener( documentSnapshot -> {
+
+                });
+
+
         //set author profile picture
+        FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
+                .getDownloadUrl()
+                .addOnCompleteListener( task -> Glide.with(context)
+                        .asBitmap()
+                        .load(task.getResult())
+                        .into(new CustomTarget<Bitmap>(100, 100) {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                holder.profilePicture.setImageBitmap(resource);
+                            }
 
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        }));
+*/
         User.userDB.getUserInfo( userInfo -> {
-            if(userInfo.getLikes().contains(post.getPostId().toString())) {
+            //set the like button icon, if the user previously liked it or not
+            if(post.getLikes().contains(userInfo.getUid())) {
                 holder.likeButton.setImageResource(R.drawable.baseline_thumb_up_24dp);
             } else {
                 holder.likeButton.setImageResource(R.drawable.outline_thumb_up_24dp);
             }
 
-            FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
-                    .getDownloadUrl()
-                    .addOnCompleteListener( task -> Glide.with(context)
-                            .asBitmap()
-                            .load(task.getResult())
-                            .into(new CustomTarget<Bitmap>(100, 100) {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    holder.profilePicture.setImageBitmap(resource);
-                                }
+            //set the favourite button icon, if the user previously added it to its favourites
+            if(userInfo.getFavourites().contains(post.getPostId().toString())) {
+                holder.favouriteButton.setImageResource(R.drawable.baseline_favourite_24dp);
+            } else {
+                holder.likeButton.setImageResource(R.drawable.outline_favourite_24dp);
+            }
 
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
+            if(!post.getImage().isEmpty()) {
+                FirebaseStorage.getInstance().getReference(post.getImage())
+                        .getDownloadUrl()
+                        .addOnCompleteListener(task -> Glide.with(context)
+                                .asBitmap()
+                                .load(task.getResult())
+                                .into(new CustomTarget<Bitmap>(100, 100) {
+                                    @Override
+                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                        holder.image.setImageBitmap(resource);
+                                    }
 
-                                }
-                            }));
+                                    @Override
+                                    public void onLoadCleared(@Nullable Drawable placeholder) {
 
-            FirebaseStorage.getInstance().getReference(post.getImage())
-                    .getDownloadUrl()
-                    .addOnCompleteListener( task -> Glide.with(context)
-                            .asBitmap()
-                            .load(task.getResult())
-                            .into(new CustomTarget<Bitmap>(100, 100) {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    holder.image.setImageBitmap(resource);
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                }
-                            }));
+                                    }
+                                }));
+            }
 
         });
 
         //set click listener for every button of the recyclerview
         holder.likeButton.setOnClickListener( view -> {
             //check if the post is in user's liked posts
-            User.userDB.getUserInfo( userInfo -> {
-                String postId = post.getPostId().toString();
-                String uid = userInfo.getUid();
+            String postId = post.getPostId().toString();
+            String uid = Auth.getCurrentUser().getUid();
 
-                List<String> likedPosts = userInfo.getLikes();
+            List<String> likes = post.getLikes();
+            int likeNumber = likes.size();
 
-                Post.postDB.getDocument(postId).get()
-                        .addOnCompleteListener( postTask -> {
-                            DocumentSnapshot p = postTask.getResult();
+            //if the post is already liked, deletes it from liked posts, otherwise add it to liked posts
+            if (likes.contains(uid)) {
+                holder.likeButton.setImageResource(R.drawable.outline_thumb_up_24dp);
+                holder.likeNumber.setText(String.valueOf(likeNumber-1));
 
-                            Post postInfo = p.toObject(Post.class);
-                            assert postInfo != null;
-                            Integer likes = postInfo.getLikes();
+                likes.remove(uid);
+            } else {
+                holder.likeButton.setImageResource(R.drawable.baseline_thumb_up_24dp);
+                holder.likeNumber.setText(String.valueOf(likeNumber+1));
 
-                            //if the post is already liked, deletes it from liked posts, otherwise add it to liked posts
-                            if (likedPosts.contains(postId)) {
-                                holder.likeButton.setImageResource(R.drawable.outline_thumb_up_24dp);
-                                holder.likeNumber.setText(String.valueOf(likes-1));
+                likes.add(uid);
+            }
 
-                                Post.postDB.updateField(postId, "likes", likes-1);
-                                likedPosts.remove(postId);
-                                User.userDB.updateField(uid, "likes", likedPosts);
-                            } else {
-                                holder.likeButton.setImageResource(R.drawable.baseline_thumb_up_24dp);
-                                holder.likeNumber.setText(String.valueOf(likes+1));
-
-                                Post.postDB.updateField(postId, "likes", likes+1);
-                                likedPosts.add(postId);
-                                User.userDB.updateField(uid, "likes", likedPosts);
-                            }
-
-                        });
-
-            });
+            Post.postDB.updateField(postId, "likes", likes);
         });
 
         holder.favouriteButton.setOnClickListener( view -> {
