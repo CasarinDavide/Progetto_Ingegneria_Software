@@ -25,6 +25,30 @@
         tools:layout="@layout/fragment_create_post"/>
 
     <fragment
+        android:id = "@+id/navigation_search_plants"
+        android:name="com.example.progetto_ingegneria_software.ui.plants.SpeciesFragment"
+        android:label="Cerca Piante"
+        tools:layout="@layout/fragment_species"/>
+
+
+    <fragment
+        android:id = "@+id/navigation_terrain_detail"
+        android:name="com.example.progetto_ingegneria_software.ui.plants.TerrainDetailsFragment"
+        android:label="Gestisci Terreno"
+        tools:layout="@layout/fragment_terrain_details"/>
+
+
+
+    <fragment
+        android:id = "@+id/navigation_plants_detail"
+        android:name="com.example.progetto_ingegneria_software.ui.plants.PlantDetailFragment"
+        android:label="Dettaglio Pianta"
+        tools:layout="@layout/fragment_plant_detail"/>
+
+
+
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.progetto_ingegneria_software.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
@@ -32,7 +56,7 @@
 
     <fragment
         android:id="@+id/navigation_plants"
-        android:name="com.example.progetto_ingegneria_software.ui.notifications.PlantsFragment"
+        android:name="com.example.progetto_ingegneria_software.ui.plants.PlantsFragment"
         android:label="@string/plants"
         tools:layout="@layout/fragment_plants" />
 

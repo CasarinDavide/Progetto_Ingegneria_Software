@@ -68,8 +68,10 @@ public abstract class Auth {
                             //Adds user in firebase
                             assert firebaseUser != null;
                             User u = new User(username, telephone, "/images/default_user_pfp.png" , new ArrayList<String>(), firebaseUser.getUid(), email);
-                            Database db = new Database("users");
-                            db.addDocument(u.getUid(), u);
+                            User.userDB.addRecord(u);
+
+                            //Database db = new Database("users");
+                            //db.addDocument(u.getUid(), u);
 
                             onSuccessAction.run();
                         }

@@ -3,6 +3,7 @@ package com.example.progetto_ingegneria_software.data.model.PlantApiObject;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PestDiseaseList.PestDisease;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.List;
@@ -24,6 +25,12 @@ public class PlantRequestContainer<T> {
     private Long mTo;
     @SerializedName("total")
     private Long mTotal;
+
+
+    public PlantRequestContainer()
+    {
+        this.mData = new ArrayList<>();
+    }
 
     public Long getCurrentPage() {
         return mCurrentPage;
