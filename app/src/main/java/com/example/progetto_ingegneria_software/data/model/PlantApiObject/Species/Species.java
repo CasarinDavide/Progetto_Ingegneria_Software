@@ -1,12 +1,15 @@
 
 package com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species;
 
+import android.os.Parcelable;
+
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.DefaultImage;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Species {
+public class Species implements Serializable {
 
     @SerializedName("common_name")
     private String mCommonName;

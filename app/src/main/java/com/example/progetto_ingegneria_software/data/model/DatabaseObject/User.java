@@ -2,13 +2,16 @@ package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.Database;
+import com.example.progetto_ingegneria_software.data.model.StandardCallback;
+import com.example.progetto_ingegneria_software.data.model.Mapper;
+import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User extends Mapper{
 
     private  String email;
     private String uid;
@@ -16,6 +19,7 @@ public class User {
     private String profilePicture;
     private String phone;
     private String username;
+    private List<Species> inventory;
 
     public static UserDB userDB;
     static {
@@ -29,6 +33,7 @@ public class User {
         this.profilePicture = "/images/profilePictures/default_user_pfp.png";
         this.phone = "";
         this.username = "";
+        this.inventory = new ArrayList<>();
     }
 
     public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
@@ -38,12 +43,24 @@ public class User {
         this.profilePicture = profilePicture;
         this.favourites = favourites;
         this.uid = uid;
+        this.inventory = new ArrayList<>();
     }
 
     public static class UserDB extends Database {
         UserDB() {
             super("users");
         }
+
+
+        public void pushToInventory(Species species, StandardCallback callback)
+        {
+            // faccio l'update a db
+            User.userDB.getById(Auth.getCurrentUser().getUid(),User.class,x->{
+                x.inventory.add(species);
+                User.userDB.updateRecord(x,callback);
+            });
+        }
+
 
         @Override
         public DocumentReference getDocument(String documentId) {
@@ -109,6 +126,8 @@ public class User {
         this.username = username;
     }
 
+    public void setInventory(List<Species> speciesList){this.inventory = inventory;}
+
     public String getEmail() {
         return email;
     }
@@ -132,4 +151,11 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public List<Species> getInventory(){return this.inventory;}
+
+
+
+
+
 }

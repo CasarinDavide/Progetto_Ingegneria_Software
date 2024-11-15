@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,9 +12,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Database {
 
@@ -143,11 +145,19 @@ public class Database {
     }
 
 
-    public <T extends Mapper> void updateRecord(String id_document,T obj)
+    public <T extends Mapper> void updateRecord(T obj, StandardCallback callback)
     {
-        DocumentReference d = getDocument(id_document);
-        //d.update(obj.getDictionary());
+        DocumentReference d = getDocument(obj.document_id);
+        d.update(obj.getDictionary());
+        callback.onSuccess();
     }
+
+    public <T extends Mapper> void updateRecord(T obj)
+    {
+        DocumentReference d = getDocument(obj.document_id);
+        d.update(obj.getDictionary());
+    }
+
 
     public <T extends Mapper> void addRecord(T obj)
     {
@@ -155,5 +165,63 @@ public class Database {
         obj.setDocumentId(id_document);
         this.addDocument(id_document,obj.getDictionary());
     }
+
+
+    // restituisce tutti i record secondo i filtri selezionati
+    protected  <T extends Mapper> void getAll(DatabaseCallback<QuerySnapshot> callback, Map<String, Object> params_for_filtering) {
+        Query query = getCollection();
+
+        for (Map.Entry<String, Object> entry : params_for_filtering.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            query = query.whereEqualTo(key, value);
+
+            // TODO Aggiungere mangari anche una logica migliore per gestire il lower than
+        }
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<T> results = new ArrayList<>();
+
+                if (task.isSuccessful() && task.getResult() != null) {
+                    callback.onComplete(task.getResult());
+                }
+                else
+                {
+                    callback.onComplete(null);
+                }
+
+            }
+        });
+    }
+
+    public <T extends Mapper> void getById(String document_id, Class<T> type, DatabaseCallback<T> callback) {
+        DocumentReference docRef = getDocument(document_id);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    T document = documentSnapshot.toObject(type);  // Converts to the specified type
+
+                    if (document != null) {
+                        document.setDocumentId(document_id);  // Assuming your Mapper object has this method
+                        callback.onComplete(document);
+                    } else {
+                        Log.w(TAG, "Document not found or could not be converted.");
+                        callback.onComplete(null);
+                    }
+                } else {
+                    Log.w(TAG, "Error fetching document.", task.getException());
+                    callback.onComplete(null);
+                }
+            }
+        });
+    }
+
+
 
 }

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 // classe che deve essere ereditata da tutti gli oggetti che sono Mapper di Istanze a DB
-public abstract class Mapper {
+// 12/11/2024
+// cambiato da classe astratta a non astratta perchè sennò il getAll nella classe Database mi da problemi
+public class Mapper {
 
     protected String document_id;
 

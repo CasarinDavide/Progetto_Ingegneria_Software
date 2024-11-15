@@ -5,24 +5,26 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddTerrainActivity">
+    tools:context=".ui.plants.AddTerrainActivity">
 
     <!-- Add Button above the GridLayout -->
 
 
     <!-- GridLayout positioned below the Add Button -->
+
     <GridLayout
         android:id="@+id/activity_add_terrain_terrainCanvas_grid_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="392dp"
+        android:layout_height="615dp"
         android:layout_margin="8dp"
         android:background="#F0F0F0"
         android:columnCount="12"
         android:rowCount="20"
-        app:layout_constraintBottom_toTopOf="@+id/activity_add_terrain_create_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
 
     <Button
         android:id="@+id/activity_add_terrain_create_btn"
@@ -35,6 +37,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/activity_add_terrain_description_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Descrizione"
+        app:layout_constraintBottom_toTopOf="@+id/activity_add_terrain_create_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_add_terrain_name_editText"
+        app:layout_constraintVertical_bias="0.191" />
+
+    <EditText
+        android:id="@+id/activity_add_terrain_name_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_add_terrain_terrainCanvas_grid_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

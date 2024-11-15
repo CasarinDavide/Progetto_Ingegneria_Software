@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.plants.TerrainDetailsFragment">
+
+    <!-- Main container for search components and list -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- GridLayout for terrain canvas (if needed for something specific) -->
+        <GridLayout
+            android:id="@+id/activity_add_terrain_terrainCanvas_grid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:columnCount="12"
+            android:rowCount="20" />
+
+        <!-- Horizontal scrollable container for small cards -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="8dp">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/inventory_plant_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:divider="@color/black"
+                    android:dividerHeight="1dp"
+                    android:paddingTop="8dp" />
+
+                <!-- Individual cards inside the Horizontal Scroll -->
+                <!-- Add more cards as needed -->
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>

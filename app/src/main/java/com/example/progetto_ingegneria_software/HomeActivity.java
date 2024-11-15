@@ -42,42 +42,8 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-        fillData();
     }
 
-    // esempio di utilizzo della classe
-    public void fillData() {
 
-        // Mostro la ProgressBar on the main thread
-        runOnUiThread(() -> {
-            ProgressBar speciesProgressBar = findViewById(R.id.main_activity_progressbar_load_species);
-            speciesProgressBar.setVisibility(View.VISIBLE);
-        });
-
-        // chiamata a funzione per eseguire la richiesta GET
-        // l'ultimo parametro è una lambda che prende in input un PlantRequestContainer<Species> e lo elabora graficamente
-        // plantRequestContainer è generato dalla funzione..
-
-        PlantsApi.getAllSpeciesAsync("","","","","","","",0, plantRequestContainer -> {
-
-            // solo il thread princiale ( UI thread può cambiare le informazioni riguardo la grafica )
-            // da un thread secondario devo passare al principale
-
-            runOnUiThread(() -> {
-
-                ProgressBar speciesProgressBar = findViewById(R.id.main_activity_progressbar_load_species);
-
-                // nascondo progress bar
-                speciesProgressBar.setVisibility(View.GONE);
-
-
-                // esempio utilizzo dei dati ricevuti in input
-                for (Species species : plantRequestContainer.getData()) {
-
-                    // aggiungi alla grafica i dati presi .....
-                }
-            });
-        });
-    }
 
 }

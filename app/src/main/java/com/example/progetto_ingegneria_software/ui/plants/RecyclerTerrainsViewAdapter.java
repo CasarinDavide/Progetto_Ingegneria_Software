@@ -1,24 +1,23 @@
-package com.example.progetto_ingegneria_software.ui.home;
+package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progetto_ingegneria_software.R;
-import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
+import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
 
 import java.util.List;
 
 public class RecyclerTerrainsViewAdapter extends RecyclerView.Adapter<RecyclerTerrainsViewAdapter.ViewHolder> {
 
     private List<Terrain> p;
+    private OnClickListener onClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -46,6 +45,11 @@ public class RecyclerTerrainsViewAdapter extends RecyclerView.Adapter<RecyclerTe
 
     public RecyclerTerrainsViewAdapter(List<Terrain> p) {
         this.p = p;
+    }
+
+    public RecyclerTerrainsViewAdapter(List<Terrain> p,OnClickListener listener) {
+        this(p);
+        this.onClickListener = listener;
     }
 
 
@@ -80,7 +84,28 @@ public class RecyclerTerrainsViewAdapter extends RecyclerView.Adapter<RecyclerTe
         Terrain terrain = p.get(position);
         holder.title.setText(terrain.getTitle());
         holder.description.setText(terrain.getDescription());
+
+        // Set click listener on the item view
+        holder.itemView.setOnClickListener(view -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(position, terrain);
+            }
+        });
+
     }
+
+    // Setter for the click listener
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+
+    // Interface for the click listener
+    public interface OnClickListener {
+        void onClick(int position, Terrain model);
+    }
+
+
 
 
     @Override

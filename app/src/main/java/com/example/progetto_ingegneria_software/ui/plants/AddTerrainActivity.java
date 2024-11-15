@@ -1,29 +1,20 @@
-package com.example.progetto_ingegneria_software.ui;
+package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.TableRow;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
 import com.example.progetto_ingegneria_software.databinding.ActivityAddTerrainBinding;
-import com.example.progetto_ingegneria_software.databinding.ActivityMainBinding;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 public class AddTerrainActivity extends AppCompatActivity {
 
@@ -31,6 +22,7 @@ public class AddTerrainActivity extends AppCompatActivity {
 
     private Terrain terrain;
 
+    // TODO CAMBIARE CON PARAMETRI IN QUALCHE MODO NON DEVONO ESSERE COSTANTI
     private final Integer ROWS = 10;
     private final Integer COLS = 9;
 
@@ -41,11 +33,11 @@ public class AddTerrainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         terrain = new Terrain(COLS,ROWS);
-        terrain.setDescription("PROVA");
-        terrain.setTitle("PROVA");
 
         Button create_btn = findViewById(R.id.activity_add_terrain_create_btn);
         GridLayout terrainPerimeter = findViewById(R.id.activity_add_terrain_terrainCanvas_grid_layout);
+        EditText title_textView = (EditText)findViewById(R.id.activity_add_terrain_name_editText);
+        EditText description_editText = (EditText) findViewById(R.id.activity_add_terrain_description_editText);
 
         terrainPerimeter.setColumnCount(COLS);
         terrainPerimeter.setRowCount(ROWS);
@@ -98,6 +90,8 @@ public class AddTerrainActivity extends AppCompatActivity {
 
         create_btn.setOnClickListener(x->
         {
+            terrain.setTitle(title_textView.getText().toString());
+            terrain.setDescription(description_editText.getText().toString());
             Terrain.terrainDB.addRecord(terrain);
             Toast toast = Toast.makeText(this,"Inserimento avvenuto con successo",Toast.LENGTH_LONG);
             toast.show();

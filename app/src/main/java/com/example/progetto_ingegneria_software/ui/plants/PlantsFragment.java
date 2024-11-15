@@ -1,4 +1,4 @@
-package com.example.progetto_ingegneria_software.ui.notifications;
+package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,25 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.progetto_ingegneria_software.LoginActivity;
 import com.example.progetto_ingegneria_software.R;
-import com.example.progetto_ingegneria_software.SignInActivity;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantsBinding;
-import com.example.progetto_ingegneria_software.ui.AddTerrainActivity;
-import com.example.progetto_ingegneria_software.ui.home.RecyclerTerrainsViewAdapter;
-import com.example.progetto_ingegneria_software.ui.home.RecyclerViewAdapter;
+import com.example.progetto_ingegneria_software.ui.notifications.PlantsViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
+// TODO fare aggiornamento delle lista quando ritorno dall'activity di aggiunta del terreno
 
 public class PlantsFragment extends Fragment {
 
@@ -38,22 +34,36 @@ public class PlantsFragment extends Fragment {
         binding = FragmentPlantsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //Content to display
-        List<Terrain> p = new ArrayList();
-        p.add(new Terrain("richipasinato", "Questo è un post sulla bellezza sconfinata delle piante (aiuto mi stanno minacciando)"));
-        p.add(new Terrain("davidecasarin", "Chi legge è un ammiratore delle piante (hanno rapito mia figlia)"));
-        p.add(new Terrain("giorgiabusetto", "Ho davvero tantissime piante a casa, qualcuno ne vuole?"));
-
         //RecyclerView creation
         final RecyclerView recyclerView = binding.terrainRecyclerViewHome;
-        RecyclerTerrainsViewAdapter adapter = new RecyclerTerrainsViewAdapter(p);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(adapter);
 
         Button add_terrain_btn = binding.addCardButton;
+        Button add_find_plant = binding.addFindPlant;
+
+        add_find_plant.setOnClickListener(x->{
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_search_plants);
+
+        });
         add_terrain_btn.setOnClickListener(x->{
             Intent addTerrainActivity = new Intent(root.getContext(), AddTerrainActivity.class);
             startActivity(addTerrainActivity);
+        });
+
+
+        // get all
+        Terrain.terrainDB.getAllFilteredByUser(x->{
+            RecyclerTerrainsViewAdapter adapter = new RecyclerTerrainsViewAdapter(x,(pos,model)->{
+                TerrainDetailsFragment detailFragment = new TerrainDetailsFragment();
+                NavController navController = Navigation.findNavController(requireView());
+                Bundle bundle = new Bundle();
+                bundle.putString("id", model.getUid());
+                // aggiungo il dato da passare
+                detailFragment.setArguments(bundle);
+                navController.navigate(R.id.navigation_terrain_detail, bundle);
+
+            });
+            recyclerView.setAdapter(adapter);
         });
 
         return root;

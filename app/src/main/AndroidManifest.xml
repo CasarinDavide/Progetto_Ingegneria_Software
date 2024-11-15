@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Progetto_Ingegneria_Software"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.AddTerrainActivity"
+            android:name=".ui.plants.AddTerrainActivity"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
