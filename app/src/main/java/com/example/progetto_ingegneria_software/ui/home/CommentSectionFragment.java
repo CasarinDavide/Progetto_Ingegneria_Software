@@ -17,12 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.progetto_ingegneria_software.R;
+
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Comment;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentCommentSectionBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentReference;
 
 import com.google.firebase.firestore.FieldValue;

@@ -27,9 +27,8 @@ import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
+
 import com.google.firebase.storage.FirebaseStorage;
 
 
@@ -106,33 +105,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.username.setText(post.getAuthor());
         holder.likeNumber.setText(String.valueOf(post.getLikes().size()));
 
-        //set post profile picture
-        /*User.userDB.getCollection()
+        //set post's profile picture
+        User.userDB.getCollection()
                 .whereEqualTo("username", post.getAuthor())
                 .get()
-                .addOnCompleteListener( documentSnapshot -> {
+                .addOnCompleteListener( querySnapshot -> {
+                    DocumentSnapshot u = querySnapshot.getResult().getDocuments().get(0);
+
+                    User userInfo = u.toObject(User.class);
+
+                    //set author profile picture
+                    assert userInfo != null;
+                    FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
+                            .getDownloadUrl()
+                            .addOnCompleteListener( task -> Glide.with(context)
+                                    .asBitmap()
+                                    .load(task.getResult())
+                                    .into(new CustomTarget<Bitmap>(100, 100) {
+                                        @Override
+                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                            holder.profilePicture.setImageBitmap(resource);
+                                        }
+
+                                        @Override
+                                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                        }
+                                    }));
 
                 });
 
-
-        //set author profile picture
-        FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
-                .getDownloadUrl()
-                .addOnCompleteListener( task -> Glide.with(context)
-                        .asBitmap()
-                        .load(task.getResult())
-                        .into(new CustomTarget<Bitmap>(100, 100) {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                holder.profilePicture.setImageBitmap(resource);
-                            }
-
-                            @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                            }
-                        }));
-*/
         User.userDB.getUserInfo( userInfo -> {
             //set the like button icon, if the user previously liked it or not
             if(post.getLikes().contains(userInfo.getUid())) {
@@ -145,7 +147,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if(userInfo.getFavourites().contains(post.getPostId().toString())) {
                 holder.favouriteButton.setImageResource(R.drawable.baseline_favourite_24dp);
             } else {
-                holder.likeButton.setImageResource(R.drawable.outline_favourite_24dp);
+                holder.favouriteButton.setImageResource(R.drawable.outline_favourite_24dp);
             }
 
             if(!post.getImage().isEmpty()) {
@@ -195,7 +197,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
 
         holder.favouriteButton.setOnClickListener( view -> {
+            User.userDB.getUserInfo( userInfo -> {
+                List<String> fav = userInfo.getFavourites();
+                String postId = post.getPostId().toString();
 
+                //if user's favourites list already contains the post, remove it
+                if( fav.contains(post.getPostId().toString()) ) {
+                    holder.favouriteButton.setImageResource(R.drawable.outline_favourite_24dp);
+                    fav.remove(postId);
+                } else {
+                    holder.favouriteButton.setImageResource(R.drawable.baseline_favourite_24dp);
+                    fav.add(postId);
+                }
+
+                User.userDB.updateField(userInfo.getUid(), "favourites", fav);
+            });
         });
     }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class User extends Mapper{
+public class User extends Mapper {
 
     private  String email;
     private String uid;

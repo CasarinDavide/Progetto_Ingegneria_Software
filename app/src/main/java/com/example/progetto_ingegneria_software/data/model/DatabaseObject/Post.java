@@ -4,8 +4,6 @@ import android.net.Uri;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.progetto_ingegneria_software.data.model.Database;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -82,14 +80,21 @@ public class Post implements Serializable{
                             }
                             id++;
 
-                            Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg", new ArrayList<>());
+                            String url;
+                            if(imageUri == null) {
+                                url = "";
+                            } else {
+                                url = "/images/postPictures/" + id + ".jpg";
+
+                                //upload image
+                                StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
+                                StorageReference fileReference = storageReference.child(id + ".jpg");
+
+                                fileReference.putFile(imageUri);
+                            }
+
+                            Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, url, new ArrayList<>());
                             addDocument(Integer.toString(id), p);
-
-                            //upload image
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
-                            StorageReference fileReference = storageReference.child(id + ".jpg");
-
-                            fileReference.putFile(imageUri);
                         } else {
                             Log.d(TAG, "Error: Failed to create Post");
                         }
