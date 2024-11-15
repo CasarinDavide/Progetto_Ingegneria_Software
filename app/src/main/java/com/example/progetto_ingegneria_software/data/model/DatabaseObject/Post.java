@@ -81,7 +81,7 @@ public class Post implements Serializable{
                             id++;
 
                             String url;
-                            if(imageUri == null) {
+                            if(imageUri.toString().isEmpty()) {
                                 url = "";
                             } else {
                                 url = "/images/postPictures/" + id + ".jpg";
@@ -116,7 +116,7 @@ public class Post implements Serializable{
          * @param callback Callback interface
          */
         public void fetchPosts(DatabaseCallback<List<Post>> callback) {
-            getCollection().orderBy("timestamp").get()
+            getCollection().orderBy("timestamp", Query.Direction.DESCENDING).get()
                     .addOnCompleteListener( task -> {
                         List<Post> l = new ArrayList<>();
 

@@ -17,7 +17,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
+import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
@@ -29,7 +31,6 @@ public class CreatePostFragment extends Fragment {
     private FragmentCreatePostBinding binding;
     private Button done;
     private TextView content;
-    private String uid;
     private ImageButton addImage;
     private Uri imageUri = Uri.parse("");
 
@@ -51,7 +52,7 @@ public class CreatePostFragment extends Fragment {
         addImage = binding.addImageButtonCreatePost;
 
         //Get useful data from the database
-        uid = Auth.getCurrentUser().getUid();
+        String uid = Auth.getCurrentUser().getUid();
 
         //Undo post creation
         ImageButton exit = binding.exitButtonCreatePost;
@@ -73,8 +74,7 @@ public class CreatePostFragment extends Fragment {
             done.setOnClickListener( buttonView -> {
                 Post.postDB.createPost(userInfo, content.getText().toString(), imageUri);
 
-                FragmentManager fm = getParentFragmentManager();
-                fm.popBackStack();
+                Navigation.findNavController(requireView()).navigate(R.id.action_navigation_create_post_to_navigation_home);
             });
 
             addImage.setOnClickListener( buttonView -> {
