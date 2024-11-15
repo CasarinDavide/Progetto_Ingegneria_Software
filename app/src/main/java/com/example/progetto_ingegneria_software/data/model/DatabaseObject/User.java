@@ -2,7 +2,6 @@ package com.example.progetto_ingegneria_software.data.model.DatabaseObject;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.Database;
-import com.example.progetto_ingegneria_software.ui.home.RecyclerViewAdapter;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class User {
 
     private  String email;
     private String uid;
-    private List<String> likes;
+    private List<String> favourites;
     private String profilePicture;
     private String phone;
     private String username;
@@ -26,18 +25,18 @@ public class User {
     public User() {
         this.email = "";
         this.uid = "";
-        this.likes = new ArrayList<String>();
+        this.favourites = new ArrayList<>();
         this.profilePicture = "/images/profilePictures/default_user_pfp.png";
         this.phone = "";
         this.username = "";
     }
 
-    public User(String username, String phone, String profilePicture, List<String> likes, String uid, String email) {
+    public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
         this.username = username;
         this.phone = phone;
         this.email = email;
         this.profilePicture = profilePicture;
-        this.likes = likes;
+        this.favourites = favourites;
         this.uid = uid;
     }
 
@@ -53,7 +52,7 @@ public class User {
 
         /**
          * Gets current user's username
-         * @param callback
+         * @param callback the callback interface
          */
         public void getUsername(DatabaseCallback<String> callback) {
             getDocument(Auth.getCurrentUser().getUid())
@@ -66,7 +65,7 @@ public class User {
 
         /**
          * Get current user's object
-         * @param callback
+         * @param callback The callback interface
          */
         public void getUserInfo(DatabaseCallback<User> callback) {
             getDocument(Auth.getCurrentUser().getUid())
@@ -94,8 +93,8 @@ public class User {
         this.uid = uid;
     }
 
-    public void setLikes(List<String> likes) {
-        this.likes = likes;
+    public void setFavourites(List<String> likes) {
+        this.favourites = likes;
     }
 
     public void setProfilePicture(String profilePicture) {
@@ -118,8 +117,8 @@ public class User {
         return uid;
     }
 
-    public List<String> getLikes() {
-        return likes;
+    public List<String> getFavourites() {
+        return favourites;
     }
 
     public String getProfilePicture() {

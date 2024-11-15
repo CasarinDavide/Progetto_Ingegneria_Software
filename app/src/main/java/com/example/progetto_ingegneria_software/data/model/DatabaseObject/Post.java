@@ -8,17 +8,13 @@ import androidx.annotation.NonNull;
 
 import com.example.progetto_ingegneria_software.data.model.Database;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +31,7 @@ public class Post implements Serializable{
     private Object timestamp;
     private Integer postId;
     private String image;
-    private int likes;
+    private List<String> likes;
 
     public static PostDB postDB;
     static {
@@ -49,10 +45,10 @@ public class Post implements Serializable{
         this.content = "";
         this.postId = 0;
         this.image = "";
-        this.likes = 0;
+        this.likes = new ArrayList<>();
     }
 
-    public Post(String author, String content, List<Comment> comments, Integer postId, String image, int likes) {
+    public Post(String author, String content, List<Comment> comments, Integer postId, String image, List<String> likes) {
         this.author = author;
         this.content = content;
         this.comments = comments;
@@ -75,30 +71,27 @@ public class Post implements Serializable{
          */
         public void createPost(User author, String content, Uri imageUri) {
             getCollection().orderBy("postId", Query.Direction.DESCENDING).limit(1).get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                //get the most recent post's id
-                                DocumentSnapshot q = task.getResult().getDocuments().get(0);
-                                int id = 0;
+                    .addOnCompleteListener( task -> {
+                        if (task.isSuccessful()) {
+                            //get the most recent post's id
+                            DocumentSnapshot q = task.getResult().getDocuments().get(0);
+                            int id = 0;
 
-                                if (q.exists()) {
-                                    id = Integer.parseInt(q.getId());
-                                }
-                                id++;
-
-                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg", 0);
-                                addDocument(Integer.toString(id), p);
-
-                                //upload image
-                                StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
-                                StorageReference fileReference = storageReference.child(id + ".jpg");
-
-                                fileReference.putFile(imageUri);
-                            } else {
-                                Log.d(TAG, "Error: Failed to create Post");
+                            if (q.exists()) {
+                                id = Integer.parseInt(q.getId());
                             }
+                            id++;
+
+                            Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg", new ArrayList<>());
+                            addDocument(Integer.toString(id), p);
+
+                            //upload image
+                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
+                            StorageReference fileReference = storageReference.child(id + ".jpg");
+
+                            fileReference.putFile(imageUri);
+                        } else {
+                            Log.d(TAG, "Error: Failed to create Post");
                         }
                     });
         }
@@ -118,19 +111,17 @@ public class Post implements Serializable{
          * @param callback Callback interface
          */
         public void fetchPosts(DatabaseCallback<List<Post>> callback) {
-            getCollection().orderBy("timestamp").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    List<Post> l = new ArrayList<>();
+            getCollection().orderBy("timestamp").get()
+                    .addOnCompleteListener( task -> {
+                        List<Post> l = new ArrayList<>();
 
-                    for (DocumentSnapshot t : task.getResult()) {
-                        Post p = t.toObject(Post.class);
-                        l.add(p);
-                    }
+                        for (DocumentSnapshot t : task.getResult()) {
+                            Post p = t.toObject(Post.class);
+                            l.add(p);
+                        }
 
-                    callback.onComplete(l);
-                }
-            });
+                        callback.onComplete(l);
+                    });
         }
 
         /**
@@ -175,7 +166,7 @@ public class Post implements Serializable{
         this.image = image;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(List<String> likes) {
         this.likes = likes;
     }
 
@@ -195,7 +186,7 @@ public class Post implements Serializable{
         return postId;
     }
 
-    public Integer getLikes() {
+    public List<String> getLikes() {
         return likes;
     }
 
