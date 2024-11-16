@@ -22,7 +22,11 @@
         android:id = "@+id/navigation_create_post"
         android:name="com.example.progetto_ingegneria_software.ui.home.CreatePostFragment"
         android:label="Create Post"
-        tools:layout="@layout/fragment_create_post"/>
+        tools:layout="@layout/fragment_create_post">
+        <action
+            android:id="@+id/action_navigation_create_post_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id = "@+id/navigation_search_plants"

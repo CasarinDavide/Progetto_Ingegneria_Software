@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class User extends Mapper{
+public class User extends Mapper {
 
-    private String email;
+    private  String email;
     private String uid;
-    private List<String> likes;
+    private List<String> favourites;
     private String profilePicture;
     private String phone;
     private String username;
@@ -29,19 +29,19 @@ public class User extends Mapper{
     public User() {
         this.email = "";
         this.uid = "";
-        this.likes = new ArrayList<String>();
-        this.profilePicture = "";//"/images/profilePictures/default_user_pfp.png";
+        this.favourites = new ArrayList<>();
+        this.profilePicture = "/images/profilePictures/default_user_pfp.png";
         this.phone = "";
         this.username = "";
         this.inventory = new ArrayList<>();
     }
 
-    public User(String username, String phone, String profilePicture, List<String> likes, String uid, String email) {
+    public User(String username, String phone, String profilePicture, List<String> favourites, String uid, String email) {
         this.username = username;
         this.phone = phone;
         this.email = email;
         this.profilePicture = profilePicture;
-        this.likes = likes;
+        this.favourites = favourites;
         this.uid = uid;
         this.inventory = new ArrayList<>();
     }
@@ -69,7 +69,7 @@ public class User extends Mapper{
 
         /**
          * Gets current user's username
-         * @param callback
+         * @param callback the callback interface
          */
         public void getUsername(DatabaseCallback<String> callback) {
             getDocument(Auth.getCurrentUser().getUid())
@@ -82,7 +82,7 @@ public class User extends Mapper{
 
         /**
          * Get current user's object
-         * @param callback
+         * @param callback The callback interface
          */
         public void getUserInfo(DatabaseCallback<User> callback) {
             getDocument(Auth.getCurrentUser().getUid())
@@ -110,8 +110,8 @@ public class User extends Mapper{
         this.uid = uid;
     }
 
-    public void setLikes(List<String> likes) {
-        this.likes = likes;
+    public void setFavourites(List<String> likes) {
+        this.favourites = likes;
     }
 
     public void setProfilePicture(String profilePicture) {
@@ -126,7 +126,7 @@ public class User extends Mapper{
         this.username = username;
     }
 
-    public void setInventory(List<Species> speciesList){this.inventory = speciesList;}
+    public void setInventory(List<Species> speciesList){this.inventory = inventory;}
 
     public String getEmail() {
         return email;
@@ -136,8 +136,8 @@ public class User extends Mapper{
         return uid;
     }
 
-    public List<String> getLikes() {
-        return likes;
+    public List<String> getFavourites() {
+        return favourites;
     }
 
     public String getProfilePicture() {

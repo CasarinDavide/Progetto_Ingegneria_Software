@@ -5,7 +5,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,24 +13,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
+import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentCreatePostBinding;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 
 public class CreatePostFragment extends Fragment {
@@ -39,7 +31,6 @@ public class CreatePostFragment extends Fragment {
     private FragmentCreatePostBinding binding;
     private Button done;
     private TextView content;
-    private String uid;
     private ImageButton addImage;
     private Uri imageUri = Uri.parse("");
 
@@ -61,16 +52,13 @@ public class CreatePostFragment extends Fragment {
         addImage = binding.addImageButtonCreatePost;
 
         //Get useful data from the database
-        uid = Auth.getCurrentUser().getUid();
+        String uid = Auth.getCurrentUser().getUid();
 
         //Undo post creation
         ImageButton exit = binding.exitButtonCreatePost;
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getParentFragmentManager();
-                fm.popBackStack();
-            }
+        exit.setOnClickListener( view -> {
+            FragmentManager fm = getParentFragmentManager();
+            fm.popBackStack();
         });
 
         return root;
@@ -86,8 +74,7 @@ public class CreatePostFragment extends Fragment {
             done.setOnClickListener( buttonView -> {
                 Post.postDB.createPost(userInfo, content.getText().toString(), imageUri);
 
-                FragmentManager fm = getParentFragmentManager();
-                fm.popBackStack();
+                Navigation.findNavController(requireView()).navigate(R.id.action_navigation_create_post_to_navigation_home);
             });
 
             addImage.setOnClickListener( buttonView -> {

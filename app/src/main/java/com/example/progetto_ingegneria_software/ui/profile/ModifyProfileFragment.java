@@ -31,14 +31,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 
-import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentModifyProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -48,7 +46,8 @@ import com.google.firebase.storage.UploadTask;
 
 public class ModifyProfileFragment extends Fragment {
     private FragmentModifyProfileBinding binding;
-    private BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
+    //same problem, I try to hide it but it doesn't work
+    //private BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
 
 
     ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -127,7 +126,7 @@ public class ModifyProfileFragment extends Fragment {
 
                     User.userDB.setUserEmail(newEmail);
                     User.userDB.setUserPhone(newPhone);
-                    navBar.setVisibility(View.VISIBLE);
+                    //navBar.setVisibility(View.VISIBLE);
 
                     FragmentManager fm = getParentFragmentManager();
                     fm.popBackStack();
@@ -137,7 +136,7 @@ public class ModifyProfileFragment extends Fragment {
             });
         });
 
-        navBar.setVisibility(View.GONE);
+        //navBar.setVisibility(View.GONE);
 
         return root;
     }
@@ -145,7 +144,7 @@ public class ModifyProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        navBar.setVisibility(View.VISIBLE);
+        //navBar.setVisibility(View.VISIBLE);
         binding = null;
     }
 
