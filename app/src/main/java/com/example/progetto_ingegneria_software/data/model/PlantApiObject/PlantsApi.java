@@ -1,5 +1,6 @@
 package com.example.progetto_ingegneria_software.data.model.PlantApiObject;
 
+import android.util.Log;
 import android.util.Pair;
 import android.widget.GridLayout;
 
@@ -45,7 +46,104 @@ public abstract class PlantsApi {
 
 
 
-   
+    static class ContainerDeserializerSpeciesDetails implements JsonDeserializer<SpeciesDetails> {
+        @Override
+        public SpeciesDetails deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+
+            SpeciesDetails speciesDetails = new SpeciesDetails();
+
+            // Parse primitive and string fields
+            speciesDetails.setCommonName(jsonObject.get("common_name").getAsString());
+            speciesDetails.setCareLevel(jsonObject.get("care_level").getAsString());
+            speciesDetails.setCycle(jsonObject.get("cycle").getAsString());
+            speciesDetails.setDescription(jsonObject.get("description").getAsString());
+            speciesDetails.setType(jsonObject.get("type").getAsString());
+            speciesDetails.setCareGuides(jsonObject.get("care-guides").getAsString());
+            speciesDetails.setDimension(jsonObject.get("dimension").getAsString());
+            speciesDetails.setFlowerColor(jsonObject.get("flower_color").getAsString());
+            speciesDetails.setEdibleFruitTasteProfile(jsonObject.get("edible_fruit_taste_profile").getAsString());
+            speciesDetails.setFruitNutritionalValue(jsonObject.get("fruit_nutritional_value").getAsString());
+            speciesDetails.setGrowthRate(jsonObject.get("growth_rate").getAsString());
+            speciesDetails.setOtherImages(jsonObject.get("other_images").getAsString());
+            speciesDetails.setPestSusceptibilityApi(jsonObject.get("pest_susceptibility_api").getAsString());
+            speciesDetails.setWatering(jsonObject.get("watering").getAsString());
+
+            // Parse numeric fields
+            speciesDetails.setId(jsonObject.get("id").getAsLong());
+            speciesDetails.setPoisonousToHumans(jsonObject.get("poisonous_to_humans").getAsLong());
+            speciesDetails.setPoisonousToPets(jsonObject.get("poisonous_to_pets").getAsLong());
+            speciesDetails.setSeeds(jsonObject.get("seeds").getAsLong());
+
+            // Parse boolean fields
+            speciesDetails.setCones(jsonObject.get("cones").getAsBoolean());
+            speciesDetails.setCuisine(jsonObject.get("cuisine").getAsBoolean());
+            speciesDetails.setDroughtTolerant(jsonObject.get("drought_tolerant").getAsBoolean());
+            speciesDetails.setEdibleFruit(jsonObject.get("edible_fruit").getAsBoolean());
+            speciesDetails.setEdibleLeaf(jsonObject.get("edible_leaf").getAsBoolean());
+            speciesDetails.setFlowers(jsonObject.get("flowers").getAsBoolean());
+            speciesDetails.setFruits(jsonObject.get("fruits").getAsBoolean());
+            speciesDetails.setIndoor(jsonObject.get("indoor").getAsBoolean());
+            speciesDetails.setInvasive(jsonObject.get("invasive").getAsBoolean());
+            speciesDetails.setLeaf(jsonObject.get("leaf").getAsBoolean());
+            speciesDetails.setMedicinal(jsonObject.get("medicinal").getAsBoolean());
+            speciesDetails.setSaltTolerant(jsonObject.get("salt_tolerant").getAsBoolean());
+            speciesDetails.setThorny(jsonObject.get("thorny").getAsBoolean());
+            speciesDetails.setTropical(jsonObject.get("tropical").getAsBoolean());
+
+            // Parse lists
+            speciesDetails.setAttracts(context.deserialize(jsonObject.get("attracts"), List.class));
+            speciesDetails.setDepthWaterRequirement(context.deserialize(jsonObject.get("depth_water_requirement"), List.class));
+            speciesDetails.setFruitColor(context.deserialize(jsonObject.get("fruit_color"), List.class));
+            speciesDetails.setLeafColor(context.deserialize(jsonObject.get("leaf_color"), List.class));
+            speciesDetails.setOrigin(context.deserialize(jsonObject.get("origin"), List.class));
+            speciesDetails.setOtherName(context.deserialize(jsonObject.get("other_name"), List.class));
+            speciesDetails.setPestSusceptibility(context.deserialize(jsonObject.get("pest_susceptibility"), List.class));
+            speciesDetails.setPlantAnatomy(context.deserialize(jsonObject.get("plant_anatomy"), List.class));
+            speciesDetails.setPropagation(context.deserialize(jsonObject.get("propagation"), List.class));
+
+            JsonElement prouning_count_obj = jsonObject.get("pruning_count");
+
+            if (prouning_count_obj.isJsonArray())
+                speciesDetails.setPruningCount(context.deserialize(jsonObject.get("pruning_count"), List.class));
+            else if (prouning_count_obj.isJsonObject())
+            {
+                ArrayList<Object> arrayList = new ArrayList<>();
+                arrayList.add(context.deserialize(prouning_count_obj,Object.class));
+            }
+
+            speciesDetails.setPruningMonth(context.deserialize(jsonObject.get("pruning_month"), List.class));
+            speciesDetails.setScientificName(context.deserialize(jsonObject.get("scientific_name"), List.class));
+            speciesDetails.setSoil(context.deserialize(jsonObject.get("soil"), List.class));
+            speciesDetails.setSunlight(context.deserialize(jsonObject.get("sunlight"), List.class));
+            speciesDetails.setVolumeWaterRequirement(context.deserialize(jsonObject.get("volume_water_requirement"), List.class));
+
+            // Parse nested objects
+            if (jsonObject.has("dimensions")) {
+                speciesDetails.setDimensions(context.deserialize(jsonObject.get("dimensions"), SpeciesDetails.Dimensions.class));
+            }
+            if (jsonObject.has("hardiness")) {
+                speciesDetails.setHardiness(context.deserialize(jsonObject.get("hardiness"), SpeciesDetails.Hardiness.class));
+            }
+            if (jsonObject.has("hardiness_location")) {
+                speciesDetails.setHardinessLocation(context.deserialize(jsonObject.get("hardiness_location"), SpeciesDetails.HardinessLocation.class));
+            }
+            if (jsonObject.has("watering_general_benchmark")) {
+                speciesDetails.setWateringGeneralBenchmark(context.deserialize(jsonObject.get("watering_general_benchmark"), SpeciesDetails.WateringGeneralBenchmark.class));
+            }
+
+            // Handle objects that may be null or optional
+            speciesDetails.setDefaultImage(context.deserialize(jsonObject.get("default_image"), DefaultImage.class));
+            speciesDetails.setFamily(context.deserialize(jsonObject.get("family"), Object.class));
+            speciesDetails.setFloweringSeason(context.deserialize(jsonObject.get("flowering_season"), Object.class));
+            speciesDetails.setHarvestSeason(context.deserialize(jsonObject.get("harvest_season"), Object.class));
+            speciesDetails.setMaintenance(context.deserialize(jsonObject.get("maintenance"), Object.class));
+            speciesDetails.setWateringPeriod(context.deserialize(jsonObject.get("watering_period"), Object.class));
+
+
+            return speciesDetails;
+        }
+    }
     static class ContainerDeserializerSpecies implements JsonDeserializer<PlantRequestContainer<Species>> {
         @Override
         public PlantRequestContainer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -180,10 +278,11 @@ public abstract class PlantsApi {
                         .create();
 
                 speciesContainer = gson.fromJson(json,new TypeToken<PlantRequestContainer<Species>>(){}.getType());
+                callback.onResponse(speciesContainer);
             } catch (Exception e) {
-                speciesContainer = new PlantRequestContainer<>();
+                Log.d("PlantsApi", "getPlantDetailsById: getAllSpeciesAsync json deserializer error" + e.getMessage());
             }
-            callback.onResponse(speciesContainer);
+
         });
     }
 
@@ -215,11 +314,16 @@ public abstract class PlantsApi {
         makeRequest("species/details/" + plant_id, params, json -> {
             SpeciesDetails speciesContainer;
             try {
-                speciesContainer = new Gson().fromJson(json, SpeciesDetails.class);
+                Gson gson = new GsonBuilder()
+                        .registerTypeAdapter(SpeciesDetails.class, new ContainerDeserializerSpeciesDetails())
+                        .create();
+
+                speciesContainer = gson.fromJson(json, SpeciesDetails.class);
+                callback.onResponse(speciesContainer);
             } catch (Exception e) {
-                speciesContainer = new SpeciesDetails();
+                Log.d("PlantsApi", "getPlantDetailsById: getPlantDetailsById json deserializer error" + e.getMessage());
             }
-            callback.onResponse(speciesContainer);
+
         });
     }
 

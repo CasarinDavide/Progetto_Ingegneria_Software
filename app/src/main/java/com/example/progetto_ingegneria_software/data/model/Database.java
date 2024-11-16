@@ -148,14 +148,14 @@ public class Database {
     public <T extends Mapper> void updateRecord(T obj, StandardCallback callback)
     {
         DocumentReference d = getDocument(obj.document_id);
-        d.update(obj.getDictionary());
+        d.update(obj.getDictionary(true));
         callback.onSuccess();
     }
 
     public <T extends Mapper> void updateRecord(T obj)
     {
         DocumentReference d = getDocument(obj.document_id);
-        d.update(obj.getDictionary());
+        d.update(obj.getDictionary(true));
     }
 
 
@@ -163,7 +163,7 @@ public class Database {
     {
         String id_document = this.generateDocumentID();
         obj.setDocumentId(id_document);
-        this.addDocument(id_document,obj.getDictionary());
+        this.addDocument(id_document,obj.getDictionary(true));
     }
 
 
@@ -190,14 +190,14 @@ public class Database {
                 }
                 else
                 {
-                    callback.onComplete(null);
+                    Log.w(TAG, "Document not found or could not be converted.");
                 }
 
             }
         });
     }
 
-    public <T extends Mapper> void getById(String document_id, Class<T> type, DatabaseCallback<T> callback) {
+    protected  <T extends Mapper> void getById(String document_id, Class<T> type, DatabaseCallback<T> callback) {
         DocumentReference docRef = getDocument(document_id);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -212,11 +212,9 @@ public class Database {
                         callback.onComplete(document);
                     } else {
                         Log.w(TAG, "Document not found or could not be converted.");
-                        callback.onComplete(null);
                     }
                 } else {
                     Log.w(TAG, "Error fetching document.", task.getException());
-                    callback.onComplete(null);
                 }
             }
         });

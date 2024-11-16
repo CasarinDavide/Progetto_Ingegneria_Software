@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class User extends Mapper{
 
-    private  String email;
+    private String email;
     private String uid;
     private List<String> likes;
     private String profilePicture;
@@ -30,7 +30,7 @@ public class User extends Mapper{
         this.email = "";
         this.uid = "";
         this.likes = new ArrayList<String>();
-        this.profilePicture = "/images/profilePictures/default_user_pfp.png";
+        this.profilePicture = "";//"/images/profilePictures/default_user_pfp.png";
         this.phone = "";
         this.username = "";
         this.inventory = new ArrayList<>();
@@ -126,7 +126,7 @@ public class User extends Mapper{
         this.username = username;
     }
 
-    public void setInventory(List<Species> speciesList){this.inventory = inventory;}
+    public void setInventory(List<Species> speciesList){this.inventory = speciesList;}
 
     public String getEmail() {
         return email;

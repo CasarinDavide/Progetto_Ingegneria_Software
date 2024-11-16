@@ -32,10 +32,14 @@ public class HomeFragment extends Fragment {
         final RecyclerView recyclerView = binding.postsRecyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        /*
         Post.postDB.fetchPosts(list -> {
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
             recyclerView.setAdapter(adapter);
         });
+
+         */
+
 
         //CreatePost button
         final ImageButton create = binding.createPostButton;

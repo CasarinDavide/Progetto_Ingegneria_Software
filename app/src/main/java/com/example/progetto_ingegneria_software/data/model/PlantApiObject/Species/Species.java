@@ -92,4 +92,21 @@ public class Species implements Serializable {
         mWatering = watering;
     }
 
+
+    public boolean hasImage()
+    {
+        if (this.getDefaultImage() != null)
+        {
+            return this.getDefaultImage().getThumbnail() != null;
+        }
+
+        return false;
+
+    }
+
+    public String getThumbnail()
+    {
+        return this.hasImage()?this.getDefaultImage().getThumbnail():"";
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
 import com.google.firebase.database.core.persistence.PruneForest;
@@ -109,20 +114,25 @@ public class RecyclerSpeciesViewAdapter extends RecyclerView.Adapter<RecyclerSpe
             holder.species_sunlight.setText(species.getSunlight().get(0));
         }
 
-        // spero funzioni
-        new Thread(() -> {
-            try {
-                getBitmapFromURL(species.getDefaultImage().getThumbnail(), bitmap -> {
-                    // Set the image on the main thread
-                    // la funzione post permette di far caricare l'immagine al main thread ( almeno da come ce scritto )
-                    if (holder.species_thumbnail != null && holder.species_thumbnail.getContext() != null) {
-                        holder.species_thumbnail.post(() -> holder.species_thumbnail.setImageBitmap(bitmap));
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        if(species.hasImage())
+        {
+
+            Glide.with(holder.species_thumbnail.getContext())
+                    .asBitmap()
+                    .load(species.getThumbnail())
+                    .into(new CustomTarget<Bitmap>(100, 100) {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            holder.species_thumbnail.setImageBitmap(resource);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+        }
+
 
 
         holder.species_watering.setText(species.getWatering());
@@ -152,24 +162,6 @@ public class RecyclerSpeciesViewAdapter extends RecyclerView.Adapter<RecyclerSpe
         void onClick(int position, Species model);
     }
 
-
-    // DA NON TOCCARE
-    // classe per gestire le callback
-    public interface BitmapDownloadCallBack{
-        void onResponse(Bitmap bitmap);
-    }
-
-    public static void getBitmapFromURL(String src,BitmapDownloadCallBack callBack) throws IOException {
-        URL newurl = null;
-        try {
-            newurl = new URL(src);
-            Bitmap bitmap =  BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
-            callBack.onResponse(bitmap);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public int getItemCount() {
         return p.size();
@@ -181,5 +173,7 @@ public class RecyclerSpeciesViewAdapter extends RecyclerView.Adapter<RecyclerSpe
         this.notifyItemInserted(p.size()-1);
         this.notifyDataSetChanged();
     }
+
+
 
 }

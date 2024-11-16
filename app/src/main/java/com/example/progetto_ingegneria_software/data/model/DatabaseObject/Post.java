@@ -35,7 +35,7 @@ public class Post implements Serializable{
     private Object timestamp;
     private Integer postId;
     private String image;
-    private int likes;
+    private List<String> likes;
 
     public static PostDB postDB;
     static {
@@ -49,10 +49,10 @@ public class Post implements Serializable{
         this.content = "";
         this.postId = 0;
         this.image = "";
-        this.likes = 0;
+        this.likes = new ArrayList<>();
     }
 
-    public Post(String author, String content, List<Comment> comments, Integer postId, String image, int likes) {
+    public Post(String author, String content, List<Comment> comments, Integer postId, String image, ArrayList<String> likes) {
         this.author = author;
         this.content = content;
         this.comments = comments;
@@ -61,6 +61,18 @@ public class Post implements Serializable{
         this.image = image;
         this.likes = likes;
     }
+
+
+    public Post(String author, String content, List<Comment> comments, Integer postId, String image) {
+        this.author = author;
+        this.content = content;
+        this.comments = comments;
+        this.timestamp = FieldValue.serverTimestamp();
+        this.postId = postId;
+        this.image = image;
+        this.likes = new ArrayList<>();
+    }
+
 
     public static class PostDB extends Database {
         private final String TAG = "PostDB";
@@ -88,7 +100,7 @@ public class Post implements Serializable{
                                 }
                                 id++;
 
-                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg", 0);
+                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, "/images/postPictures/" + id + ".jpg",new ArrayList<>());
                                 addDocument(Integer.toString(id), p);
 
                                 //upload image
@@ -175,7 +187,7 @@ public class Post implements Serializable{
         this.image = image;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(ArrayList<String> likes) {
         this.likes = likes;
     }
 
@@ -195,7 +207,7 @@ public class Post implements Serializable{
         return postId;
     }
 
-    public Integer getLikes() {
+    public List<String> getLikes() {
         return likes;
     }
 

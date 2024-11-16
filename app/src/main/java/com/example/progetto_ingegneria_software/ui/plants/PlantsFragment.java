@@ -57,7 +57,7 @@ public class PlantsFragment extends Fragment {
                 TerrainDetailsFragment detailFragment = new TerrainDetailsFragment();
                 NavController navController = Navigation.findNavController(requireView());
                 Bundle bundle = new Bundle();
-                bundle.putString("id", model.getUid());
+                bundle.putString("id", model.getDocumentId());
                 // aggiungo il dato da passare
                 detailFragment.setArguments(bundle);
                 navController.navigate(R.id.navigation_terrain_detail, bundle);

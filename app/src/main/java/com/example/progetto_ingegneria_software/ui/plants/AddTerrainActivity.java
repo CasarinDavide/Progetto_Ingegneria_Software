@@ -52,10 +52,10 @@ public class AddTerrainActivity extends AppCompatActivity {
 
                 imageView.setOnClickListener(x->{
 
-                    List<Integer> matrix = terrain.getAdjMatrix();
+                    List<Integer> matrix = terrain.getTerrain();
 
 
-                    int pos = imageView.getColumn()+ imageView.getRow() * ROWS;
+                    int pos = imageView.getColumn() + imageView.getRow() * COLS;
                     Integer state = matrix.get(pos);
 
 

@@ -163,7 +163,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                             Post postInfo = p.toObject(Post.class);
                             assert postInfo != null;
-                            Integer likes = postInfo.getLikes();
+                            Integer likes = postInfo.getLikes().size();
 
                             //if the post is already liked, deletes it from liked posts, otherwise add it to liked posts
                             if (likedPosts.contains(postId)) {
