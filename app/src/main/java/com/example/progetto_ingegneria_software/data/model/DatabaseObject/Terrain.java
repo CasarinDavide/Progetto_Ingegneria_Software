@@ -4,13 +4,9 @@ import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.Database;
 import com.example.progetto_ingegneria_software.data.model.Mapper;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +16,7 @@ public class Terrain extends Mapper {
     protected String description;
 
     // Matrix representation of the terrain
-    protected List<Integer> adj_matrix;
+    protected List<Integer> terrain;
     protected String uid;
 
     public static TerrainDB terrainDB;
@@ -38,7 +34,7 @@ public class Terrain extends Mapper {
 
 
     public Terrain() {
-        this.adj_matrix = new ArrayList<>();
+        terrain = new ArrayList<>();
     }
 
     public Terrain(Integer columns,Integer rows)
@@ -49,21 +45,24 @@ public class Terrain extends Mapper {
             adj_matrix.add(i,CELL_STATES.EMPTY_CELL.id);
         }
 
-        this.adj_matrix = adj_matrix;
+        this.terrain = adj_matrix;
     }
 
-    static {
-        terrainDB = new TerrainDB();
-    }
 
     public Terrain(String title, String description) {
         this.title = title;
         this.description = description;
+        terrain = new ArrayList<>();
     }
 
-    public Terrain(String title, String description, List<Integer> adj_matrix) {
+    public Terrain(String title, String description, List<Integer> terrain) {
         this(title, description);
-        this.adj_matrix = adj_matrix;
+        this.terrain = terrain;
+    }
+
+
+    static {
+        terrainDB = new TerrainDB();
     }
 
     public String getTitle() {
@@ -82,12 +81,12 @@ public class Terrain extends Mapper {
         this.description = description;
     }
 
-    public void setAdj_matrix(List<Integer> matrix) {
-        this.adj_matrix = matrix;
+    public void setTerrain(List<Integer> adj_matrix) {
+        this.terrain = adj_matrix;
     }
 
-    public List<Integer> getAdjMatrix() {
-        return this.adj_matrix;
+    public List<Integer> getTerrain() {
+        return this.terrain;
     }
 
     public void setUid(String uid)
@@ -100,7 +99,6 @@ public class Terrain extends Mapper {
     {
         return this.uid;
     }
-
 
 
     public static class TerrainDB extends Database {
@@ -134,7 +132,14 @@ public class Terrain extends Mapper {
                 for (QueryDocumentSnapshot document : x) {
                     try {
                         Terrain item = document.toObject(Terrain.class);
+                        // aggiungo a mano perchè non riesco a farlo funzionare
+                        String document_id = document.getString("document_id");
+                        if (document_id != null)
+                            item.setDocumentId(document_id);
+
                         list.add(item);
+
+
                     } catch (ClassCastException e) {
                         e.printStackTrace();
                     }
@@ -143,6 +148,12 @@ public class Terrain extends Mapper {
                 }
             },hashMap);
         }
+
+        public void getByIdTerrain(String uid,DatabaseCallback<Terrain> callback)
+        {
+            this.getById(uid,Terrain.class,callback);
+        }
     }
+
 
 }

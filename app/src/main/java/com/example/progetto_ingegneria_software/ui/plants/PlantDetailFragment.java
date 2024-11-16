@@ -2,6 +2,7 @@ package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PlantRequestContainer;
@@ -75,34 +79,24 @@ public class PlantDetailFragment extends Fragment {
         {
             PlantsApi.getPlantDetailsById(plant_id,0,x->{
 
-                // devo farlo runnare su un thread apparte che sennò scoppia
-                Thread thread = new Thread(()->
+
+                if (x.hasImage())
                 {
-                    try {
+                    Glide.with(plantImage.getContext())
+                            .asBitmap()
+                            .load(x.getThumbnail())
+                            .into(new CustomTarget<Bitmap>(100, 100) {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    plantImage.setImageBitmap(resource);
+                                }
 
-                        String def_image = "";
-                        if (x.getDefaultImage()!= null)
-                        {
-                            def_image = x.getDefaultImage().getOriginalUrl();
-                        } else if (plant != null && plant.getDefaultImage() != null)  {
-                            def_image = plant.getDefaultImage().getOriginalUrl();
-                        }
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                        if (!def_image.isEmpty())
-                        {
-                            getBitmapFromURL(def_image,bitmap->{
-                                getActivity().runOnUiThread(()->{
-                                    plantImage.setImageBitmap(bitmap);
-                                });
+                                }
                             });
-                        }
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-
-                thread.start();
+                }
 
                 getActivity().runOnUiThread(()->{
 
@@ -145,21 +139,6 @@ public class PlantDetailFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public interface BitmapDownloadCallBack{
-        void onResponse(Bitmap bitmap);
-    }
-
-    public static void getBitmapFromURL(String src, BitmapDownloadCallBack callBack) throws IOException {
-        URL newurl = null;
-        try {
-            newurl = new URL(src);
-            Bitmap bitmap =  BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
-            callBack.onResponse(bitmap);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

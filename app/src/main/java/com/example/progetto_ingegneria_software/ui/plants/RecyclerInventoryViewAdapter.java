@@ -33,8 +33,8 @@ public class RecyclerInventoryViewAdapter extends RecyclerView.Adapter<RecyclerI
         public ViewHolder(View view) {
             super(view);
 
-            common_name = view.findViewById(R.id.species_common_name_textView);
-            species_thumbnail = view.findViewById(R.id.species_thumbnail_imageView);
+            common_name = view.findViewById(R.id.inventory_card_item_textView);
+            species_thumbnail = view.findViewById(R.id.inventory_card_item_imageView);
         }
 
         public void setId(Integer id)

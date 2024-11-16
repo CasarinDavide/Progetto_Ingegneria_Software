@@ -701,4 +701,21 @@ public class SpeciesDetails {
         mWateringPeriod = wateringPeriod;
     }
 
+
+    public boolean hasImage()
+    {
+        if (this.getDefaultImage() != null)
+        {
+            return this.getDefaultImage().getThumbnail() != null;
+        }
+
+        return false;
+
+    }
+
+    public String getThumbnail()
+    {
+        return this.hasImage()?this.getDefaultImage().getThumbnail():"";
+    }
+
 }

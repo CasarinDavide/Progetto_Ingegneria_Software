@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         });
 
+
         //CreatePost button
         final ImageButton create = binding.createPostButton;
         create.setOnClickListener(new View.OnClickListener() {

@@ -19,6 +19,7 @@ glideVersion = "4.16.0"
 gson = "2.11.0"
 firebaseBom = "33.5.1"
 glide = "4.16.0"
+cardview = "1.0.0"
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -26,6 +27,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-storage = { module = "com.google.firebase:firebase-storage" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-v4160 = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+cardview = {module="androidx.cardview:cardview",version.ref="cardview"}
 google-firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

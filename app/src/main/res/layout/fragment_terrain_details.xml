@@ -14,14 +14,14 @@
 
         <!-- GridLayout for terrain canvas (if needed for something specific) -->
         <GridLayout
-            android:id="@+id/activity_add_terrain_terrainCanvas_grid_layout"
+            android:id="@+id/inventory_plant_list_gridview"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="337dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="#F0F0F0"
             android:columnCount="12"
-            android:rowCount="20" />
+            android:rowCount="10" />
 
         <!-- Horizontal scrollable container for small cards -->
         <HorizontalScrollView
@@ -38,12 +38,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/inventory_plant_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:divider="@color/black"
-                    android:dividerHeight="1dp"
-                    android:paddingTop="8dp" />
+                    android:dividerHeight="1dp"/>
 
                 <!-- Individual cards inside the Horizontal Scroll -->
                 <!-- Add more cards as needed -->

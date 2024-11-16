@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="8dp"
@@ -10,21 +10,25 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="160dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_marginEnd="16dp">
+        android:padding="8dp">
 
         <ImageView
+            android:id="@+id/inventory_card_item_imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@mipmap/ic_launcher" />
+
         <TextView
+            android:id="@+id/inventory_card_item_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Card Title"
             android:textAlignment="center" />
-    </LinearLayout>
 
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
