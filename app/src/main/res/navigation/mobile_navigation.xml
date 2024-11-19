@@ -49,14 +49,12 @@
         android:label="Dettaglio Pianta"
         tools:layout="@layout/fragment_plant_detail"/>
 
-
-
-
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.progetto_ingegneria_software.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_plants_exchange"
+        android:name="com.example.progetto_ingegneria_software.ui.map.PlantsExchangeFragment"
+        android:label="Plants Exchange Map"
+        tools:layout="@layout/fragment_plants_exchange">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_plants"

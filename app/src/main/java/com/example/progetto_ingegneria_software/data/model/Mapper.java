@@ -3,7 +3,7 @@ package com.example.progetto_ingegneria_software.data.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 

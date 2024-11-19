@@ -85,9 +85,7 @@ public class TerrainDetailsFragment extends Fragment {
                             terrainPerimeter.addView(imageView, params);
                         }
                     }
-
                     terrainPerimeter.requestLayout();
-
                 });
             });
         }

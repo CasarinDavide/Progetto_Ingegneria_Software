@@ -123,4 +123,6 @@
     <string name="comment">Comment</string>
     <string name="textview">TextView</string>
     <string name="addimage">AddImage</string>
+    <string name="plants_exchange_map">Plants Exchange Map</string>
+    <string name="add_location">Add Location</string>
 </resources>

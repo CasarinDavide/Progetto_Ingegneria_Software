@@ -1,24 +1,18 @@
 package com.example.progetto_ingegneria_software;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
-import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PlantsApi;
-import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
+
 import com.example.progetto_ingegneria_software.databinding.ActivityMainBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
+
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -37,13 +31,10 @@ public class HomeActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_plants, R.id.navigation_profile)
+                R.id.navigation_home, R.id.navigation_plants_exchange, R.id.navigation_plants, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
-
-
-
 }

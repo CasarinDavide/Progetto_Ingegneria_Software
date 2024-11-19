@@ -1,11 +1,15 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
 }
 
 android {
+    android.buildFeatures.buildConfig = true
     namespace = "com.example.progetto_ingegneria_software"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.progetto_ingegneria_software"
@@ -13,8 +17,11 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val p = Properties()
+        p.load(project.rootProject.file("local.properties").inputStream())
+        manifestPlaceholders["MAPS_API_KEY"] = p.getProperty("MAPS_API_KEY")
     }
 
     buildTypes {
@@ -55,10 +62,12 @@ dependencies {
     implementation (libs.gson)
     implementation(libs.glide.v4160)
     implementation(libs.firebase.storage)
+    implementation(libs.play.services.maps)
     //implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.cardview)
-
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
 }

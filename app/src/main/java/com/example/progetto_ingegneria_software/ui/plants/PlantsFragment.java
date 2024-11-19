@@ -43,8 +43,8 @@ public class PlantsFragment extends Fragment {
 
         add_find_plant.setOnClickListener(x->{
             Navigation.findNavController(requireView()).navigate(R.id.navigation_search_plants);
-
         });
+
         add_terrain_btn.setOnClickListener(x->{
             Intent addTerrainActivity = new Intent(root.getContext(), AddTerrainActivity.class);
             startActivity(addTerrainActivity);
@@ -61,7 +61,6 @@ public class PlantsFragment extends Fragment {
                 // aggiungo il dato da passare
                 detailFragment.setArguments(bundle);
                 navController.navigate(R.id.navigation_terrain_detail, bundle);
-
             });
             recyclerView.setAdapter(adapter);
         });
