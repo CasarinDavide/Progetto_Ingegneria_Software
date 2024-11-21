@@ -7,6 +7,7 @@ import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Defaul
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Species implements Serializable {
@@ -27,6 +28,19 @@ public class Species implements Serializable {
     private List<String> mSunlight;
     @SerializedName("watering")
     private String mWatering;
+
+    public Species(String mCommonName, String mCycle, DefaultImage mDefaultImage, Long mId, List<String> mOtherName, List<String> mScientificName, List<String> mSunlight, String mWatering) {
+        this.mCommonName = mCommonName;
+        this.mCycle = mCycle;
+        this.mDefaultImage = mDefaultImage;
+        this.mId = mId;
+        this.mOtherName = mOtherName;
+        this.mScientificName = mScientificName;
+        this.mSunlight = mSunlight;
+        this.mWatering = mWatering;
+    }
+
+    public Species() {}
 
     public String getCommonName() {
         return mCommonName;

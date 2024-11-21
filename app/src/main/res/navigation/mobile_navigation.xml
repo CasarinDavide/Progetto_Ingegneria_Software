@@ -29,6 +29,27 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_plants_transaction"
+        android:name="com.example.progetto_ingegneria_software.ui.map.PlantsTransactionFragment"
+        android:label="Plants Exchange Map"
+        tools:layout="@layout/fragment_plants_transaction">
+        <action
+            android:id="@+id/action_navigation_plants_transaction_to_navigation_create_transaction"
+            app:destination="@id/navigation_create_transaction" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_transaction"
+        android:name="com.example.progetto_ingegneria_software.ui.map.CreateTransactionFragment"
+        android:label="Create Exchange Point"
+        tools:layout="@layout/fragment_create_transaction">
+
+        <action
+            android:id="@+id/action_navigation_create_transaction_to_navigation_plants_transaction"
+            app:destination="@id/navigation_plants_transaction" />
+    </fragment>
+
+    <fragment
         android:id = "@+id/navigation_search_plants"
         android:name="com.example.progetto_ingegneria_software.ui.plants.SpeciesFragment"
         android:label="Cerca Piante"
@@ -41,20 +62,12 @@
         android:label="Gestisci Terreno"
         tools:layout="@layout/fragment_terrain_details"/>
 
-
-
     <fragment
         android:id = "@+id/navigation_plants_detail"
         android:name="com.example.progetto_ingegneria_software.ui.plants.PlantDetailFragment"
         android:label="Dettaglio Pianta"
         tools:layout="@layout/fragment_plant_detail"/>
 
-    <fragment
-        android:id="@+id/navigation_plants_exchange"
-        android:name="com.example.progetto_ingegneria_software.ui.map.PlantsExchangeFragment"
-        android:label="Plants Exchange Map"
-        tools:layout="@layout/fragment_plants_exchange">
-    </fragment>
 
     <fragment
         android:id="@+id/navigation_plants"

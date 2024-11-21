@@ -29,7 +29,6 @@ public class Mapper {
         {
             Field[] superclass_fields = superClass.getDeclaredFields();
             generateMapFromFields(superclass_fields, objectMap);
-        
         }
 
         generateMapFromFields(fields, objectMap);

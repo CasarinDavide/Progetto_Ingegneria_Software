@@ -20,21 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
-import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PlantRequestContainer;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PlantsApi;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantDetailBinding;
-import com.example.progetto_ingegneria_software.databinding.FragmentSpeciesBinding;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
 
 public class PlantDetailFragment extends Fragment {
 
@@ -83,19 +73,8 @@ public class PlantDetailFragment extends Fragment {
                 if (x.hasImage())
                 {
                     Glide.with(plantImage.getContext())
-                            .asBitmap()
                             .load(x.getThumbnail())
-                            .into(new CustomTarget<Bitmap>(100, 100) {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    plantImage.setImageBitmap(resource);
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                }
-                            });
+                            .into(plantImage);
                 }
 
                 getActivity().runOnUiThread(()->{

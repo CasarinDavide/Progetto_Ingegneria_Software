@@ -7,7 +7,7 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_plants_exchange"
+        android:id="@+id/navigation_plants_transaction"
         android:icon="@drawable/round_map_24dp"
         android:title="@string/plants_exchange_map" />
 

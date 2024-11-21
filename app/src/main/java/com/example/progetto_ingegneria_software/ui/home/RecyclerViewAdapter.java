@@ -119,19 +119,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
                             .getDownloadUrl()
                             .addOnCompleteListener( task -> Glide.with(context)
-                                    .asBitmap()
                                     .load(task.getResult())
-                                    .into(new CustomTarget<Bitmap>(100, 100) {
-                                        @Override
-                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            holder.profilePicture.setImageBitmap(resource);
-                                        }
-
-                                        @Override
-                                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                        }
-                                    }));
+                                    .override(100,100)
+                                    .into(holder.profilePicture));
 
                 });
 
@@ -143,7 +133,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 holder.likeButton.setImageResource(R.drawable.outline_thumb_up_24dp);
             }
 
-            //set the favourite button icon, if the user previously added it to its favourites
+            //set the favourite button icon, check if the user already added it to its favourites
             if(userInfo.getFavourites().contains(post.getPostId().toString())) {
                 holder.favouriteButton.setImageResource(R.drawable.baseline_favourite_24dp);
             } else {
@@ -154,19 +144,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 FirebaseStorage.getInstance().getReference(post.getImage())
                         .getDownloadUrl()
                         .addOnCompleteListener(task -> Glide.with(context)
-                                .asBitmap()
                                 .load(task.getResult())
-                                .into(new CustomTarget<Bitmap>(100, 100) {
-                                    @Override
-                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                        holder.image.setImageBitmap(resource);
-                                    }
-
-                                    @Override
-                                    public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                    }
-                                }));
+                                .override(900, 900)
+                                .into(holder.image));
             }
 
         });

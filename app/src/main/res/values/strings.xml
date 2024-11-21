@@ -125,4 +125,5 @@
     <string name="addimage">AddImage</string>
     <string name="plants_exchange_map">Plants Exchange Map</string>
     <string name="add_location">Add Location</string>
+    <string name="send_position">Send Position</string>
 </resources>

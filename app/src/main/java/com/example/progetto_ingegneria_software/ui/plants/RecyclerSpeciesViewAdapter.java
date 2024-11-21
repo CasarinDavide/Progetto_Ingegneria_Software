@@ -1,7 +1,6 @@
 package com.example.progetto_ingegneria_software.ui.plants;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +17,8 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
-import com.google.firebase.database.core.persistence.PruneForest;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class RecyclerSpeciesViewAdapter extends RecyclerView.Adapter<RecyclerSpeciesViewAdapter.ViewHolder> {
@@ -116,24 +111,10 @@ public class RecyclerSpeciesViewAdapter extends RecyclerView.Adapter<RecyclerSpe
 
         if(species.hasImage())
         {
-
             Glide.with(holder.species_thumbnail.getContext())
-                    .asBitmap()
                     .load(species.getThumbnail())
-                    .into(new CustomTarget<Bitmap>(100, 100) {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            holder.species_thumbnail.setImageBitmap(resource);
-                        }
-
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                        }
-                    });
+                    .into(holder.species_thumbnail);
         }
-
-
 
         holder.species_watering.setText(species.getWatering());
 

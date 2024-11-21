@@ -51,7 +51,6 @@ public class User extends Mapper {
             super("users");
         }
 
-
         public void pushToInventory(Species species, StandardCallback callback)
         {
             // faccio l'update a db

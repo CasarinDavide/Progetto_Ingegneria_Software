@@ -4,32 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.map.PlantsExchangeFragment">
+    tools:context=".ui.map.PlantsTransactionFragment">
 
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/map_view_plant_exchange_fragment"
+        android:id="@+id/map_view_plant_transaction_fragment"
         android:layout_width="match_parent"
         android:layout_height="594dp"
-        android:contentDescription="@string/plants_exchange_map"
+        android:contentDescription="Plants Transaction Map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_view_plant_exchange_fragment"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/map_view_plant_transaction_fragment">
 
         <Button
-            android:id="@+id/add_location_plant_exchange_fragment"
+            android:id="@+id/add_location_plant_transaction_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_location"/>
-    </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="56dp"
+            android:text="@string/add_location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
