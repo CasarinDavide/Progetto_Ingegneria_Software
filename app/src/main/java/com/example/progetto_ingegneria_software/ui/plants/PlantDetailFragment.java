@@ -72,9 +72,11 @@ public class PlantDetailFragment extends Fragment {
 
                 if (x.hasImage())
                 {
-                    Glide.with(plantImage.getContext())
-                            .load(x.getThumbnail())
-                            .into(plantImage);
+                    getActivity().runOnUiThread(()-> {
+                        Glide.with(plantImage.getContext())
+                                .load(x.getThumbnail())
+                                .into(plantImage);
+                    });
                 }
 
                 getActivity().runOnUiThread(()->{
