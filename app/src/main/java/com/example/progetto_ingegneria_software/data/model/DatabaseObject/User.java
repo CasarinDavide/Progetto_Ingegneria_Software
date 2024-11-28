@@ -125,7 +125,7 @@ public class User extends Mapper {
         this.username = username;
     }
 
-    public void setInventory(List<Species> speciesList){this.inventory = inventory;}
+    public void setInventory(List<Species> speciesList){this.inventory = speciesList;}
 
     public String getEmail() {
         return email;

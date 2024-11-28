@@ -112,7 +112,7 @@ public class RecyclerInventoryViewAdapter extends RecyclerView.Adapter<RecyclerI
         URL newurl = null;
         try {
             newurl = new URL(src);
-            Bitmap bitmap =  BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
+                Bitmap bitmap =  BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
             callBack.onResponse(bitmap);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
