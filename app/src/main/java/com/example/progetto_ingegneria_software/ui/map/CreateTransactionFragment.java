@@ -54,12 +54,12 @@ public class CreateTransactionFragment extends Fragment {
                     List<Item> inventory = new ArrayList<>();
                     List<Map<String, Object>> m = (List<Map<String, Object>>) documentSnapshot.getResult().get("inventory");
 
-                    assert m != null;
-                    for (Map<String, Object> val : m){
-                        Item i = new Item((String) val.get("commonName"), false);
-                        inventory.add(i);
+                    if(m != null) {
+                        for (Map<String, Object> val : m) {
+                            Item i = new Item((String) val.get("commonName"), false);
+                            inventory.add(i);
+                        }
                     }
-
                     l.setAdapter(new CreateTransactionAdapter(getContext(), inventory));
                 });
 

@@ -60,25 +60,11 @@ public class ProfileFragment extends Fragment {
             //set profile picture
             FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
                     .getDownloadUrl()
-                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            Glide.with(context)
-                                    .asBitmap()
-                                    .load(task.getResult())
-                                    .into(new CustomTarget<Bitmap>(100, 100) {
-                                        @Override
-                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            profilePicture.setImageBitmap(resource);
-                                        }
-
-                                        @Override
-                                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                        }
-                                    });
-                        }
-                    });
+                    .addOnCompleteListener(task -> Glide.with(context)
+                                                    .load(task.getResult())
+                                                    .override(100,100)
+                                                    .into(profilePicture)
+                    );
         });
 
         //Set modify profile button
