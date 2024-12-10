@@ -35,7 +35,9 @@
         <!-- LoginActivity will be the first page the user sees -->
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.Progetto_Ingegneria_Software.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +47,8 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Progetto_Ingegneria_Software.NoActionBar"/>
     </application>
 
 </manifest>

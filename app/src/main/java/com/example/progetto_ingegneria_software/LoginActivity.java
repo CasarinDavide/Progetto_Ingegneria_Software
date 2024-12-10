@@ -30,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        Button login_btn = (Button) findViewById(R.id.login_activity_confirm_button_btn);
-        Button sign_in_btn = (Button) findViewById(R.id.sign_in_activity_confirm_button_btn);
-        TextView email_textview =  findViewById(R.id.login_activity_email_txtView);
-        TextView password_textview =  findViewById(R.id.login_activity_password_txtView);
+        Button login_btn = (Button) findViewById(R.id.confirm_button_btn);
+        TextView sign_in_btn = findViewById(R.id.sign_in_button_btn);
+        TextView email_textview =  findViewById(R.id.email_txtView);
+        TextView password_textview =  findViewById(R.id.password_txtView);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
