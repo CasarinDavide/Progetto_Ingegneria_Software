@@ -26,7 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Benvenuto!"
-            android:textSize="24sp"
+            android:textSize="32sp"
+            android:textColor="#000000"
             app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,101 +38,128 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inserisci i tuoi dati per registrarti e unirti alla nostra comunità!"
-            android:textSize="16sp" app:layout_constraintTop_toBottomOf="@id/welcomeText"
+            android:textSize="16sp"
+            android:textColor="@color/textback"
+            app:layout_constraintTop_toBottomOf="@id/welcomeText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp" />
 
         <EditText
-            android:id="@+id/nameInput"
+            android:id="@+id/signInActivityUsernameTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Inserisci nome"
+            android:padding="10dp"
             app:layout_constraintTop_toBottomOf="@id/instructionText"
+            android:textColor="@color/white"
+            android:background="@color/textback"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
 
         <EditText
-            android:id="@+id/emailInput"
+            android:id="@+id/signInActivityEmailTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Inserisci mail"
-            app:layout_constraintTop_toBottomOf="@id/nameInput"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@id/signInActivityUsernameTxt"
+            android:textColor="@color/white"
+            android:background="@color/textback"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
 
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Inserisci password"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/emailInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        <EditText
+            android:id="@+id/signInActivityPasswordTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Inserisci password"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/signInActivityEmailTxt"
+            android:textColor="@color/white"
+            android:background="@color/textback"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
 
-    <EditText
-        android:id="@+id/confirmPasswordInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Conferma password"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/passwordInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        <EditText
+            android:id="@+id/signInActivityConfirmPasswordTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Conferma password"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/signInActivityPasswordTxt"
+            android:textColor="@color/white"
+            android:background="@color/textback"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
 
-    <EditText
-        android:id="@+id/phoneInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Inserisci numero di telefono"
-        android:inputType="phone"
-        app:layout_constraintTop_toBottomOf="@id/confirmPasswordInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        <EditText
+            android:id="@+id/signInActivityTelephoneTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Inserisci numero di telefono"
+            android:padding="10dp"
+            android:inputType="phone"
+            app:layout_constraintTop_toBottomOf="@id/signInActivityConfirmPasswordTxt"
+            android:textColor="@color/white"
+            android:background="@color/textback"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Registrati"
-        app:layout_constraintTop_toBottomOf="@id/phoneInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@color/button_color"
-        android:textColor="@color/white" />
+        <Button
+            android:id="@+id/signInActivityConfirmBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Registrati"
+            android:background="@color/principal"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/signInActivityTelephoneTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp" />
 
-    <TextView
-        android:id="@+id/loginLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hai già un account? Accedi"
-        android:textColor="@color/link_color"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/registerButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hai già un account?"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_button_btn"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/login_button_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accedi"
+            android:textColor="@color/textback"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_button_btn"
+            app:layout_constraintStart_toEndOf="@+id/account"
+            android:layout_marginTop="10dp" />
 
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,7 +173,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Campo per il nome utente
+             Campo per il nome utente
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -158,7 +186,7 @@
                     android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo per l'email
+            Campo per l'email
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,7 +199,7 @@
                     android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo per la password
+            Campo per la password
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,7 +212,7 @@
                     android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo per conferma password
+            Campo per conferma password
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,7 +242,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Pulsante di registrazione
+             Pulsante di registrazione
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sign_in_activity_confirm_btn"
                 style="@style/Widget.MaterialComponents.Button"

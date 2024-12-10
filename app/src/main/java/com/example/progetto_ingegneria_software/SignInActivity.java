@@ -31,8 +31,8 @@ public class SignInActivity extends AppCompatActivity {
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle(getTitle());
+        /*CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
+        /toolBarLayout.setTitle(getTitle()); */
 
         Button confirm_btn = binding.signInActivityConfirmBtn;
         TextView username_txt = binding.signInActivityUsernameTxt;
@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         TextView telephone_txt = binding.signInActivityTelephoneTxt;
         TextView email_txt = binding.signInActivityEmailTxt;
 
+        TextView login_btn = findViewById(R.id.login_button_btn);
 
         confirm_btn.setOnClickListener(x -> {
 
