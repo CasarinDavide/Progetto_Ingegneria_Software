@@ -77,7 +77,8 @@ public class ModifyProfileFragment extends Fragment {
         ImageButton uploadPicture = binding.uploadProfilePictureFragmentModifyProfile;
         EditText email = binding.inputEmailFragmentModifyProfile;
         EditText phone = binding.inputPhoneFragmentModifyProfile;
-        TextView changePassword = binding.changePasswordFragmentModifyProfile;
+        EditText changePassword = binding.changePasswordFragmentModifyProfile;
+        EditText confirmChange = binding.confirmChangeFragmentModifyProfile;
         Button submit = binding.doneButtonFragmentModifyProfile;
 
         User.userDB.getUserInfo( userInfo -> {
@@ -106,10 +107,12 @@ public class ModifyProfileFragment extends Fragment {
             email.setText(userInfo.getEmail());
             phone.setText(userInfo.getPhone());
 
-            changePassword.setOnClickListener( view -> {
-                Auth.resetPassword(getActivity(), userInfo.getEmail());
-                Toast.makeText(requireActivity().getApplicationContext(), "A link to your email has been sent", Toast.LENGTH_LONG).show();
-            });
+            if (changePassword.equals(confirmChange)) {
+                changePassword.setOnClickListener( view -> {
+                    Auth.resetPassword(getActivity(), userInfo.getEmail());
+                    Toast.makeText(requireActivity().getApplicationContext(), "A link to your email has been sent", Toast.LENGTH_LONG).show();
+                });
+            }
 
             uploadPicture.setOnClickListener( view -> {
                 openGallery();
