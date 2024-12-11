@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/green2"
         android:contentDescription="@string/add_post"
         android:src="@drawable/rounded_add_48dp"
     app:layout_constraintBottom_toBottomOf="parent"

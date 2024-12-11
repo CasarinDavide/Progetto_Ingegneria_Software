@@ -15,7 +15,7 @@
             android:id="@+id/add_to_cart_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/green2"
             android:drawableLeft="@drawable/baseline_shopping_cart_24"
             android:text="Add to Chart" />
 
