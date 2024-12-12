@@ -99,6 +99,10 @@ public class User extends Mapper {
         public void setUserPhone(String phone) {
             updateField(Auth.getCurrentUser().getUid(), "phone", phone);
         }
+
+        public void setUserImage(String path) {
+            updateField(Auth.getCurrentUser().getUid(), "profilePicture", path);
+        }
     }
 
     public void setEmail(String email) {
@@ -125,7 +129,9 @@ public class User extends Mapper {
         this.username = username;
     }
 
-    public void setInventory(List<Species> speciesList){this.inventory = speciesList;}
+    public void setInventory(List<Species> speciesList){
+        this.inventory = speciesList;
+    }
 
     public String getEmail() {
         return email;
@@ -151,10 +157,8 @@ public class User extends Mapper {
         return username;
     }
 
-    public List<Species> getInventory(){return this.inventory;}
-
-
-
-
+    public List<Species> getInventory(){
+        return this.inventory;
+    }
 
 }

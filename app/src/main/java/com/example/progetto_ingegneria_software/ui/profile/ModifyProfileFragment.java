@@ -1,8 +1,6 @@
 package com.example.progetto_ingegneria_software.ui.profile;
 
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 
@@ -23,13 +21,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
+
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
@@ -53,13 +50,17 @@ public class ModifyProfileFragment extends Fragment {
     ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
                 if(uri != null) {
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/profilePictures/");
-                    StorageReference fileReference = storageReference.child(Auth.getCurrentUser().getUid() + ".jpg");
+                    String location = "images/profilePictures/";
+                    String imgName = Auth.getCurrentUser().getUid() + ".jpg";
 
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference(location);
+
+                    StorageReference fileReference = storageReference.child(imgName);
                     fileReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(requireContext(), "Foto profilo aggiornata correttamente", Toast.LENGTH_SHORT);
+                            Toast.makeText(requireContext(), "Foto profilo aggiornata correttamente", Toast.LENGTH_SHORT).show();
+                            User.userDB.setUserImage(location + imgName);
                         }
                     });
                 }
@@ -89,19 +90,9 @@ public class ModifyProfileFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             Glide.with(profilePicture.getContext())
-                                    .asBitmap()
                                     .load(task.getResult())
-                                    .into(new CustomTarget<Bitmap>(500, 500) {
-                                        @Override
-                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            profilePicture.setImageBitmap(resource);
-                                        }
-
-                                        @Override
-                                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                        }
-                                    });
+                                    .override(500, 500)
+                                    .into(profilePicture);
                         }
                     });
             email.setText(userInfo.getEmail());

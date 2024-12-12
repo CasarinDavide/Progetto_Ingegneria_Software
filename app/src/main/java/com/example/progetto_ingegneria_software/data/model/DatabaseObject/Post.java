@@ -83,6 +83,9 @@ public class Post implements Serializable{
                             String url;
                             if(imageUri.toString().isEmpty()) {
                                 url = "";
+
+                                Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, url, new ArrayList<>());
+                                addDocument(Integer.toString(id), p);
                             } else {
                                 url = "/images/postPictures/" + id + ".jpg";
 
@@ -90,11 +93,12 @@ public class Post implements Serializable{
                                 StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/postPictures/");
                                 StorageReference fileReference = storageReference.child(id + ".jpg");
 
-                                fileReference.putFile(imageUri);
+                                int finalId = id;
+                                fileReference.putFile(imageUri).addOnSuccessListener(onSuccess -> {
+                                    Post p = new Post(author.getUsername(), content, new ArrayList<>(), finalId, url, new ArrayList<>());
+                                    addDocument(Integer.toString(finalId), p);
+                                });
                             }
-
-                            Post p = new Post(author.getUsername(), content, new ArrayList<>(), id, url, new ArrayList<>());
-                            addDocument(Integer.toString(id), p);
                         } else {
                             Log.d(TAG, "Error: Failed to create Post");
                         }
