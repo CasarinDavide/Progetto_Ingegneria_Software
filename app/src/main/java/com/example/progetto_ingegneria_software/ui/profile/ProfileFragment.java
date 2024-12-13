@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.List;
+
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
@@ -39,10 +42,13 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         //set profile image
         ImageView profilePicture = binding.profilePictureFragmentProfile;
         Context context = binding.profilePictureFragmentProfile.getContext();
+
+        //set profile name
+        final RecyclerView nameRecyclerView = binding.nameRecyclerViewProfile;
+        nameRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         //Set recycler view
         final RecyclerView recyclerView = binding.postsRecyclerViewProfile;
@@ -57,6 +63,11 @@ public class ProfileFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             });
 
+            //fetch username
+            List<String> profileNames = List.of(userInfo.getUsername());
+            ProfileAdapter profileAdapter = new ProfileAdapter(profileNames);
+            nameRecyclerView.setAdapter(profileAdapter);
+
             //set profile picture
             FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
                     .getDownloadUrl()
@@ -65,6 +76,9 @@ public class ProfileFragment extends Fragment {
                                                     .override(100,100)
                                                     .into(profilePicture)
                     );
+
+            //set profile name
+
         });
 
         //Set modify profile button

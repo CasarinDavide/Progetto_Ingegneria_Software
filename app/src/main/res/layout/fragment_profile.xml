@@ -17,13 +17,14 @@
 
     <TextView
         android:id="@+id/profile_title"
-        android:layout_width="194dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="181dp"
-        android:layout_marginTop="134dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="53dp"
         android:text="Il mio profilo"
-        android:textColor="#000000"
-        android:textSize="32sp"
+        android:textColor="@color/principal"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintStart_toEndOf="@id/logo"
@@ -33,32 +34,39 @@
         android:id="@+id/profile_picture_fragment_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="169dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="53dp"
         android:contentDescription="@string/profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <!-- Sezione Post -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/name_recycler_view_profile"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_title" />
 
     <Button
         android:id="@+id/profile_info_button"
-        android:layout_width="136dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         android:background="#65919D"
-        android:text="@string/profile_info"
+        android:text="Info Profilo"
+        android:padding="1sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_title" />
+        app:layout_constraintTop_toBottomOf="@+id/name_recycler_view_profile" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="16dp"
+        android:layout_marginTop="60dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -71,10 +79,10 @@
                 android:id="@+id/my_posts_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="2dp"
                 android:text="I miei post"
-                android:textColor="#000000"
-                android:textSize="18sp"
+                android:textColor="@color/textback"
+                android:textSize="20sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
