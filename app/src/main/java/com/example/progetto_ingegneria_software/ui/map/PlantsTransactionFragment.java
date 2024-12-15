@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -53,7 +54,7 @@ public class PlantsTransactionFragment extends Fragment {
         mapView.getMapAsync(this::onMapReady);
 
         //button
-        Button addLocation = binding.addLocationPlantTransactionFragment;
+        FloatingActionButton addLocation = binding.addLocationPlantTransactionFragment;
         addLocation.setOnClickListener( view -> {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigation_plants_transaction_to_navigation_create_transaction);
         });

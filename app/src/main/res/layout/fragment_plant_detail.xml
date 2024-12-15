@@ -1,190 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_to_cart_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignEnd="@+id/scrollView2"
+        android:backgroundTint="@color/green2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_shopping_cart_24" />
 
 
-        <!-- Plant Image -->
-        <Button
-            android:id="@+id/add_to_cart_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/green2"
-            android:drawableLeft="@drawable/baseline_shopping_cart_24"
-            android:text="Add to Chart" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/plant_image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="" />
-
-        <!-- Common Name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Common Name:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/common_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Scientific Name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scientific Name:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/scientific_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Family -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Family:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/family_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Origin -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Origin:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/origin_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Type -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/type_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Dimension -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dimensions:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/dimension_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Cycle -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cycle:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/cycle_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Watering -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Watering Needs:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/watering_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Sunlight -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sunlight:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/sunlight_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Pruning Months -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pruning Months:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/pruning_months_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Growth Rate -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Growth Rate:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/growth_rate_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Leaf Color -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Leaf Color:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/leaf_color_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Description -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description:"
-            android:textStyle="bold"
-            android:paddingTop="8dp"/>
-        <TextView
-            android:id="@+id/description_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
+            <ImageView
+                android:id="@+id/plant_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription=""
+                android:scaleType="centerCrop" />
+
+            <!-- Common Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Common Name:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/common_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Scientific Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Scientific Name:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/scientific_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Family -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Family:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/family_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Origin -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Origin:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/origin_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Type -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Type:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Dimension -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Dimensions:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dimension_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Cycle -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Cycle:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cycle_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Watering -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Watering Needs:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/watering_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Sunlight -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Sunlight:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sunlight_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Pruning Months -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Pruning Months:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pruning_months_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Growth Rate -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Growth Rate:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/growth_rate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Leaf Color -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Leaf Color:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/leaf_color_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Description:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
-</ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

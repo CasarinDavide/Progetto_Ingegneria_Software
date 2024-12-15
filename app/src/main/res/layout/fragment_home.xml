@@ -50,7 +50,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/home_text"
@@ -70,11 +70,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/posts_recycler_view_home"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/home_text"
-                android:layout_marginTop="50dp" />
+                app:layout_constraintTop_toTopOf="@+id/home_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

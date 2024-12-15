@@ -25,6 +25,7 @@ import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.PlantsApi;
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species.Species;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantDetailBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PlantDetailFragment extends Fragment {
 
@@ -32,7 +33,7 @@ public class PlantDetailFragment extends Fragment {
     private ImageView plantImage;
     private TextView commonNameText, scientificNameText, familyText, originText, typeText, dimensionText,
             cycleText, wateringText, sunlightText, pruningMonthsText, growthRateText, leafColorText, descriptionText;
-    private Button add_to_cart;
+    private FloatingActionButton add_to_cart;
 
     private Integer plant_id = 0;
     private Species plant;
