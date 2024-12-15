@@ -19,6 +19,7 @@ import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantsBinding;
 import com.example.progetto_ingegneria_software.ui.notifications.PlantsViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 // TODO fare aggiornamento delle lista quando ritorno dall'activity di aggiunta del terreno
 
@@ -38,8 +39,8 @@ public class PlantsFragment extends Fragment {
         final RecyclerView recyclerView = binding.terrainRecyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        Button add_terrain_btn = binding.addCardButton;
-        Button add_find_plant = binding.addFindPlant;
+        FloatingActionButton add_terrain_btn = binding.addCardButton;
+        FloatingActionButton add_find_plant = binding.addFindPlant;
 
         add_find_plant.setOnClickListener(x->{
             Navigation.findNavController(requireView()).navigate(R.id.navigation_search_plants);
