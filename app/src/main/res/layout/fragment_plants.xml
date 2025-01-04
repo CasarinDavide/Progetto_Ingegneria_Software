@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.plants.PlantsFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/terrain_recycler_view_home"
         android:layout_width="match_parent"
@@ -15,30 +14,27 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addCardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/add_find_plant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/rounded_add_48dp"
-        android:layout_margin="5dp"/>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_find_plant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="92dp"
+        android:backgroundTint="@color/principal"
         app:layout_constraintBottom_toBottomOf="@+id/terrain_recycler_view_home"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/baseline_search_24"
-        android:layout_marginBottom="60dp"/>
+        app:srcCompat="@drawable/baseline_search_24"/>
 
-
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addCardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/principal"
+        app:layout_constraintBottom_toTopOf="@+id/add_find_plant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/rounded_add_48dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

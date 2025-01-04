@@ -50,10 +50,12 @@ public class HomeFragment extends Fragment {
                     //set profile picture
                     FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
                             .getDownloadUrl()
-                            .addOnCompleteListener(task -> Glide.with(context)
-                                    .load(task.getResult())
-                                    .override(100, 100)
-                                    .into(profilePicture)
+                            .addOnCompleteListener(
+                                    task -> Glide.with(context)
+                                            .load(task.getResult())
+                                            .override(100, 100)
+                                            .circleCrop()
+                                            .into(profilePicture)
                             );
         });
 

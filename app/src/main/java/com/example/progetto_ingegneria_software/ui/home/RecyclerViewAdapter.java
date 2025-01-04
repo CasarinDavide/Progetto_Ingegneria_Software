@@ -121,6 +121,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             .addOnCompleteListener( task -> Glide.with(context)
                                     .load(task.getResult())
                                     .override(100,100)
+                                    .circleCrop()
                                     .into(holder.profilePicture));
 
                 });

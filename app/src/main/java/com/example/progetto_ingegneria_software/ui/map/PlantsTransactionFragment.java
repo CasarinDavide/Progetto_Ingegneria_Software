@@ -2,7 +2,10 @@ package com.example.progetto_ingegneria_software.ui.map;
 
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Transaction;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantsTransactionBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -76,23 +80,32 @@ public class PlantsTransactionFragment extends Fragment {
             return;
         }
         //get User's location
-        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, token)
-                .addOnCompleteListener( task -> {
-                    LatLng coord = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
+        if(checkLocation(requireContext()))
+            fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, token)
+                    .addOnCompleteListener( task -> {
+                        LatLng coord = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
 
-                    //get other transactions location
-                    Transaction.transactionDB
-                                    .getTransactions( transactionList -> {
-                                        for(Transaction t : transactionList) {
-                                            String items = String.join("\n", t.getItems());
+                        //get other transactions location
+                        Transaction.transactionDB
+                                        .getTransactions( transactionList -> {
+                                            for(Transaction t : transactionList) {
+                                                String items = String.join("\n", t.getItems());
 
-                                            Objects.requireNonNull(googleMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitude(), t.getLongitude())).title(items)))
-                                                    .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                                        }
-                                    });
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(coord.latitude, coord.longitude)).title("Your position"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, zoom));
-                });
+                                                Objects.requireNonNull(googleMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitude(), t.getLongitude())).title(items)))
+                                                        .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                                            }
+                                        });
+                        googleMap.addMarker(new MarkerOptions().position(new LatLng(coord.latitude, coord.longitude)).title("Your position"));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, zoom));
+                    });
+        else
+            Toast.makeText(getContext(), "To access this feature enable your position", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean checkLocation(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     @Override

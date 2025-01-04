@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -39,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
 
 
 public class ModifyProfileFragment extends Fragment {
@@ -78,8 +80,7 @@ public class ModifyProfileFragment extends Fragment {
         ImageButton uploadPicture = binding.uploadProfilePictureFragmentModifyProfile;
         EditText email = binding.inputEmailFragmentModifyProfile;
         EditText phone = binding.inputPhoneFragmentModifyProfile;
-        EditText changePassword = binding.changePasswordFragmentModifyProfile;
-        EditText confirmChange = binding.confirmChangeFragmentModifyProfile;
+        TextView changePassword = binding.changePasswordFragmentModifyProfile;
         Button submit = binding.doneButtonFragmentModifyProfile;
 
         User.userDB.getUserInfo( userInfo -> {
@@ -92,18 +93,18 @@ public class ModifyProfileFragment extends Fragment {
                             Glide.with(profilePicture.getContext())
                                     .load(task.getResult())
                                     .override(500, 500)
+                                    .circleCrop()
                                     .into(profilePicture);
                         }
                     });
             email.setText(userInfo.getEmail());
             phone.setText(userInfo.getPhone());
 
-            if (changePassword.equals(confirmChange)) {
-                changePassword.setOnClickListener( view -> {
-                    Auth.resetPassword(getActivity(), userInfo.getEmail());
-                    Toast.makeText(requireActivity().getApplicationContext(), "A link to your email has been sent", Toast.LENGTH_LONG).show();
-                });
-            }
+
+            changePassword.setOnClickListener( view -> {
+                Auth.resetPassword(getActivity(), userInfo.getEmail());
+                Toast.makeText(requireActivity().getApplicationContext(), "A link to your email has been sent", Toast.LENGTH_LONG).show();
+            });
 
             uploadPicture.setOnClickListener( view -> {
                 openGallery();

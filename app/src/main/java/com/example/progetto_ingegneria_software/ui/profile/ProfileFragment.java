@@ -32,6 +32,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -43,30 +45,25 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
 
         //set profile image
-        ImageView profilePicture = binding.profilePictureFragmentProfile;
+        final ImageView profilePicture = binding.profilePictureFragmentProfile;
         Context context = binding.profilePictureFragmentProfile.getContext();
 
         //set profile name
-        final RecyclerView nameRecyclerView = binding.nameRecyclerViewProfile;
-        nameRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        final TextView username = binding.nameViewFragmentProfile;
 
         //Set recycler view
         final RecyclerView recyclerView = binding.postsRecyclerViewProfile;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-
         User.userDB.getUserInfo( userInfo -> {
-
             //fetch user's posts
             Post.postDB.fetchUserPosts(userInfo.getUsername(), list -> {
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
                 recyclerView.setAdapter(adapter);
             });
 
-            //fetch username
-            List<String> profileNames = List.of(userInfo.getUsername());
-            ProfileAdapter profileAdapter = new ProfileAdapter(profileNames);
-            nameRecyclerView.setAdapter(profileAdapter);
+            //set username
+            username.setText(userInfo.getUsername());
 
             //set profile picture
             FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
@@ -76,8 +73,6 @@ public class ProfileFragment extends Fragment {
                                                     .override(100,100)
                                                     .into(profilePicture)
                     );
-
-            //set profile name
 
         });
 
