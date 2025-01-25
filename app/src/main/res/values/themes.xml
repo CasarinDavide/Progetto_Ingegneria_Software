@@ -22,4 +22,7 @@
     <style name="Theme.Progetto_Ingegneria_Software.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Progetto_Ingegneria_Software.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
 </resources>

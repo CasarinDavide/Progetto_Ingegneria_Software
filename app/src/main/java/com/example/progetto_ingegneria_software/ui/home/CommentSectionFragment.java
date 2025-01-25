@@ -13,13 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Comment;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentCommentSectionBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentReference;
 
 import com.google.firebase.firestore.FieldValue;
@@ -31,8 +34,6 @@ public class CommentSectionFragment extends Fragment {
 
     FragmentCommentSectionBinding binding;
 
-    //I wanted to use this to hide the bottom navBar when you enter in the Comment section but it throws an exception, idk why
-    //private final BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,7 +95,5 @@ public class CommentSectionFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //navBar.setVisibility(View.VISIBLE );
-        binding = null;
     }
 }

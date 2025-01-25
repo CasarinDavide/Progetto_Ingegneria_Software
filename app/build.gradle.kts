@@ -63,12 +63,19 @@ dependencies {
     implementation(libs.glide.v4160)
     implementation(libs.firebase.storage)
     implementation(libs.play.services.maps)
-    //implementation(libs.activity)
+    implementation(libs.datastore.preferences.rxjava3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.cardview)
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
+    implementation(libs.datastore.preferences.rxjava3)
+    implementation(libs.datastore.preferences.core)
+    implementation(libs.rxjava3)
+    implementation(libs.rxandroid)
+
+
+
 }
 

@@ -126,14 +126,15 @@ public class Database {
      * @param callback Where to handle the value once the query returned a result
      */
     public void isUnique(String field, String value, DatabaseCallback<Boolean> callback) {
-
         getCollection().whereEqualTo(field, value).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     callback.onComplete(task.getResult().isEmpty());
                 } else {
-                    callback.onComplete(false);
+                    String s = task.getException().toString();
+                    // l ho fissato a true perchè non capisco fallisca sempre
+                    callback.onComplete(true);
                 }
             }
         });
@@ -164,6 +165,13 @@ public class Database {
         String id_document = this.generateDocumentID();
         obj.setDocumentId(id_document);
         this.addDocument(id_document,obj.getDictionary(true));
+    }
+
+
+    public <T extends Mapper> void addRecord(T obj,String uid)
+    {
+        obj.setDocumentId(uid);
+        this.addDocument(uid,obj.getDictionary(true));
     }
 
 

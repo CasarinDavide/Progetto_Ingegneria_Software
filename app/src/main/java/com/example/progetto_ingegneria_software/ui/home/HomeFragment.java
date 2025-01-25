@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
         });
 
         //CreatePost button
-        final ImageButton create = binding.createPostButton;
+        final ImageView create = binding.createPostButton;
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

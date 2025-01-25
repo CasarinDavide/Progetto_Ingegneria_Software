@@ -42,6 +42,23 @@ public abstract class Auth {
                 });
     }
 
+    public static void autologin(Activity activity, String email, String password, Runnable onSuccessAction) {
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            // On success, return user object through the callback
+                            //User user = new User(firebaseUser.getUid(), firebaseUser.getEmail());
+                            onSuccessAction.run();
+                        }
+                    }
+
+                });
+    }
+
+
     public static void signOut() {
         if (auth != null) {
             auth.signOut();
@@ -67,8 +84,8 @@ public abstract class Auth {
 
                             //Adds user in firebase
                             assert firebaseUser != null;
-                            User u = new User(username, telephone, "/images/default_user_pfp.png" , new ArrayList<String>(), firebaseUser.getUid(), email);
-                            User.userDB.addRecord(u);
+                            User u = new User(username, telephone, "/images/profilePictures/default_user_pfp.png" , new ArrayList<String>(), firebaseUser.getUid(), email);
+                            User.userDB.addRecord(u,firebaseUser.getUid());
 
                             //Database db = new Database("users");
                             //db.addDocument(u.getUid(), u);

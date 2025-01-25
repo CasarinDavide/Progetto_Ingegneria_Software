@@ -39,21 +39,6 @@
             app:layout_constraintStart_toEndOf="@+id/profile_picture_recycler_view"
             app:layout_constraintTop_toTopOf="@+id/profile_picture_recycler_view" />
 
-        <!-- Contenuto del post -->
-        <TextView
-            android:id="@+id/post_content_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:text="This is a sample post content to test the design of the layout."
-            android:textSize="14sp"
-            android:lineSpacingExtra="4dp"
-            android:maxWidth="270dp"
-            app:layout_constraintStart_toStartOf="@+id/username_recycler_view"
-            app:layout_constraintTop_toBottomOf="@+id/username_recycler_view"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <!-- Immagine del post -->
         <ImageView
             android:id="@+id/post_image_recycler_view"
@@ -64,45 +49,67 @@
             android:scaleType="centerCrop"
             android:background="@drawable/rounded_corner_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view"
+            app:layout_constraintTop_toBottomOf="@+id/username_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Contenuto del post -->
+        <TextView
+            android:id="@+id/post_content_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:text="This is a sample post content to test the design of the layout."
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            android:maxWidth="270dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_image_recycler_view"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Numero di like -->
-        <TextView
-            android:id="@+id/post_likes_number_recycler_view"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="123"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/post_like_recycler_view"
-            app:layout_constraintBottom_toBottomOf="@+id/post_like_recycler_view"
-            app:layout_constraintTop_toTopOf="@+id/post_like_recycler_view" />
+            app:layout_constraintTop_toBottomOf="@+id/post_content_recycler_view"
+            android:gravity="center|end"
+            android:layout_gravity="center_vertical">
 
-        <!-- Pulsante Like -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="5px">
 
-        <ImageButton
-            android:id="@+id/post_like_recycler_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/like"
-            android:src="@drawable/outline_thumb_up_24dp"
-            app:layout_constraintStart_toEndOf="@+id/post_likes_number_recycler_view"
-            app:layout_constraintTop_toBottomOf="@+id/post_image_recycler_view" />
+                <TextView
+                    android:id="@+id/post_likes_number_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    android:textSize="14sp" />
 
-        <!-- Pulsante Preferiti -->
-        <ImageButton
-            android:id="@+id/post_favourites_recycler_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/favourites"
-            android:src="@drawable/outline_favourite_24dp"
-            app:layout_constraintStart_toEndOf="@+id/post_like_recycler_view"
-            app:layout_constraintTop_toTopOf="@+id/post_like_recycler_view" />
+                <!-- Pulsante Like -->
+                <ImageButton
+                    android:id="@+id/post_like_recycler_view"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:contentDescription="@string/like"
+                    android:src="@drawable/outline_thumb_up_24dp" />
+
+            </LinearLayout>
+
+            <!-- Pulsante Preferiti -->
+            <ImageButton
+                android:id="@+id/post_favourites_recycler_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/favourites"
+                android:src="@drawable/outline_favourite_24dp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -34,6 +34,6 @@ public class HomeActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_plants_transaction, R.id.navigation_plants, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController,false);
     }
 }

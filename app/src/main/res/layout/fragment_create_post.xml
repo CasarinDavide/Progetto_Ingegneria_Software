@@ -7,34 +7,12 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_create_post">
 
-        <ImageView
-            android:id="@+id/profile_picture_create_post"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@string/profile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exit_button_create_post"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <EditText
-            android:id="@+id/post_content_input_create_post"
-            android:layout_width="320dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:autofillHints="Post Content"
-            android:ems="10"
-            android:hint="@string/add_post"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_picture_create_post"
-            app:layout_constraintTop_toBottomOf="@+id/confirm_button_create_post" />
 
         <ImageButton
             android:id="@+id/exit_button_create_post"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:padding="5pt"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/cardview_light_background"
@@ -42,29 +20,115 @@
             android:rotation="45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/rounded_add_30dp" />
+            app:srcCompat="@drawable/rounded_add_30dp"/>
 
-        <ImageButton
-            android:id="@+id/add_image_button_create_post"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:background="@null"
-            android:contentDescription="@string/addimage"
-            android:src="@drawable/rounded_add_30dp"
+
+        <androidx.cardview.widget.CardView
+            android:layout_margin="20px"
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_picture_create_post" />
+            app:layout_constraintTop_toBottomOf="@+id/exit_button_create_post">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                        <!-- Add Image Button -->
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_margin="10px"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:cardCornerRadius="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                                <ImageButton
+                                    android:id="@+id/add_image_button_create_post"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="@null"
+                                    android:contentDescription="@string/addimage"
+                                    android:src="@drawable/rounded_add_30dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/description_input_layout"
+            android:padding="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                <!-- TextInputEditText to enter long description -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/post_content_input_create_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:hint="Inserisci il testo"
+                    android:inputType="textMultiLine"
+                    android:background="@color/white"
+                    android:lineSpacingExtra="5dp"
+                    android:maxLines="10"
+                    android:padding="10dp"
+                    android:scrollbars="vertical"
+                    android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/confirm_button_create_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/green2"
-            android:text="@string/add_post"
-            android:textColor="@color/black"
+            android:layout_marginBottom="5pt"
+            android:background="@drawable/buttonshapewhitebg"
+            android:fontFamily="@font/calibri"
+            android:text="Crea post"
+            android:textAllCaps="false"
+            android:textColor="#96000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_input_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
