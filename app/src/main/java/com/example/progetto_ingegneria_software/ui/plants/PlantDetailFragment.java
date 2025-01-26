@@ -44,9 +44,19 @@ public class PlantDetailFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            plant_id = Integer.parseInt(args.getString("id"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                plant = args.getSerializable("plant",Species.class);
+            String idString = args.getString("id");
+            if (idString != null) {
+                try {
+                    plant_id = Integer.parseInt(idString);
+                } catch (NumberFormatException e) {
+                    plant_id = -1; // Default value or handle the error
+                }
+            }
+
+            // Retrieve the serialized object.
+            Object serializedPlant = args.getSerializable("plant");
+            if (serializedPlant != null && serializedPlant instanceof Species) {
+                plant = (Species) serializedPlant;
             }
         }
 

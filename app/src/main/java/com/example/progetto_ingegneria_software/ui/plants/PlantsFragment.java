@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progetto_ingegneria_software.R;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Terrain;
+import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentPlantsBinding;
 import com.example.progetto_ingegneria_software.ui.notifications.PlantsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,20 +41,22 @@ public class PlantsFragment extends Fragment {
         final RecyclerView recyclerView = binding.terrainRecyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        FloatingActionButton add_terrain_btn = binding.addCardButton;
-        FloatingActionButton add_find_plant = binding.addFindPlant;
+        ImageView add_find_plant = binding.addFindPlant;
 
         add_find_plant.setOnClickListener(x->{
             Navigation.findNavController(requireView()).navigate(R.id.navigation_search_plants);
         });
 
-        add_terrain_btn.setOnClickListener(x->{
-            Intent addTerrainActivity = new Intent(root.getContext(), AddTerrainActivity.class);
-            startActivity(addTerrainActivity);
+
+        // get all
+
+        User.userDB.getUserInfo(x->{
+            RecyclerSpeciesViewAdapter adapter = new RecyclerSpeciesViewAdapter(x.getInventory());
+            recyclerView.setAdapter(adapter);
         });
 
 
-        // get all
+        /*
         Terrain.terrainDB.getAllFilteredByUser(x->{
             RecyclerTerrainsViewAdapter adapter = new RecyclerTerrainsViewAdapter(x,(pos,model)->{
                 TerrainDetailsFragment detailFragment = new TerrainDetailsFragment();
@@ -65,6 +69,7 @@ public class PlantsFragment extends Fragment {
             });
             recyclerView.setAdapter(adapter);
         });
+        */
 
         return root;
     }

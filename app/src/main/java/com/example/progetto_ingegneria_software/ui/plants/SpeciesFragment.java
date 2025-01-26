@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.progetto_ingegneria_software.R;
@@ -25,7 +26,7 @@ import java.util.List;
 public class SpeciesFragment extends Fragment {
 
     private FragmentSpeciesBinding binding;
-    private Button search_btn;
+    private ImageButton search_btn;
     private TextView search_term_textView;
     private RecyclerView recyclerView;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

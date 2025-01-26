@@ -1,6 +1,7 @@
 package com.example.progetto_ingegneria_software.ui.profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -23,7 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.progetto_ingegneria_software.LoginActivity;
 import com.example.progetto_ingegneria_software.R;
+import com.example.progetto_ingegneria_software.SignInActivity;
+import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.Post;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentProfileBinding;
@@ -80,6 +84,15 @@ public class ProfileFragment extends Fragment {
         final Button modify = binding.profileInfoButton;
         modify.setOnClickListener( view -> {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigation_profile_to_navigation_modify_profile);
+        });
+
+        ImageView logout_btn = binding.logout;
+        logout_btn.setOnClickListener(view->{
+            Auth.signOut();
+            Intent sign_out_activity = new Intent(getActivity(), LoginActivity.class);
+            sign_out_activity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(sign_out_activity);
+            this.getActivity().finish();
         });
 
         return root;
