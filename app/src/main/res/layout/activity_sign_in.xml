@@ -6,158 +6,209 @@
     android:layout_height="match_parent"
     android:background="#EDF9F2">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="150dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="194dp"
+            android:layout_height="134dp"
+            android:layout_marginTop="52dp"
+            android:src="@drawable/logo" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri"
+            android:text="Bentornato!"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo">
+        android:layout_height="wrap_content"
+        android:padding="30px"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInActivityEmailTxt_div"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Benvenuto!"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/signInActivityUsernameTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/textback"
-                android:hint="Inserisci nome"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <EditText
                 android:id="@+id/signInActivityEmailTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/textback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_email_white_24dp"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
                 android:hint="Inserisci mail"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityUsernameTxt" />
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInActivityUsernameTxt_div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/signInActivityEmailTxt_div">
+
+            <EditText
+                android:id="@+id/signInActivityUsernameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/baseline_accessibility_new_24"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
+                android:hint="Inserisci nome utente"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInActivityPasswordTxt_div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/signInActivityUsernameTxt_div">
 
             <EditText
                 android:id="@+id/signInActivityPasswordTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/textback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
                 android:hint="Inserisci password"
                 android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityEmailTxt" />
+                android:maxLines="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInActivityConfirmPasswordTxt_div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/signInActivityPasswordTxt_div"
+            tools:layout_editor_absoluteX="11dp">
 
             <EditText
                 android:id="@+id/signInActivityConfirmPasswordTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/textback"
-                android:hint="Conferma password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
+                android:hint="Conferma Password"
                 android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityPasswordTxt" />
+                android:maxLines="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInActivityTelephoneTxt_div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInActivityConfirmPasswordTxt_div">
 
             <EditText
                 android:id="@+id/signInActivityTelephoneTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/textback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/baseline_local_phone_24"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/calibri"
                 android:hint="Inserisci numero di telefono"
-                android:inputType="phone"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityConfirmPasswordTxt" />
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="20px"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/signInActivityConfirmBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="40dp"
-                android:background="@color/principal"
-                android:text="Registrati"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityTelephoneTxt" />
-
-            <TextView
-                android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Hai già un account?"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="@id/signInActivityConfirmBtn"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityConfirmBtn" />
+                android:background="@drawable/buttonshapewhitebg"
+                android:fontFamily="@font/calibri"
+                android:text="Conferma Registrazione"
+                android:textAllCaps="false"
+                android:textColor="#96000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/login_button_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:text="Accedi"
-                android:textColor="@color/textback"
-                app:layout_constraintStart_toEndOf="@id/account"
-                app:layout_constraintTop_toBottomOf="@id/signInActivityConfirmBtn" />
+        <TextView
+            android:id="@+id/login_button_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri"
+            android:padding="10px"
+            android:text="Torna al login"
+            android:textAlignment="center"
+            android:textColor="@color/textback"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

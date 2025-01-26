@@ -5,6 +5,34 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <action
+        android:id="@+id/action_navigation_profile_to_navigation_home"
+        app:destination="@id/navigation_home"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigation_transaction"
+        app:destination="@id/navigation_plants_transaction"
+        app:popUpTo="@id/navigation_plants_transaction"
+        app:popUpToInclusive="true"
+        />
+
+    <action
+        android:id="@+id/action_navigation_plants"
+        app:destination="@id/navigation_plants"
+        app:popUpTo="@id/navigation_plants"
+        app:popUpToInclusive="true"
+        />
+
+
+    <action
+        android:id="@+id/action_navigation_profile"
+        app:destination="@id/navigation_profile"
+        app:popUpTo="@id/navigation_profile"
+        app:popUpToInclusive="true"
+        />
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.progetto_ingegneria_software.ui.home.HomeFragment"

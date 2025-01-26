@@ -26,16 +26,19 @@
             android:value = "${MAPS_API_KEY}" />
         <activity
             android:name=".ui.plants.AddTerrainActivity"
+            android:screenOrientation="locked"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
             android:exported="false"
+            android:screenOrientation="locked"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.Progetto_Ingegneria_Software.NoActionBar" />
         <!-- LoginActivity will be the first page the user sees -->
         <activity
             android:name=".LoginActivity"
             android:exported="true"
+            android:screenOrientation="locked"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.Progetto_Ingegneria_Software.NoActionBar">
             <intent-filter>
@@ -46,6 +49,7 @@
         </activity> <!-- HomeActivity can be launched after login -->
         <activity
             android:name=".HomeActivity"
+            android:screenOrientation="locked"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Progetto_Ingegneria_Software.NoActionBar"/>

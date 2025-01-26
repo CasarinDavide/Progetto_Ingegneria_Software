@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
 
         confirm_btn.setOnClickListener(x -> {
 
+            confirm_btn.setActivated(false);
             String email_str = email_txt.getText().toString();
             String password_str = password_txt.getText().toString();
             String confirm_password_str = confirm_password_txt.getText().toString();
@@ -58,12 +59,14 @@ public class SignInActivity extends AppCompatActivity {
                         Auth.createUser(SignInActivity.this, email_str, password_str, telephone_str, username_str, new Runnable() {
                             @Override
                             public void run() {
+                                confirm_btn.setActivated(false);
                                 Intent home_activity = new Intent(SignInActivity.this, HomeActivity.class);
                                 startActivity(home_activity);
                             }
                         });
                     }
                     else {
+                        confirm_btn.setActivated(false);
                         Toast.makeText(SignInActivity.this, "Errore nell'inseriemento dei dati. Riprovare.", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -85,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
 
             boolean result = true;
             @Override
-            public void onComplete(Boolean isUniquePassword) {
+            public void onComplete(Boolean isUniqueUser) {
                     if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         result = false;
                     }
@@ -98,7 +101,7 @@ public class SignInActivity extends AppCompatActivity {
                         result = false;
                     }
 
-                    if(!isUniquePassword) {
+                    if(!isUniqueUser) {
                         result = false;
                     }
 

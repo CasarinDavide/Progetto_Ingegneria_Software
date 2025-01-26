@@ -21,6 +21,7 @@ public class User extends Mapper {
     private String username;
     private List<Species> inventory;
 
+
     public static UserDB userDB;
     static {
         userDB = new UserDB();

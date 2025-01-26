@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
 
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -72,12 +73,20 @@ public class Post implements Serializable{
                     .addOnCompleteListener( task -> {
                         if (task.isSuccessful()) {
                             //get the most recent post's id
-                            DocumentSnapshot q = task.getResult().getDocuments().get(0);
+
+                            List<DocumentSnapshot> reference = task.getResult().getDocuments();
+                            DocumentSnapshot q = null;
+
+                            if (!reference.isEmpty())
+                            {
+                                q = task.getResult().getDocuments().get(0);
+                            }
                             int id = 0;
 
-                            if (q.exists()) {
+                            if (q != null && q.exists()) {
                                 id = Integer.parseInt(q.getId());
                             }
+
                             id++;
 
                             String url;
