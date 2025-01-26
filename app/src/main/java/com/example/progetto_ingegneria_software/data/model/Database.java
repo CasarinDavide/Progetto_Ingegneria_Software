@@ -167,6 +167,12 @@ public class Database {
         this.addDocument(id_document,obj.getDictionary(true));
     }
 
+    public <T extends Mapper> void addRecord(T obj, String uid)
+    {
+        obj.setDocumentId(uid);
+        this.addDocument(uid, obj.getDictionary(true));
+    }
+
 
     public <T extends Mapper> void addRecord(T obj,String uid)
     {
