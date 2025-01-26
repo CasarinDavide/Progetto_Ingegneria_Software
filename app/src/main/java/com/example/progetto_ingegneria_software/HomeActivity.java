@@ -35,5 +35,16 @@ public class HomeActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController,false);
+
+        navController.addOnDestinationChangedListener((a,destinationChangedListener,c)->{
+            if (destinationChangedListener.getId() == R.id.navigation_comment_section || destinationChangedListener.getId() == R.id.navigation_create_transaction)
+            {
+                binding.navView.setVisibility(BottomNavigationView.GONE);
+            }
+            else
+            {
+                binding.navView.setVisibility(BottomNavigationView.VISIBLE);
+            }
+        });
     }
 }

@@ -35,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         TextView sign_in_btn = findViewById(R.id.sign_in_button_btn);
         TextView email_textview =  findViewById(R.id.email_txtView);
         TextView password_textview =  findViewById(R.id.password_txtView);
+        TextView reset_password = findViewById(R.id.reset_password);
+
+        reset_password.setOnClickListener(view->{
+            Intent reset_password_activity = new Intent(LoginActivity.this, ResetPassword.class);
+            startActivity(reset_password_activity);
+        });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +58,9 @@ public class LoginActivity extends AppCompatActivity {
                         () -> {
                             login_btn.setActivated(true);
                             Intent home_activity = new Intent(LoginActivity.this, HomeActivity.class);
+                            home_activity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(home_activity);
+                            finish();
                         }
                 );
             }
@@ -61,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         sign_in_btn.setOnClickListener(x->{
             Intent sign_in_activity = new Intent(LoginActivity.this, SignInActivity.class);
             startActivity(sign_in_activity);
-
         });
 
     }

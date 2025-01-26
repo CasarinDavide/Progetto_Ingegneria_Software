@@ -103,6 +103,7 @@ public abstract class Auth {
     public static void resetPassword(Activity activity,String email)
     {
         auth.sendPasswordResetEmail(email);
+        Toast.makeText(activity.getApplicationContext(),"Ti abbiamo inviato una mail contenente la nuova password",Toast.LENGTH_LONG).show();
     }
 
     public static FirebaseUser getCurrentUser() {
