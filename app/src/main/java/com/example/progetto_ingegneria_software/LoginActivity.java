@@ -18,15 +18,18 @@ import com.example.progetto_ingegneria_software.databinding.LoginMainBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginMainBinding binding;
-    private DataStoreRepository instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(Auth.getCurrentUser() != null) {
+            Intent home_activity = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(home_activity);
+            finish();
+        }
+
         binding = LoginMainBinding.inflate(getLayoutInflater());
-        instance = DataStoreRepository.getInstance(getApplicationContext());;
         setContentView(binding.getRoot());
-        skipActivityIfLogged();
 
         Button login_btn = (Button) findViewById(R.id.confirm_button_btn);
         TextView sign_in_btn = findViewById(R.id.sign_in_button_btn);
@@ -47,14 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Auth.login(LoginActivity.this,email_textview.getText().toString(),password_textview.getText().toString(),
                         () -> {
-
                             login_btn.setActivated(true);
-                            // INTANTO FACCIAMO COSI POI SARà DA PENSARE ALLA SICUREZZA
-                            DataStoreRepository instance = DataStoreRepository.getInstance(getApplicationContext());
-                            instance.setPasswordKey(password_textview.getText().toString());
-                            instance.setUsernameKey(email_textview.getText().toString());
-                            //-----------------
-
                             Intent home_activity = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(home_activity);
                         }
@@ -68,18 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    private void skipActivityIfLogged()
-    {
-        runOnUiThread(()->{
-            Auth.autologin(LoginActivity.this,instance.getUsernameKey(),instance.getPasswordKey(),
-                    () -> {
-                        Intent home_activity = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(home_activity);
-                    }
-            );
-        });
     }
 
 }

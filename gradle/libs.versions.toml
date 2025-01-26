@@ -30,6 +30,7 @@ datastorePreferencesCore = "1.0.0"
 rxjava3 = "3.1.6"
 rxandroid = "3.0.2"
 material_ver = "1.10.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -62,6 +63,7 @@ datastore-preferences-rxjava3 = { group = "androidx.datastore", name = "datastor
 datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
 rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 
 

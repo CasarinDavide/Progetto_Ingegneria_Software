@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.play.services.maps)
     implementation(libs.datastore.preferences.rxjava3)
+    implementation(libs.swiperefreshlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

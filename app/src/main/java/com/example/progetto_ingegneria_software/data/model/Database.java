@@ -173,14 +173,6 @@ public class Database {
         this.addDocument(uid, obj.getDictionary(true));
     }
 
-
-    public <T extends Mapper> void addRecord(T obj,String uid)
-    {
-        obj.setDocumentId(uid);
-        this.addDocument(uid,obj.getDictionary(true));
-    }
-
-
     // restituisce tutti i record secondo i filtri selezionati
     protected  <T extends Mapper> void getAll(DatabaseCallback<QuerySnapshot> callback, Map<String, Object> params_for_filtering) {
         Query query = getCollection();
