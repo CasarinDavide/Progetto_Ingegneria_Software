@@ -58,6 +58,13 @@ public class ModifyProfileFragment extends Fragment {
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference(location);
 
                     StorageReference fileReference = storageReference.child(imgName);
+                    fileReference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+                        if (isAdded()) { // Verifica se il fragment è attivo
+                            Toast.makeText(requireContext(), "Foto profilo aggiornata correttamente", Toast.LENGTH_SHORT).show();
+                            User.userDB.setUserImage(location + imgName);
+                        }
+                    });
+                    /*
                     fileReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -65,6 +72,7 @@ public class ModifyProfileFragment extends Fragment {
                             User.userDB.setUserImage(location + imgName);
                         }
                     });
+                     */
                 }
             }
     );
@@ -87,9 +95,8 @@ public class ModifyProfileFragment extends Fragment {
             //set profile picture
             FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
                     .getDownloadUrl()
-                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
+                    .addOnCompleteListener(task -> {
+                        if (isAdded() && task.isSuccessful()) {
                             Glide.with(profilePicture.getContext())
                                     .load(task.getResult())
                                     .override(500, 500)
@@ -97,9 +104,6 @@ public class ModifyProfileFragment extends Fragment {
                                     .into(profilePicture);
                         }
                     });
-            email.setText(userInfo.getEmail());
-            phone.setText(userInfo.getPhone());
-
 
             changePassword.setOnClickListener( view -> {
                 Auth.resetPassword(getActivity(), userInfo.getEmail());
