@@ -2,7 +2,9 @@ package com.example.progetto_ingegneria_software.ui.map;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,10 @@ import com.example.progetto_ingegneria_software.databinding.FragmentCreateTransa
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateTransactionFragment extends Fragment {
     private FragmentCreateTransactionBinding binding;
@@ -91,11 +98,27 @@ public class CreateTransactionFragment extends Fragment {
                             return;
                         }
 
-                        //add transaction to the database
-                        Transaction t = new Transaction(Auth.getCurrentUser().getUid(), task.getResult().getLatitude(), task.getResult().getLongitude(), selectedItems);
-                        Transaction.transactionDB.addTransaction(t);
+                        if(checkLocation(requireContext()))
+                        {
+                            //add transaction to the database
+                            try {
+                                Transaction t = new Transaction(Auth.getCurrentUser().getUid(), task.getResult().getLatitude(), task.getResult().getLongitude(), selectedItems);
+                                Transaction.transactionDB.addTransaction(t);
+                                Navigation.findNavController(requireView()).navigate(R.id.action_navigation_create_transaction_to_navigation_plants_transaction);
+                            }
+                            catch (Exception e)
+                            {
+                                Toast.makeText(getContext(), "C'è stato un problema, sembra che non sia stato possibile rilevare la tua posizione.", Toast.LENGTH_LONG).show();
+                            }
 
-                        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_create_transaction_to_navigation_plants_transaction);
+                        }
+                        else
+                        {
+                            done.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "To access this feature enable your position", Toast.LENGTH_LONG).show();
+                        }
+
+
                     });
         });
 
@@ -107,6 +130,12 @@ public class CreateTransactionFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    public boolean checkLocation(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
 }
 
 

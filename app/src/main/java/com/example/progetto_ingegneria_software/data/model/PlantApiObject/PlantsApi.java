@@ -144,6 +144,16 @@ public abstract class PlantsApi {
             return speciesDetails;
         }
     }
+
+    public static boolean isJsonPrimitiveNull(JsonObject jsonObject, String key) {
+        // Check if the key exists and the value is not null
+        if (jsonObject.has(key) && jsonObject.get(key) != null) {
+            return !jsonObject.get(key).isJsonPrimitive();
+        }
+        return true; // Null or does not exist
+    }
+
+
     static class ContainerDeserializerSpecies implements JsonDeserializer<PlantRequestContainer<Species>> {
         @Override
         public PlantRequestContainer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -151,13 +161,15 @@ public abstract class PlantsApi {
             JsonObject jsonObject = json.getAsJsonObject();
             PlantRequestContainer plantRequestContainer = new PlantRequestContainer<>();
 
-            JsonArray data = jsonObject.getAsJsonArray("data");  // Correctly get the 'data' array
-            JsonPrimitive to = jsonObject.getAsJsonPrimitive("to");
-            JsonPrimitive per_page = jsonObject.getAsJsonPrimitive("per_page");
-            JsonPrimitive current_page = jsonObject.getAsJsonPrimitive("current_page");
-            JsonPrimitive from = jsonObject.getAsJsonPrimitive("from");
-            JsonPrimitive last_page = jsonObject.getAsJsonPrimitive("last_page");
-            JsonPrimitive total = jsonObject.getAsJsonPrimitive("total");
+            JsonArray data = jsonObject.getAsJsonArray("data");
+            // Correctly get the 'data' array
+            JsonPrimitive to = isJsonPrimitiveNull(jsonObject, "to")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("to");
+            JsonPrimitive per_page = isJsonPrimitiveNull(jsonObject, "per_page")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("per_page");
+            JsonPrimitive current_page = isJsonPrimitiveNull(jsonObject, "current_page")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("current_page");
+
+            JsonPrimitive from = isJsonPrimitiveNull(jsonObject, "from")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("from");
+            JsonPrimitive last_page = isJsonPrimitiveNull(jsonObject, "last_page")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("last_page");
+            JsonPrimitive total = isJsonPrimitiveNull(jsonObject, "total")? new JsonPrimitive("0"): jsonObject.getAsJsonPrimitive("total");
 
             List<Species> speciesList = new ArrayList<>();
 
