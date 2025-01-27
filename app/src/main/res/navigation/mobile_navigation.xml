@@ -111,6 +111,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_modify_profile"
             app:destination="@id/navigation_modify_profile" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_comment_section"
+            app:destination="@id/navigation_comment_section" />
 
     </fragment>
 

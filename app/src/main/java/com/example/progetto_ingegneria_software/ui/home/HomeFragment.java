@@ -27,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,20 +40,20 @@ public class HomeFragment extends Fragment {
         Context context = binding.profilePictureFragmentModifyProfile.getContext();
 
         //RecyclerView creation
-        final RecyclerView recyclerView = binding.postsRecyclerViewHome;
+        recyclerView = binding.postsRecyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         //SwipeRefreshLayout
-        final SwipeRefreshLayout refreshLayout = binding.swipeRefreshLayout;
-        loadPosts(recyclerView, refreshLayout);
+        swipeRefreshLayout = binding.swipeRefreshLayout;
+        loadPosts(recyclerView, swipeRefreshLayout);
 
 
-        refreshLayout.setEnabled(true);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshLayout.setRefreshing(true);
-                loadPosts(recyclerView, refreshLayout);
+                swipeRefreshLayout.setRefreshing(true);
+                loadPosts(recyclerView, swipeRefreshLayout);
             }
         });
 
@@ -75,9 +77,18 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        loadPosts(recyclerView, swipeRefreshLayout);
+    }
+
     private void loadPosts(RecyclerView r, SwipeRefreshLayout s) {
         Post.postDB.fetchPosts(list -> {
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(list, (view, bundle) -> {
+                Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_comment_section, bundle);
+            });
             r.setAdapter(adapter);
 
             s.setRefreshing(false);

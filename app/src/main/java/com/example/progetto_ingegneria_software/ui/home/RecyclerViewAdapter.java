@@ -1,8 +1,7 @@
 package com.example.progetto_ingegneria_software.ui.home;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,15 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.progetto_ingegneria_software.R;
 
 import com.example.progetto_ingegneria_software.data.model.Auth;
@@ -34,11 +29,15 @@ import com.google.firebase.storage.FirebaseStorage;
 
 
 import java.util.List;
-import java.util.Set;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, Bundle post);
+    }
+
     private final List<Post> p;
+    private final OnItemClickListener onclickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final ImageView profilePicture;
@@ -62,8 +61,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(List<Post> p) {
+    public RecyclerViewAdapter(List<Post> p, OnItemClickListener onclickListener) {
         this.p = p;
+        this.onclickListener = onclickListener;
     }
 
     /**
@@ -98,7 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 view -> {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("post", post);
-                    Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_comment_section, bundle);
+                    onclickListener.onItemClick(view, bundle);
                 }
         );
 
