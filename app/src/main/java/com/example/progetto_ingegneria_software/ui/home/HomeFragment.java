@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,6 +31,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView no_results;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class HomeFragment extends Fragment {
 
         //RecyclerView creation
         recyclerView = binding.postsRecyclerViewHome;
+        no_results = binding.emptyMessage;
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         //SwipeRefreshLayout
@@ -85,7 +90,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadPosts(RecyclerView r, SwipeRefreshLayout s) {
+
+
+        no_results.setVisibility(View.GONE);
+
         Post.postDB.fetchPosts(list -> {
+            if (list.isEmpty())
+            {
+                getActivity().runOnUiThread(()->{
+                    no_results.setVisibility(View.VISIBLE);
+                });
+            }
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(list, (view, bundle) -> {
                 Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_comment_section, bundle);
             });

@@ -109,4 +109,11 @@ public abstract class Auth {
     public static FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
     }
+
+    public static void deleteUser(OnCompleteListener onCompleteListener)
+    {
+        //cancello tutte le reference
+        getCurrentUser().delete().addOnCompleteListener(onCompleteListener);
+        signOut();
+    }
 }

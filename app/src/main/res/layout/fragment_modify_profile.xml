@@ -8,6 +8,17 @@
     tools:layout_editor_absoluteY="100dp"
     android:background="@color/layout">
 
+    <ImageView
+        android:id="@+id/delete_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_margin="5pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_delete_forever_24"
+        app:tint="@color/black" />
+
     <EditText
         android:id="@+id/input_phone_fragment_modify_profile"
         android:layout_width="wrap_content"
@@ -49,10 +60,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="@string/submit"
+        android:text="Salva"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_password_fragment_modify_profile" />
+
+
 
     <ImageView
         android:id="@+id/profile_picture_fragment_modify_profile"
