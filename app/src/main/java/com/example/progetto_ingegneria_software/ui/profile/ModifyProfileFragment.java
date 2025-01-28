@@ -1,6 +1,8 @@
 package com.example.progetto_ingegneria_software.ui.profile;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,12 +25,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 
 
+import com.example.progetto_ingegneria_software.LoginActivity;
 import com.example.progetto_ingegneria_software.data.model.Auth;
 import com.example.progetto_ingegneria_software.data.model.DatabaseObject.User;
 import com.example.progetto_ingegneria_software.databinding.FragmentModifyProfileBinding;
@@ -45,6 +49,7 @@ import org.w3c.dom.Text;
 
 public class ModifyProfileFragment extends Fragment {
     private FragmentModifyProfileBinding binding;
+    private ImageView delete_profile;
     //same problem, I try to hide it but it doesn't work
     //private BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
 
@@ -90,6 +95,32 @@ public class ModifyProfileFragment extends Fragment {
         EditText phone = binding.inputPhoneFragmentModifyProfile;
         TextView changePassword = binding.changePasswordFragmentModifyProfile;
         Button submit = binding.doneButtonFragmentModifyProfile;
+        delete_profile = binding.deleteProfile;
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setPositiveButton("Conferma", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Auth.deleteUser(listener->{
+                    Intent sign_out_activity = new Intent(getActivity(), LoginActivity.class);
+                    sign_out_activity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(sign_out_activity);
+                    getActivity().finish();
+                });
+            }
+        });
+        builder.setNegativeButton("Rifiuta", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        builder.setMessage("Tutti i dati relativi al tuo profilo verranno eliminati secondo le modalità descritte nella informativa del trattamento dei dati.")
+                .setTitle("Eliminazione profilo");
+
+
+
+        delete_profile.setOnClickListener(view->{
+            builder.show();
+        });
 
         User.userDB.getUserInfo( userInfo -> {
             //set profile picture
