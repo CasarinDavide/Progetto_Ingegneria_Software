@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.progetto_ingegneria_software.R;
@@ -29,6 +30,9 @@ public class SpeciesFragment extends Fragment {
     private ImageButton search_btn;
     private TextView search_term_textView;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private TextView no_results;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSpeciesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -36,27 +40,36 @@ public class SpeciesFragment extends Fragment {
         //binds the Views of the fragment
         search_btn = binding.searchButton;
         search_term_textView = binding.searchInput;
-
+        progressBar = binding.loadingSpinner;
         recyclerView = binding.speciesRecyclerView;
+        no_results = binding.emptyMessage;
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         search_btn.setOnClickListener(x->{
+            no_results.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            search_btn.setActivated(false);
+
             getAllSpecies(search_term_textView.getText().toString(),plantRequestContainer -> {
 
                 // solo il thread princiale ( UI thread può cambiare le informazioni riguardo la grafica )
                 // da un thread secondario devo passare al principale
                 // esempio utilizzo dei dati ricevuti in input
 
-
                 getActivity().runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    search_btn.setActivated(true);
+
                     // Update the UI safely on the main thread
                     List<Species> speciesList = plantRequestContainer.getData();
+                    if (speciesList.isEmpty())
+                    {
+                        no_results.setVisibility(View.VISIBLE);
+                    }
+
                     RecyclerSpeciesViewAdapter adapter = new RecyclerSpeciesViewAdapter(speciesList,(pos,model)->{
 
                         PlantDetailFragment detailFragment = new PlantDetailFragment();
-
-
-
                         NavController navController = Navigation.findNavController(requireView());
                         Bundle bundle = new Bundle();
                         bundle.putString("id", model.getId().toString());
@@ -66,6 +79,7 @@ public class SpeciesFragment extends Fragment {
                         navController.navigate(R.id.navigation_plants_detail, bundle);
 
                     });
+
                     recyclerView.setAdapter(adapter);
                 });
             });
@@ -95,7 +109,6 @@ public class SpeciesFragment extends Fragment {
     public void getAllSpecies(String search_term, PlantsApi.PlantsApiCallback<PlantRequestContainer<Species>> callback) {
 
         // Mostro la ProgressBar on the main thread
-        
         // chiamata a funzione per eseguire la richiesta GET
         // l'ultimo parametro è una lambda che prende in input un PlantRequestContainer<Species> e lo elabora graficamente
         // plantRequestContainer è generato dalla funzione..

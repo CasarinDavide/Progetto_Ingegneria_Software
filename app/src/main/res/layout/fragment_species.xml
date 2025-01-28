@@ -9,6 +9,20 @@
     tools:context=".ui.plants.SpeciesFragment">
 
     <!-- Main container for search components and list -->
+
+
+
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="No items available"
+        android:layout_gravity="center" />
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -58,6 +72,7 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -82,9 +97,20 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         </androidx.core.widget.NestedScrollView>
 
 
-
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingSpinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+
+
 </FrameLayout>

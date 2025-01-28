@@ -51,8 +51,20 @@ public class PlantsFragment extends Fragment {
         // get all
 
         User.userDB.getUserInfo(x->{
-            RecyclerSpeciesViewAdapter adapter = new RecyclerSpeciesViewAdapter(x.getInventory());
+            RecyclerSpeciesViewAdapter adapter = new RecyclerSpeciesViewAdapter(x.getInventory(),(pos,model)->{
+
+                PlantDetailFragment detailFragment = new PlantDetailFragment();
+                NavController navController = Navigation.findNavController(requireView());
+                Bundle bundle = new Bundle();
+                bundle.putString("id", model.getId().toString());
+                bundle.putSerializable("plant",model);
+                // aggiungo il dato da passare
+                detailFragment.setArguments(bundle);
+                navController.navigate(R.id.navigation_plants_detail, bundle);
+
+            });
             recyclerView.setAdapter(adapter);
+
         });
 
 

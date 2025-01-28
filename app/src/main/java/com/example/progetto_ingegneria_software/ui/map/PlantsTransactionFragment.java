@@ -44,6 +44,7 @@ public class PlantsTransactionFragment extends Fragment {
 
     private FragmentPlantsTransactionBinding binding;
     private FusedLocationProviderClient fusedLocationClient;
+    private FloatingActionButton addLocation;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,7 +59,7 @@ public class PlantsTransactionFragment extends Fragment {
         mapView.getMapAsync(this::onMapReady);
 
         //button
-        FloatingActionButton addLocation = binding.addLocationPlantTransactionFragment;
+        addLocation = binding.addLocationPlantTransactionFragment;
         addLocation.setOnClickListener( view -> {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigation_plants_transaction_to_navigation_create_transaction);
         });
@@ -77,34 +78,41 @@ public class PlantsTransactionFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
             Toast.makeText(requireContext(), "To access this feature enable position access", Toast.LENGTH_LONG).show();
+            addLocation.setVisibility(View.GONE);
             return;
         }
         //get User's location
         if(checkLocation(requireContext()))
+        {
+            addLocation.setVisibility(View.VISIBLE);
             fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, token)
                     .addOnCompleteListener( task -> {
                         LatLng coord = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
 
                         //get other transactions location
                         Transaction.transactionDB
-                                        .getTransactions( transactionList -> {
-                                            for(Transaction t : transactionList) {
-                                                String items = String.join("\n", t.getItems());
+                                .getTransactions( transactionList -> {
+                                    for(Transaction t : transactionList) {
+                                        String items = String.join("\n", t.getItems());
 
-                                                Objects.requireNonNull(googleMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitude(), t.getLongitude())).title(items)))
-                                                        .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                                            }
-                                        });
+                                        Objects.requireNonNull(googleMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitude(), t.getLongitude())).title(items)))
+                                                .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                                    }
+                                });
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(coord.latitude, coord.longitude)).title("Your position"));
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, zoom));
                     });
+        }
         else
+        {
+            addLocation.setVisibility(View.GONE);
             Toast.makeText(getContext(), "To access this feature enable your position", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public boolean checkLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 

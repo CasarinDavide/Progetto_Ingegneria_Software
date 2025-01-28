@@ -1,6 +1,7 @@
 
 package com.example.progetto_ingegneria_software.data.model.PlantApiObject.Species_Details;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.progetto_ingegneria_software.data.model.PlantApiObject.DefaultImage;
@@ -494,6 +495,10 @@ public class SpeciesDetails {
     }
 
     public List<String> getLeafColor() {
+        if (mLeafColor == null) {
+            return new ArrayList<>();
+        }
+
         return mLeafColor;
     }
 
@@ -518,10 +523,14 @@ public class SpeciesDetails {
     }
 
     public List<String> getOrigin() {
+        if (mOrigin == null) {
+            return new ArrayList<>();
+        }
         return mOrigin;
     }
 
     public void setOrigin(List<String> origin) {
+
         mOrigin = origin;
     }
 
@@ -534,6 +543,10 @@ public class SpeciesDetails {
     }
 
     public List<String> getOtherName() {
+
+        if (mOtherName == null) {
+            return new ArrayList<>();
+        }
         return mOtherName;
     }
 
@@ -542,6 +555,9 @@ public class SpeciesDetails {
     }
 
     public List<Object> getPestSusceptibility() {
+        if (mPestSusceptibility == null) {
+            return new ArrayList<>();
+        }
         return mPestSusceptibility;
     }
 
@@ -558,6 +574,9 @@ public class SpeciesDetails {
     }
 
     public List<Object> getPlantAnatomy() {
+        if (mPlantAnatomy == null) {
+            return new ArrayList<>();
+        }
         return mPlantAnatomy;
     }
 
@@ -582,6 +601,9 @@ public class SpeciesDetails {
     }
 
     public List<String> getPropagation() {
+        if (mPropagation == null) {
+            return new ArrayList<>();
+        }
         return mPropagation;
     }
 
@@ -590,6 +612,10 @@ public class SpeciesDetails {
     }
 
     public List<Object> getPruningCount() {
+        if (mPruningCount == null) {
+            return new ArrayList<>();
+        }
+
         return mPruningCount;
     }
 
@@ -598,6 +624,9 @@ public class SpeciesDetails {
     }
 
     public List<String> getPruningMonth() {
+        if (mPruningMonth == null) {
+            return new ArrayList<>();
+        }
         return mPruningMonth;
     }
 
@@ -614,6 +643,9 @@ public class SpeciesDetails {
     }
 
     public List<String> getScientificName() {
+        if (mScientificName == null) {
+            return new ArrayList<>();
+        }
         return mScientificName;
     }
 
@@ -638,6 +670,9 @@ public class SpeciesDetails {
     }
 
     public List<String> getSunlight() {
+        if (mSunlight == null) {
+            return new ArrayList<>();
+        }
         return mSunlight;
     }
 
