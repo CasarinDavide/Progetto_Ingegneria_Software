@@ -17,7 +17,7 @@
         android:layout_width="392dp"
         android:layout_height="615dp"
         android:layout_margin="8dp"
-        android:background="#F0F0F0"
+        android:background="@color/layout"
         android:columnCount="12"
         android:rowCount="20"
         app:layout_constraintEnd_toEndOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF9F2">
+    android:background="@color/layout">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -16,10 +16,10 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="194dp"
-            android:layout_height="134dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginTop="52dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo2" />
     </LinearLayout>
 
 
@@ -127,7 +127,7 @@
                 android:fontFamily="@font/calibri"
                 android:text="Registrati"
                 android:textAllCaps="false"
-                android:textColor="#96000000"
+                android:textColor="@color/textback"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
                 android:fontFamily="@font/calibri"
                 android:text="Accedi"
                 android:textAllCaps="false"
-                android:textColor="#96000000"
+                android:textColor="@color/textback"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
