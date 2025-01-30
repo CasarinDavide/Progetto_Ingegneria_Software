@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF9F2"
+    android:background="@color/layout"
     android:id="@+id/fragment_create_post">
 
 
@@ -23,7 +23,7 @@
                     android:id="@+id/exit_button_create_post"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@color/cardview_light_background"
+                    android:background="@color/textback"
                     android:contentDescription="@string/exit"
                     android:padding="5pt"
                     android:rotation="45"
@@ -76,7 +76,7 @@
                                     android:id="@+id/add_image_button_create_post"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
-                                    android:background="@null"
+                                    android:background="@color/green2"
                                     android:contentDescription="@string/addimage"
                                     android:src="@drawable/rounded_add_30dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +133,7 @@
             android:fontFamily="@font/calibri"
             android:text="Crea post"
             android:textAllCaps="false"
-            android:textColor="#96000000"
+            android:textColor="@color/textback"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

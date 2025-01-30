@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/calibri"
             android:text="Bentornato!"
-            android:textColor="#000000"
+            android:textColor="@color/textback"
             android:textSize="32sp" />
     </LinearLayout>
 
@@ -153,7 +153,7 @@
             android:padding="10px"
             android:text="Password dimenticata?"
             android:textAlignment="center"
-            android:textColor="@color/textback"
+            android:textColor="@color/principal"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 

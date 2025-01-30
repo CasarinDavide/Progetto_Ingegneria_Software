@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF9F2"
+    android:background="@color/layout"
     tools:context=".ui.plants.PlantsFragment">
 
 
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_search_24"
-            app:tint="@color/black" />
+            app:tint="@color/textback" />
 
         <TextView
             android:id="@+id/home_text"
@@ -57,7 +57,7 @@
             android:layout_margin="10px"
             android:fontFamily="@font/calibri"
             android:text="Le Mie Piante:"
-            android:textColor="@color/principal"
+            android:textColor="@color/textback"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

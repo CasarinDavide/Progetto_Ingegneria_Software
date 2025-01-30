@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:text="@string/change_password"
+        android:textColor="@color/principal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_phone_fragment_modify_profile" />
@@ -61,6 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="Salva"
+        android:textColor="@color/green2"
+        android:backgroundTint="@color/textback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_password_fragment_modify_profile" />

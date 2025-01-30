@@ -86,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
-        builder.setMessage("Autorizzo il trattamento dei dati personali presenti ai sensi del D.Lgs. 2018/101 e del GDPR (Regolamento UE 2016/679).")
+        builder.setMessage("Autorizzo il trattamento dei dati personali presenti ai sensi del D.Lgs. 2018/101 e del GDPR (Regolamento UE 2016/679). https://drive.google.com/file/d/1DO4XhgD57sK4FnbWGyObNObaf5HF8D-x/view?usp=sharing")
                 .setTitle("Condizioni utilizzo dati");
 
         confirm_btn.setOnClickListener(x -> {

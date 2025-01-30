@@ -67,7 +67,7 @@
                     android:id="@+id/search_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@null"
+                    android:background="@color/textback"
                     android:src="@drawable/baseline_search_24" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>

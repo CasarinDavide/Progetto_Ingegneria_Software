@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EDF9F2"
+    android:background="@color/layout"
     android:layout_height="match_parent">
 
 
@@ -34,7 +34,7 @@
             android:layout_margin="10px"
             android:fontFamily="@font/calibri"
             android:text="Seleziona gli articoli da inserire nell'annuncio!"
-            android:textColor="@color/principal"
+            android:textColor="@color/textback"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +67,7 @@
             android:clickable="true"
             android:layout_margin="10px"
             android:contentDescription="@string/send_position"
+            android:backgroundTint="@color/textback"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

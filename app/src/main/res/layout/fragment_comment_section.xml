@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF9F2"
+    android:background="@color/layout"
     android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +89,7 @@
                 android:id="@+id/comment_input_comment_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/textback"
                 android:gravity="top|start"
                 android:hint="Inserisci il testo"
                 android:inputType="textMultiLine"
@@ -116,7 +116,7 @@
                 android:id="@+id/send_comment_button_comment_fragment"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@null"
+                android:background="@color/textback"
                 android:src="@drawable/baseline_send_24" />
 
         </androidx.cardview.widget.CardView>

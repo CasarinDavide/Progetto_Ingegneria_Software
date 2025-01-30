@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF9F2">
+    android:background="@color/layout">
 
 
     <LinearLayout
@@ -37,8 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/calibri"
-            android:text="Bentornato!"
-            android:textColor="#000000"
+            android:text="Benvenuto!"
+            android:textColor="@color/textback"
             android:textSize="32sp" />
     </LinearLayout>
 
@@ -191,7 +191,7 @@
                 android:fontFamily="@font/calibri"
                 android:text="Conferma Registrazione"
                 android:textAllCaps="false"
-                android:textColor="#96000000"
+                android:textColor="@color/textback"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -204,7 +204,7 @@
             android:padding="10px"
             android:text="Torna al login"
             android:textAlignment="center"
-            android:textColor="@color/textback"
+            android:textColor="@color/principal"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 

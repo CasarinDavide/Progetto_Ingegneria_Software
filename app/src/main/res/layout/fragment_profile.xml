@@ -58,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="@color/principal">
 
             <!-- Immagine del Profilo -->
             <ImageView
@@ -82,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Il mio profilo"
-                    android:textColor="@color/principal"
+                    android:textColor="@color/textback"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -92,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Username"
-                    android:textColor="#333333"
+                    android:textColor="@color/green2"
                     android:textSize="16sp" />
 
                 <Button
@@ -100,9 +101,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/principal"
+                    android:backgroundTint="@color/textback"
                     android:text="Info Profilo"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/green2"
                     android:textSize="14sp" />
 
             </LinearLayout>

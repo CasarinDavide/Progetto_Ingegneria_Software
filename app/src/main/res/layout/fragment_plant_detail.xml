@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/layout">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/scrollView2"
-        android:backgroundTint="@color/green2"
+        android:backgroundTint="@color/textback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_shopping_cart_24" />
@@ -29,6 +30,7 @@
             android:orientation="vertical">
 
 
+            <!-- Common Name -->
             <ImageView
                 android:id="@+id/plant_image"
                 android:layout_width="match_parent"
@@ -36,7 +38,6 @@
                 android:contentDescription=""
                 android:scaleType="centerCrop" />
 
-            <!-- Common Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

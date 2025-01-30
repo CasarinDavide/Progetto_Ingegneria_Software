@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/layout"
     tools:context=".ui.plants.TerrainDetailsFragment">
 
     <!-- Main container for search components and list -->
@@ -19,7 +20,7 @@
             android:layout_height="337dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="#F0F0F0"
+            android:background="@color/principal"
             android:columnCount="12"
             android:rowCount="10" />
 
