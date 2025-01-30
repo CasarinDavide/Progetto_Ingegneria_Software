@@ -93,7 +93,17 @@ public abstract class PlantsApi {
 
             // Parse lists
             speciesDetails.setAttracts(context.deserialize(jsonObject.get("attracts"), List.class));
-            speciesDetails.setDepthWaterRequirement(context.deserialize(jsonObject.get("depth_water_requirement"), List.class));
+
+            JsonElement depth_water_requirement = jsonObject.get("depth_water_requirement");
+
+            if (depth_water_requirement.isJsonArray())
+                speciesDetails.setDepthWaterRequirement(context.deserialize(jsonObject.get("depth_water_requirement"), List.class));
+            else if (depth_water_requirement.isJsonObject())
+            {
+                ArrayList<Object> arrayList = new ArrayList<>();
+                arrayList.add(context.deserialize(depth_water_requirement,Object.class));
+            }
+
             speciesDetails.setFruitColor(context.deserialize(jsonObject.get("fruit_color"), List.class));
             speciesDetails.setLeafColor(context.deserialize(jsonObject.get("leaf_color"), List.class));
             speciesDetails.setOrigin(context.deserialize(jsonObject.get("origin"), List.class));
@@ -116,7 +126,16 @@ public abstract class PlantsApi {
             speciesDetails.setScientificName(context.deserialize(jsonObject.get("scientific_name"), List.class));
             speciesDetails.setSoil(context.deserialize(jsonObject.get("soil"), List.class));
             speciesDetails.setSunlight(context.deserialize(jsonObject.get("sunlight"), List.class));
-            speciesDetails.setVolumeWaterRequirement(context.deserialize(jsonObject.get("volume_water_requirement"), List.class));
+
+            JsonElement volume_water_requirement = jsonObject.get("volume_water_requirement");
+
+            if (volume_water_requirement.isJsonArray())
+                speciesDetails.setPruningCount(context.deserialize(jsonObject.get("volume_water_requirement"), List.class));
+            else if (volume_water_requirement.isJsonObject())
+            {
+                ArrayList<Object> arrayList = new ArrayList<>();
+                arrayList.add(context.deserialize(volume_water_requirement,Object.class));
+            }
 
             // Parse nested objects
             if (jsonObject.has("dimensions")) {
