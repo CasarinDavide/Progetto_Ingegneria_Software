@@ -116,14 +116,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     User userInfo = u.toObject(User.class);
 
                     //set author profile picture
-                    assert userInfo != null;
-                    FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
-                            .getDownloadUrl()
-                            .addOnCompleteListener( task -> Glide.with(context)
-                                    .load(task.getResult())
-                                    .override(100,100)
-                                    .circleCrop()
-                                    .into(holder.profilePicture));
+                    //assert userInfo != null;
+                    if(Auth.getCurrentUser()!=null) {
+                        FirebaseStorage.getInstance().getReference(userInfo.getProfilePicture())
+                                .getDownloadUrl()
+                                .addOnCompleteListener(task -> Glide.with(context)
+                                        .load(task.getResult())
+                                        .override(100, 100)
+                                        .circleCrop()
+                                        .into(holder.profilePicture));
+                    }
 
                 });
 

@@ -11,10 +11,16 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.text.Html;
+import android.text.Spanned;
+import androidx.core.text.HtmlCompat;
 
 import com.example.progetto_ingegneria_software.databinding.ActivitySignInBinding;
 
@@ -86,8 +92,24 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
-        builder.setMessage("Autorizzo il trattamento dei dati personali presenti ai sensi del D.Lgs. 2018/101 e del GDPR (Regolamento UE 2016/679). https://drive.google.com/file/d/1DO4XhgD57sK4FnbWGyObNObaf5HF8D-x/view?usp=sharing")
-                .setTitle("Condizioni utilizzo dati");
+
+        builder.setTitle("Condizioni utilizzo dati");
+
+        final TextView message = new TextView(this);
+        Spanned text = HtmlCompat.fromHtml(
+                "Autorizzo il trattamento dei dati personali presenti ai sensi del D.Lgs. 2018/101 e del GDPR (Regolamento UE 2016/679).<br><br>" +
+                        "<a href='https://drive.google.com/file/d/1DO4XhgD57sK4FnbWGyObNObaf5HF8D-x/view?usp=sharing'>Scarica PDF</a>",
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+        );
+        message.setText(text);
+
+        message.setMovementMethod(LinkMovementMethod.getInstance());
+        message.setLinksClickable(true);
+        message.setAutoLinkMask(Linkify.WEB_URLS);
+
+        message.setPadding(50, 20, 50, 20);
+
+        builder.setView(message);
 
         confirm_btn.setOnClickListener(x -> {
             confirm_btn.setActivated(false);
