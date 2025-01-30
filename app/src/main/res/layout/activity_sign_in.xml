@@ -154,7 +154,7 @@
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/calibri"
                 android:hint="Inserisci numero di telefono"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:maxLines="1"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
